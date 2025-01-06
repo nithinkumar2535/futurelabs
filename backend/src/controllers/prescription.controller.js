@@ -1,0 +1,86 @@
+import { Prescription } from "../models/prescription.model.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { sendEmail } from "../utils/emailService.js";
+import fs from 'fs'
+
+
+
+
+const uploadPrescription = asyncHandler(async (req, res) => {
+    const {whatsapp} = req.body 
+    const filePath =  `uploads/${req.file.filename}`
+
+    if ( !whatsapp || !filePath ) {
+        throw new ApiError(404, "Number and prescription is required")
+    }
+
+    const prescription = new Prescription({
+        whatsapp,
+        imagePath: filePath
+    })
+    await prescription.save()
+
+    const mailOptions = {
+        from: 'nithin@fitmywealth.com',
+        to: "nithinpollakkada2535@gmail.com",
+        subject: 'New prescription uploaded',
+        text: `Whatsapp number: ${whatsapp}`,
+        attachments: [
+            {
+                filename: req.file.originalname,
+                path: filePath
+            }
+        ]
+       
+    };
+
+    const response = await sendEmail(mailOptions)
+console.log(response);
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, null, "Prescription sent to the mail"))
+})
+
+const deletePrescription = asyncHandler(async (req, res) => {
+    const {id} = req.params
+
+    const prescription = await Prescription.findById(id)
+
+    if (!prescription) {
+        throw new ApiError(404, "Prescription not found ")
+    }
+
+    fs.unlinkSync(prescription.imagePath);
+
+    await Prescription.findByIdAndDelete(id);
+
+    return res
+        .status(200)
+        .json( new ApiResponse (200, null, "Prescription deleted successfully"))
+
+})
+
+const fetchPrescription = asyncHandler (async (req, res) =>{
+    const prescriptions = await Prescription.find()
+    console.log(prescriptions);
+    
+
+    if ( !prescriptions) {
+        throw new ApiError(404, "Something went wrong while fetching the prescriptions")
+    }
+
+    return res
+        .status(200)
+        .json( new ApiResponse (200, prescriptions, "All prescription"))
+})
+
+
+
+export {
+    uploadPrescription,
+    deletePrescription,
+    fetchPrescription
+}

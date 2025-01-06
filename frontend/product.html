@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="icon" type="image/x-icon" href="image/logo/favicon.jpg">
+  <link rel="stylesheet" href="detail.css" />
+  <link rel="stylesheet" href="index.css">
+
+
+  <!-- bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+    integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!--  owl -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css" />
+  <style>
+    .owl-dots {
+      display: none !important;
+    }
+  </style>
+
+
+  <script>
+    //mobile header scroll
+    const logoContainer = document.querySelector(".logo-container");
+    let lastScrollTop = 0;
+    let isTicking = false;
+
+    window.addEventListener("scroll", () => {
+      const currentScrollTop = window.scrollY;
+
+      if (!isTicking) {
+        window.requestAnimationFrame(() => {
+          if (currentScrollTop > lastScrollTop && currentScrollTop > 60) {
+            // Scrolling down - hide the logo
+            logoContainer.classList.add("hidden");
+          } else if (currentScrollTop < lastScrollTop) {
+            // Scrolling up - show the logo
+            logoContainer.classList.remove("hidden");
+          }
+          lastScrollTop = Math.max(currentScrollTop, 0); // Prevent negative scroll
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    });
+  </script>
+</head>
+
+<body>
+
+
+  <header class="d-none d-sm-block">
+    <div class="container-fluid bg-light ">
+      <div class="row">
+        <div class="col-lg-4 col-md-5 col-sm-12 col-12 d-flex gap-lg-3 gap-md-1">
+          <a href="index.html"> <img src="images/logo/futurelab-main logo.svg" alt="" class="logo" /></a>
+
+
+          <!-- Dropdown -->
+          <div class="dropdown">
+            <button class="dropdown-toggle location-btn" id="dropdownMenuButton" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fa-solid fa-location-dot" style="font-size: clamp(16px, 1.7vw, 30px); color: #007c6f"></i>
+              <span class="text-start">
+                <h6 class="m-0 dlv-addrss">Delivery Address</h6>
+                <p class="m-0 slc-addrss">Select Address</p>
+              </span>
+              <i class="fa-solid fa-caret-down toggle-icon"></i>
+            </button>
+
+            <ul class="dropdown-menu drp-location p-2 text-center" aria-labelledby="dropdownMenuButton">
+              <li>
+                <!-- Modal Trigger Button -->
+                <button class="current-l">
+                  <i class="fa-solid fa-location-crosshairs"></i> Use Current
+                  Location
+                </button>
+              </li>
+              <li>
+                <span class="d-flex align-items-center">
+                  <hr class="flex-grow-1" />
+                  <span class="mx-2">or</span>
+                  <hr class="flex-grow-1" />
+                </span>
+              </li>
+
+              <li>
+                <span data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="d-flex gap-2"><i
+                    class="fa-solid fa-location-dot" style="font-size: 21px"></i>
+                  <p class="m-0">Enter Delivery Pincode</p>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-4 col-sm-12 col-12 py-lg-3 py-md-2">
+          <div class="unique-search">
+            <input id="unique-search-input" placeholder="Search..." type="text" />
+            <button type="submit">Search</button>
+            <ul id="unique-dropdown-menu" class="unique-dropdown-menu p-0">
+              <li>Option 1</li>
+              <li>Option 2</li>
+              <li>Option 3</li>
+              <li>Option 4</li>
+              <li>Option 5</li>
+              <li>Option 6</li>
+              <li>Option 7</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-12 text-end pt-lg-3 pt-md-3 pt-sm-2 pt-2">
+          <a href="#" class="offer-btn">
+            <img src="images/icon-svg/offer.svg" class="offers" alt="" />
+          </a>
+          <!-- Cart button with tooltip and badge -->
+          <a href="cart.html" class="cart">
+            <img src="images/icon-svg/cart.svg" class="offers" alt="" />
+
+            <!-- Cart Badge with number -->
+            <span class="cart-badge">5</span>
+          </a>
+          <!-- login -->
+          <button class="login-button text-center" data-bs-toggle="collapse" data-bs-target="#sidebar"
+            aria-expanded="false" aria-controls="sidebar">
+            <img src="images/icon-svg/login.svg" class="login-icon" alt="" />
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+  </header>
+
+
+
+
+
+  <!-- mobile header-->
+  <div class="logo-container d-xxl-none d-xl-none d-md-none d-lg-none d-sm-block d-xs-block d-block">
+    <div class="container-fluid">
+      <div class="row p-1">
+        <div class="col-4 p-0">
+          <a href="index.html">
+            <img src="images/logo/futurelab-main logo.svg" alt="" class="logo" />
+          </a>
+        </div>
+        <div class="col-4 p-2">
+          <!-- Dropdown -->
+          <div class="dropdown">
+            <button class="dropdown-toggle location-btn" id="dropdownMenuButton" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fa-solid fa-location-dot" style="font-size: clamp(14px, 1.7vw, 30px); color: #007c6f"></i>
+              <span class="text-start">
+                <h6 class="m-0 dlv-addrss">Delivery Address</h6>
+                <p class="m-0 slc-addrss">Select Address</p>
+              </span>
+              <i class="fa-solid fa-caret-down toggle-icon"></i>
+            </button>
+
+            <ul class="dropdown-menu drp-location p-2 text-center" aria-labelledby="dropdownMenuButton">
+              <li>
+                <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="current-l">
+                  <i class="fa-solid fa-location-crosshairs"></i> Use Current
+                  Location
+                </button>
+              </li>
+              <li>
+                <span class="d-flex align-items-center">
+                  <hr class="flex-grow-1" />
+                  <span class="mx-2">or</span>
+                  <hr class="flex-grow-1" />
+                </span>
+              </li>
+
+              <li>
+                <span data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="d-flex gap-2"><i
+                    class="fa-solid fa-location-dot" style="font-size: 21px"></i>
+                  <p class="m-0">Enter Delivery Pincode</p>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-4 p-0 text-end">
+          <!-- Cart button with tooltip and badge -->
+          <a href="cart.html" class="cart">
+            <img src="images/icon-svg/cart.svg" class="offers" alt="" />
+
+            <!-- Cart Badge with number -->
+            <span class="cart-badge">5</span>
+          </a>
+          <!-- login -->
+          <button class="login-button text-center" data-bs-toggle="collapse" data-bs-target="#sidebar"
+            aria-expanded="false" aria-controls="sidebar">
+            <img src="images/icon-svg/login.svg" class="login-icon" alt="" />
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-container container-fluid d-xxl-none d-xl-none d-md-none d-lg-none d-sm-block d-xs-block d-block">
+    <div class="unique-search">
+      <input id="unique-search-input-mobile" placeholder="Search..." type="text" />
+      <button type="submit">Search</button>
+      <ul id="unique-dropdown-menu-mobile" class="unique-dropdown-menu p-0">
+        <li>Option 1</li>
+        <li>Option 2</li>
+        <li>Option 3</li>
+        <li>Option 4</li>
+        <li>Option 5</li>
+        <li>Option 6</li>
+        <li>Option 7</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- scrool-btn -->
+  <button id="scrollBtn" onclick="scrollToTop()">
+    <i class="fa-solid fa-angle-up"></i>
+  </button>
+
+
+
+  <!-- Modal pincode-->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">
+            Help us serve you better!
+          </h5>
+        </div>
+        <div class="modal-body">
+          <img class="img-location" src="images/icon-svg/mobile-location.svg" alt="" />
+          <p>
+            Please provide us your delivery location pincode for faster and
+            seamless deliveries.
+          </p>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+              <div class="inputGroup">
+                <input type="text" required="" autocomplete="off" />
+                <label for="pincode">Pincode</label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+              <!--    <p class="pincode-invalid">Invalid Pincode</p> -->
+              <p class="pincode-valid">valid Pincode</p>
+            </div>
+          </div>
+
+          <p>*Enter your 6 digit pincode to proceed</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button type="button" class="btn pincod-sub">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 
+login modal-->
+
+  <div class="collapse" id="sidebar">
+    <div class="d-flex flex-column">
+      <div class="container-fluid lgn d-flex flex-column">
+        <button class="btn btn-light align-self-end mb-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#sidebar" aria-expanded="true">
+          <i class="fas fa-times"></i>
+        </button>
+        <h4 class="login-headline">Quick Login / Register</h4>
+      </div>
+
+      <form class="form_container">
+        <div class="input_container">
+          <input placeholder="Enter your phone number" title="Inpit title" name="input-name" type="text"
+            class="input_field" id="email_field" />
+        </div>
+
+        <button title="Sign In" type="submit" class="sign-in_btn">
+          <span>Log In</span>
+        </button>
+      </form>
+
+      <form class="otp-Form">
+        <span class="mainHeading">Enter OTP</span>
+        <p class="otpSubheading">
+          We have sent a verification code to your mobile number
+        </p>
+        <div class="inputContainer">
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input1" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input2" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input3" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input4" />
+        </div>
+        <button class="verifyButton" type="submit">Verify</button>
+
+        <p class="resendNote">
+          Didn't receive the code?
+          <button class="resendBtn">Resend Code</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section class="py-lg-5 py-md-3 py-sm-3 py-3">
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-8 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2 pt-lg-0 pt-md-4 pt-sm-4 pt-4">
+
+
+
+          <div id="test-card">
+           
+          </div>
+          
+
+
+
+
+
+
+
+
+
+          <section id="testimonial_area" class="my-3">
+            <h3 class="testimonial_areah">Similar Health Packages</h3>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="testmonial_slider_area owl-carousel" id="testimonial-card">
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+
+
+          <!-- tests -->
+
+          <section id="new_carousel_area" class="my-3">
+            <h3 class="testimonial_areah">How our test process works!</h3>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="new_carousel_slider owl-carousel">
+                    <div class="testprocesscrd-main-1">
+                      <span class="testprocess-span" data-step="1">Step 1</span>
+                      <h3 class="testprocess-h">Vaccinated Phlebotomists</h3>
+                      <p class="testprocess-p">
+                        Only vaccinated phlebotomists are assigned orders to ensure
+                        safety.
+                      </p>
+                    </div>
+                    <div class="testprocesscrd-main-2">
+                      <span class="testprocess-span" data-step="2">Step 2</span>
+                      <h3 class="testprocess-h">Maintains Safety Precautions</h3>
+                      <p class="testprocess-p">
+                        Phlebotomists wear masks, face shields, gloves, and sanitize
+                        before each visit.
+                      </p>
+                    </div>
+                    <div class="testprocesscrd-main-3">
+                      <span class="testprocess-span" data-step="3">Step 3</span>
+                      <h3 class="testprocess-h">Sample Collection</h3>
+                      <p class="testprocess-p">
+                        Samples are collected using syringes and securely stored in
+                        barcoded vials.
+                      </p>
+                    </div>
+                    <div class="testprocesscrd-main-4">
+                      <span class="testprocess-span" data-step="1">Step 4</span>
+                      <h3 class="testprocess-h">Sample Storage</h3>
+                      <p class="testprocess-p">
+                        Vials are kept in cooling containers to maintain the required
+                        temperature.
+                      </p>
+                    </div>
+                    <div class="testprocesscrd-main-5">
+                      <span class="testprocess-span" data-step="2">Step 5</span>
+                      <h3 class="testprocess-h">High-Tech Facility</h3>
+                      <p class="testprocess-p">
+                        Samples are processed in 100% automated machines for precision
+                        and efficiency.
+                      </p>
+                    </div>
+                    <div class="testprocesscrd-main-6">
+                      <span class="testprocess-span" data-step="3">Step 6</span>
+                      <h3 class="testprocess-h">Accurate Digital Reports</h3>
+                      <p class="testprocess-p">
+                        Clinically validated reports are generated and delivered
+                        digitally.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <section id="overview">
+            <div class="container border-bottom border-3  my-3">
+              <ul class="m-0 p-2">
+                <span class="d-flex gap-2">
+                  <svg aria-hidden="true" focusable="false" role="img" fill="none" preserveAspectRatio="xMidYMid meet"
+                    data-icon="Description" viewBox="0 0 24 24" width="24" height="22"
+                    class="sc-f32db17d-0 sc-c1dcc9aa-0 cjEpGv hhQbhi sc-37bb273b-0 cGIcII">
+                    <path
+                      d="M3.93882 0.821316H20.0292C20.3147 0.819873 20.5976 0.876865 20.8618 0.989017C21.1259 1.10117 21.3661 1.26627 21.5685 1.47484C21.7708 1.68341 21.9314 1.93133 22.041 2.20436C22.1506 2.4774 22.207 2.77016 22.207 3.06584V20.9564C22.207 21.5371 21.9842 22.0941 21.5877 22.5048C21.1912 22.9154 20.6534 23.1461 20.0926 23.1461H3.93882C3.37806 23.1461 2.84026 22.9154 2.44374 22.5048C2.04722 22.0941 1.82446 21.5371 1.82446 20.9564V3.04394C1.82025 2.75362 1.87184 2.46534 1.97621 2.19586C2.08058 1.92638 2.23566 1.68109 2.43241 1.47426C2.62917 1.26743 2.86368 1.10318 3.1223 0.991088C3.38091 0.878993 3.65847 0.821283 3.93882 0.821316V0.821316Z"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M10.2925 6.98535H18.3588" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path
+                      d="M6.59262 8.37672C7.33413 8.37672 7.93525 7.75417 7.93525 6.98621C7.93525 6.21826 7.33413 5.5957 6.59262 5.5957C5.85111 5.5957 5.25 6.21826 5.25 6.98621C5.25 7.75417 5.85111 8.37672 6.59262 8.37672Z"
+                      fill="currentColor"></path>
+                    <path d="M10.2925 12H18.3588" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path
+                      d="M6.59262 13.3914C7.33413 13.3914 7.93525 12.7688 7.93525 12.0009C7.93525 11.2329 7.33413 10.6104 6.59262 10.6104C5.85111 10.6104 5.25 11.2329 5.25 12.0009C5.25 12.7688 5.85111 13.3914 6.59262 13.3914Z"
+                      fill="currentColor"></path>
+                    <path d="M10.2925 17.0146H18.3588" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path
+                      d="M6.59262 18.405C7.33413 18.405 7.93525 17.7825 7.93525 17.0145C7.93525 16.2466 7.33413 15.624 6.59262 15.624C5.85111 15.624 5.25 16.2466 5.25 17.0145C5.25 17.7825 5.85111 18.405 6.59262 18.405Z"
+                      fill="currentColor"></path>
+                  </svg>
+                  <h5 class="pkg">Overview</h5>
+                </span>
+
+                <!-- Additional Toggle 1 -->
+                <div class="description-section" id="overview-note">
+                 
+
+                 
+                </div>
+              </ul>
+
+
+            </div>
+            <div id="risk" class="container border-bottom border-3 ">
+              <ul class="m-0 p-2">
+                <span class="d-flex gap-2">
+                  <svg aria-hidden="true" focusable="false" role="img" fill="none" preserveAspectRatio="xMidYMid meet"
+                    data-icon="Description" viewBox="0 0 24 24" width="24" height="22"
+                    class="sc-f32db17d-0 sc-c1dcc9aa-0 cjEpGv hhQbhi sc-37bb273b-0 cGIcII">
+                    <path
+                      d="M3.93882 0.821316H20.0292C20.3147 0.819873 20.5976 0.876865 20.8618 0.989017C21.1259 1.10117 21.3661 1.26627 21.5685 1.47484C21.7708 1.68341 21.9314 1.93133 22.041 2.20436C22.1506 2.4774 22.207 2.77016 22.207 3.06584V20.9564C22.207 21.5371 21.9842 22.0941 21.5877 22.5048C21.1912 22.9154 20.6534 23.1461 20.0926 23.1461H3.93882C3.37806 23.1461 2.84026 22.9154 2.44374 22.5048C2.04722 22.0941 1.82446 21.5371 1.82446 20.9564V3.04394C1.82025 2.75362 1.87184 2.46534 1.97621 2.19586C2.08058 1.92638 2.23566 1.68109 2.43241 1.47426C2.62917 1.26743 2.86368 1.10318 3.1223 0.991088C3.38091 0.878993 3.65847 0.821283 3.93882 0.821316V0.821316Z"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M10.2925 6.98535H18.3588" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path
+                      d="M6.59262 8.37672C7.33413 8.37672 7.93525 7.75417 7.93525 6.98621C7.93525 6.21826 7.33413 5.5957 6.59262 5.5957C5.85111 5.5957 5.25 6.21826 5.25 6.98621C5.25 7.75417 5.85111 8.37672 6.59262 8.37672Z"
+                      fill="currentColor"></path>
+                    <path d="M10.2925 12H18.3588" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path
+                      d="M6.59262 13.3914C7.33413 13.3914 7.93525 12.7688 7.93525 12.0009C7.93525 11.2329 7.33413 10.6104 6.59262 10.6104C5.85111 10.6104 5.25 11.2329 5.25 12.0009C5.25 12.7688 5.85111 13.3914 6.59262 13.3914Z"
+                      fill="currentColor"></path>
+                    <path d="M10.2925 17.0146H18.3588" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path
+                      d="M6.59262 18.405C7.33413 18.405 7.93525 17.7825 7.93525 17.0145C7.93525 16.2466 7.33413 15.624 6.59262 15.624C5.85111 15.624 5.25 16.2466 5.25 17.0145C5.25 17.7825 5.85111 18.405 6.59262 18.405Z"
+                      fill="currentColor"></path>
+                  </svg>
+                  <h5 class="pkg">Risk Assessment</h5>
+                </span>
+
+                <!-- Additional Toggle 2 -->
+                <div class="description-section" id="risk-note">
+                 
+                 
+                </div>
+              </ul>
+            </div>
+          </section>
+
+          <!-- testimonials -->
+          <section id="carousel_new_area" class="my-5">
+            <h3 id="testimonials" class="carousel_new_heading">What Our Customers have to Say</h3>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="carousel_new_slider owl-carousel">
+                    <div class="googleriview-main">
+                      <h4 class="author text-uppercase">Sajan Jain</h4>
+                      <div class="star-main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+                      </div>
+
+                      <div class="infos">
+                        <p class="gooleriview-date">7 months ago</p>
+                        <div class="gooleriview-disc">
+                          I had been here for RT-PCR Test as I was travelling abroad.
+                          The prices are very reasonable and affordable compared to
+                          any other Hospitals/Diagnostic Centres. Got my results
+                          within few hours. The staff also is very friendly and
+                          polite.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="googleriview-main">
+                      <h4 class="author text-uppercase">Mukul Manikandan</h4>
+                      <div class="star-main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+                      </div>
+
+                      <div class="infos">
+                        <p class="gooleriview-date">1 year ago</p>
+                        <div class="gooleriview-disc">
+                          I had a very good experience with the staff of Future Labs.
+                          The employee who assisted me was courteous and professional. He assured that I would get my
+                          COVID test results on time before my flight.
+                          I’m a happy customer! :
+                        </div>
+                      </div>
+                    </div>
+                    <div class="googleriview-main">
+                      <h4 class="author text-uppercase">-Noor afshan</h4>
+                      <div class="star-main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+                      </div>
+
+                      <div class="infos">
+                        <p class="gooleriview-date">2 years ago</p>
+                        <div class="gooleriview-disc">
+                          Collected home sample and recived Rt-Pcr report within 6 hours it's very quick and very fast.
+                          So happy with your service😍 …
+                        </div>
+                      </div>
+                    </div>
+                    <div class="googleriview-main">
+                      <h4 class="author text-uppercase">jayashree parida</h4>
+                      <div class="star-main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+                      </div>
+
+                      <div class="infos">
+                        <p class="gooleriview-date">2 years ago</p>
+                        <div class="gooleriview-disc">
+                          Service of this lab is really amazing and price which he is charging is very genuine.
+                          Otherwise in market others labs are charging very higher price </div>
+                      </div>
+                    </div>
+
+                    <div class="googleriview-main">
+                      <h4 class="author text-uppercase">Mohan Kumar N</h4>
+                      <div class="star-main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+                      </div>
+
+                      <div class="infos">
+                        <p class="gooleriview-date">2 years ago</p>
+                        <div class="gooleriview-disc">
+                          I had my some special blood tests and I got reports in promised time. I am happy and I thank
+                          to FUTURE LABS staffs. Highly recommended for all types of blood tests. </div>
+                      </div>
+                    </div>
+                    <div class="googleriview-main">
+                      <h4 class="author text-uppercase">Kavya Shree</h4>
+                      <div class="star-main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+                      </div>
+
+                      <div class="infos">
+                        <p class="gooleriview-date">7 months ago</p>
+                        <div class="gooleriview-disc">
+                          Very Hygiene lab and friendly technician, report also with in a day they sent thank you 🙂 …
+                        </div>
+                      </div>
+                    </div>
+                    <div class="googleriview-main">
+                      <h4 class="author text-uppercase">Naushad T S</h4>
+                      <div class="star-main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+                      </div>
+
+                      <div class="infos">
+                        <p class="gooleriview-date">a month ago</p>
+                        <div class="gooleriview-disc">
+                          I am astonished to recieve my report on line with in less than two hours of samples given at
+                          Future lab centre SSA Road Hebbal. Amazing service indeed, I am fully satisfied 😊 …
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="googleriview-main">
+                      <h4 class="author text-uppercase">Venugopal Varadaraju</h4>
+                      <div class="star-main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                          class="star-checked">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="star">
+                          <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                          </path>
+                        </svg>
+                      </div>
+
+                      <div class="infos">
+                        <p class="gooleriview-date">2 years ago</p>
+                        <div class="gooleriview-disc">
+                          Excellent customer service. Showed us the kit before taking the sample explained us very well
+                          and completed the test without any discomfort </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+
+
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12 p-0 order-lg-2 order-md-1 order-sm-1 order-1">
+          <div class="container-fluid quicklink-main  ">
+            <div class="row">
+              <h2>Quick Links</h2>
+              <div class="col-lg-3 col-md-4 col-sm-3 col-3 p-0 ">
+                <ul>
+                  <a href="#overview">
+                    <li>
+                      Overview
+                    </li>
+                  </a>
+                </ul>
+
+              </div>
+              <div class="col-lg-5 col-md-4 col-sm-4  col-5 p-0">
+                <ul>
+                  <a href="#risk">
+                    <li>
+                      Risk Assessment
+                    </li>
+                  </a>
+                </ul>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0">
+                <ul>
+                  <a href="#testimonials">
+                    <li>
+                      Testimonials
+                    </li>
+                  </a>
+                </ul>
+              </div>
+
+
+
+
+
+
+
+
+
+            </div>
+            <div class="just-foru d-flex">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"
+                y="0px" viewBox="0 0 512 640" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                <path
+                  d="M150.85,331.86h36.09c7.09,0,12.87,5.78,12.87,12.87v1.25c53.35-29.08,32.83-11.23,83.76-9.44  c11.71,0.43,24.07,0.57,35.21,2.3c15.22,2.35,27.18,7.54,29.11,19.42l33-4.42l40.39-28.09c8.14-6.26,16.78-6.66,23.41-3.6  c5.9,2.75,10.01,8.25,10.94,14.74c1.13,7.74-2.21,17.04-12.81,24.94l-65.79,48.98c-0.57,0.43-1.16,0.74-1.79,0.91l-81.07,27.04  c-0.79,0.28-1.62,0.37-2.41,0.31l0,0l-75.49-6.66l-16.47,0.96v7.88c0,7.09-5.78,12.87-12.87,12.87h-36.09  c-6.77,0-12.39-5.3-12.84-11.99l-87.42,7.14c-3.71,0.4-6.75-2.41-6.75-5.95v-99.64h0.03c0-3.49,2.98-6.24,6.46-5.98l87.65,7.17  C137.98,337.59,143.74,331.86,150.85,331.86L150.85,331.86z M199.81,359.64v61.74l17.15-0.96l74.64,6.6l79.09-26.39l65-48.42  c6.52-4.85,8.67-9.81,8.11-13.63c-1.02-6.89-9.58-8.14-15.14-3.43l-42.09,29.31l0,0c-0.74,0.54-1.64,0.88-2.61,1.02l-38.04,5.1  c-5.98,11.28-23.22,12.39-50.14,14.12c-6.12,0.4-12.81,0.82-20.61,1.47c-3.32,0.26-6.21-2.21-6.46-5.5  c-0.26-3.32,2.21-6.21,5.53-6.46c7.11-0.57,14.26-1.05,20.78-1.45c24.32-1.56,39-2.52,40.82-8.99c0.09-0.31,0.2-0.6,0.31-0.88  c0.2-7.26-8.22-10.54-19.16-12.25c-10.32-1.62-22.93-1.76-33.82-2.15C228.66,346.57,255.48,329.08,199.81,359.64L199.81,359.64z   M186.94,343.85h-36.09c-0.45,0-0.88,0.4-0.88,0.88v96.52c0,0.51,0.45,0.88,0.88,0.88h36.09c0.45,0,0.85-0.4,0.85-0.88v-96.52  C187.79,344.25,187.39,343.85,186.94,343.85L186.94,343.85z M137.98,356.92l-82.12-6.72v86.63l82.12-6.72V356.92z M274.78,171.31  c18.54,9.18,16.87,36.2-2.52,43.11c-12.19,4.34-25.65-2.04-29.99-14.23c-4.34-12.19,2.04-25.63,14.23-29.96  c5.53-1.98,11.79-1.87,17.55,0.74C274.3,171.05,274.56,171.17,274.78,171.31L274.78,171.31z M277.05,187.8  c-4.03-11.34-19.76-11.99-24.86-1.28c-5.1,10.77,5.39,22.51,16.7,18.48C275.92,202.49,279.54,194.81,277.05,187.8L277.05,187.8z   M235.41,97.32c18.79,8.9,17.52,36.28-2.15,43.29c-12.19,4.37-25.63-2.01-29.96-14.2c-4.37-12.19,2.01-25.63,14.2-29.99  C223.14,94.4,229.57,94.54,235.41,97.32L235.41,97.32z M238.07,113.99c-4.05-11.34-19.79-11.96-24.86-1.25  c-5.1,10.77,5.39,22.51,16.7,18.45C236.91,128.7,240.57,121.02,238.07,113.99L238.07,113.99z M265.65,99.99  c1.16-2.49,4.14-3.57,6.63-2.38c2.49,1.16,3.54,4.14,2.38,6.63L225.6,207.73c-1.19,2.49-4.17,3.57-6.66,2.38  c-2.47-1.16-3.54-4.14-2.38-6.63L265.65,99.99z M244.88,63.45c50.8,0,91.96,41.19,91.96,91.98c0,12.22-2.38,23.9-6.72,34.58  L370.59,264c2.35,4-0.99,8.22-4.93,7.65l-32.77-4.93l-13.49,30.19c-1.67,3.74-6.94,4-8.93,0.37l-30.98-56.64  c-22.11,8.99-47.11,8.99-69.22,0l-30.98,56.64c-1.98,3.63-7.26,3.37-8.9-0.37l-13.52-30.19l-32.77,4.93  c-3.94,0.57-7.31-3.66-4.93-7.65l40.48-73.98c-14-34.47-5.73-73.67,20.21-99.64C196.49,73.74,219.48,63.45,244.88,63.45  L244.88,63.45z M324.79,200.99c-8.53,14.94-21.12,27.24-36.26,35.4l25.85,47.31l10.97-24.52c0.94-2.07,3.12-3.2,5.27-2.89l0,0  l26.56,3.97L324.79,200.99z M201.22,236.39c-15.14-8.16-27.72-20.47-36.26-35.4l-32.4,59.27l26.56-3.97l0,0  c2.15-0.31,4.34,0.82,5.27,2.89l10.97,24.52L201.22,236.39z M302.85,97.46c-32.03-32-83.93-32-115.94,0s-32,83.91,0,115.91  c32,32.03,83.91,32.03,115.94,0C334.85,181.37,334.85,129.47,302.85,97.46L302.85,97.46z" />
+              </svg>
+              <h5>Special Offers Just For You</h5>
+            </div>
+
+
+
+            <div class="coupon-main">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5> Limited-Time Offer</h5>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"
+                  y="0px" viewBox="0 0 100 125" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+                  <path
+                    d="M81.01,30.17H67.06c2.82-2.11,4.48-5.42,4.48-8.94c0-6.2-5.09-11.24-11.36-11.24c-4.31-0.01-8.25,2.42-10.18,6.27  c-1.94-3.85-5.88-6.27-10.18-6.26c-6.26,0-11.36,5.04-11.36,11.24c0.01,3.51,1.66,6.82,4.48,8.93H18.99c-3.23,0-5.85,2.62-5.86,5.85  v2.81c0,2.3,1.35,4.38,3.44,5.33v39.97c0,3.23,2.62,5.85,5.86,5.86h55.14c3.23,0,5.85-2.62,5.86-5.86V44.17  c2.09-0.95,3.43-3.03,3.44-5.33v-2.81C86.86,32.8,84.24,30.18,81.01,30.17z M60.18,12.34c4.97,0,9.01,3.99,9.01,8.89  c-0.02,3.68-2.29,6.97-5.72,8.28c2.84-3.47,2.34-8.59-1.13-11.43c-1.45-1.19-3.28-1.84-5.16-1.84h-0.24c-1.91,0-3.76,0.67-5.22,1.9  C53.07,14.64,56.44,12.33,60.18,12.34z M60.49,43.38c-0.01-0.06-0.02-0.12-0.04-0.18c-0.71-3.4-2.36-6.54-4.78-9.04  c-0.04-0.04-0.07-0.08-0.12-0.12c-0.71-0.73-1.47-1.4-2.28-2.02c2.59-0.17,5.18,0.24,7.58,1.21c3.13,1.29,5.62,3.5,7.03,6.23  c1.87,3.68,1.39,7.54,0.78,9.86l-3.12-3.15c-0.43-0.43-1.11-0.46-1.58-0.07l-3.19,2.64C60.93,46.94,60.83,45.14,60.49,43.38z   M57.82,42.36h-1.89v-4.1c0.67,1.04,1.21,2.15,1.63,3.31C57.65,41.83,57.74,42.09,57.82,42.36z M56.95,18.58h0.23  c3.19,0.01,5.77,2.61,5.75,5.81c-0.01,2.74-1.94,5.09-4.62,5.64c-2.36-0.46-4.77-0.51-7.14-0.13v-5.53h0  C51.17,21.17,53.76,18.58,56.95,18.58z M53.59,35.38v6.98h-7.19v-6.98c1.08-1.06,2.28-1.98,3.59-2.74  C51.31,33.4,52.52,34.32,53.59,35.38z M53.44,44.7v9.71c-0.14,0.05-0.28,0.08-0.42,0.09c-0.17-0.05-0.58-0.47-0.83-0.71  c-0.6-0.61-1.35-1.37-2.39-1.37h-0.03c-1.07,0.01-1.82,0.82-2.43,1.46c-0.22,0.24-0.59,0.63-0.76,0.7h-0.03V44.7H53.44z   M40.23,40.77c-0.28,0.79-0.51,1.6-0.68,2.43c-0.02,0.06-0.03,0.12-0.04,0.18c-0.35,1.76-0.45,3.56-0.29,5.35l-3.17-2.64  c-0.47-0.39-1.15-0.36-1.58,0.07l-3.12,3.15c-0.61-2.33-1.1-6.18,0.78-9.86c1.39-2.73,3.89-4.94,7.02-6.23  c2.06-0.83,4.26-1.26,6.48-1.25c0.37,0,0.73,0.01,1.09,0.03c-0.81,0.62-1.57,1.29-2.28,2.02c-0.04,0.04-0.08,0.08-0.12,0.12  C42.51,36.04,41.12,38.3,40.23,40.77z M44.06,38.25v4.1h-1.89c0.08-0.26,0.17-0.53,0.26-0.8C42.85,40.4,43.4,39.29,44.06,38.25z   M48.83,29.9c-2.37-0.38-4.8-0.33-7.16,0.13c-3.13-0.65-5.13-3.71-4.49-6.83c0.55-2.67,2.9-4.59,5.63-4.61h0.24  c3.19,0,5.77,2.58,5.78,5.77L48.83,29.9z M30.8,21.24c0-4.9,4.05-8.89,9.01-8.89c3.75-0.01,7.11,2.3,8.45,5.8  c-1.46-1.23-3.31-1.9-5.22-1.9h-0.24c-4.49-0.01-8.13,3.63-8.13,8.11c0,1.88,0.65,3.71,1.85,5.16  C33.09,28.22,30.81,24.92,30.8,21.24z M15.48,38.84v-2.81c0-1.94,1.57-3.51,3.51-3.51h16.46c-2.3,1.44-4.17,3.47-5.43,5.88  c-0.63,1.25-1.08,2.58-1.33,3.96h-9.71C17.05,42.35,15.48,40.78,15.48,38.84z M44.22,87.66H22.43c-1.94,0-3.51-1.57-3.51-3.51V44.7  h9.55c-0.05,2.47,0.38,4.93,1.27,7.24c0.24,0.6,0.92,0.9,1.52,0.66c0.15-0.06,0.29-0.15,0.4-0.26l3.73-3.75l4.78,3.97  c0.5,0.41,1.24,0.34,1.65-0.16c0.24-0.29,0.32-0.67,0.23-1.03c-0.56-2.17-0.68-4.43-0.37-6.66h2.56v9.23  c-0.49-0.09-0.99-0.02-1.44,0.19c-0.95,0.47-1.28,1.52-1.54,2.35c-0.1,0.31-0.26,0.84-0.38,0.97c-0.16,0.09-0.7,0.16-1.03,0.18  c-0.87,0.09-1.96,0.2-2.62,1.05c-0.65,0.84-0.49,1.91-0.36,2.77c0.05,0.33,0.13,0.89,0.07,1.06c-0.1,0.15-0.55,0.43-0.83,0.59  c-0.75,0.47-1.69,1.04-1.92,2.1c-0.22,1.06,0.39,1.97,0.89,2.7c0.18,0.27,0.48,0.7,0.51,0.88c-0.02,0.18-0.32,0.66-0.5,0.94  c-0.47,0.73-1.05,1.65-0.8,2.67c0.25,1.03,1.2,1.59,1.96,2.03c0.28,0.17,0.76,0.44,0.86,0.59c0.06,0.17,0,0.72-0.05,1.05  c-0.1,0.87-0.23,1.95,0.44,2.77c0.67,0.82,1.76,0.9,2.63,0.97c0.34,0.03,0.9,0.07,1.04,0.16c0.12,0.12,0.3,0.64,0.41,0.95  c0.28,0.84,0.64,1.87,1.62,2.33c0.32,0.15,0.68,0.21,1.03,0.19V87.66z M53.44,87.66h-6.87v-4.89c0.13-0.05,0.28-0.08,0.42-0.09  c0.17,0.05,0.58,0.47,0.83,0.71c0.6,0.61,1.35,1.37,2.39,1.37h0.03c1.07-0.01,1.82-0.82,2.43-1.46c0.22-0.24,0.59-0.63,0.76-0.7  h0.03V87.66z M52.85,80.32c-0.81,0.2-1.4,0.83-1.92,1.38c-0.22,0.26-0.47,0.49-0.73,0.7c-0.26-0.19-0.5-0.41-0.72-0.65  c-0.54-0.55-1.16-1.17-2-1.35c-0.17-0.04-0.34-0.05-0.51-0.05c-0.66,0-1.3,0.25-1.87,0.47c-0.3,0.13-0.61,0.23-0.93,0.3  c-0.16-0.3-0.29-0.61-0.39-0.94c-0.25-0.72-0.52-1.53-1.18-2.04c-0.66-0.51-1.54-0.59-2.3-0.65c-0.33-0.01-0.66-0.06-0.99-0.14  c-0.01-0.33,0.01-0.67,0.06-1c0.09-0.76,0.19-1.62-0.18-2.37c-0.38-0.75-1.12-1.18-1.78-1.56c-0.3-0.16-0.58-0.34-0.84-0.55  c0.13-0.3,0.29-0.59,0.48-0.86c0.41-0.65,0.88-1.38,0.87-2.24c-0.01-0.85-0.49-1.54-0.92-2.16c-0.18-0.26-0.47-0.69-0.52-0.89  c0.14-0.16,0.57-0.43,0.84-0.6c0.64-0.4,1.37-0.85,1.72-1.6s0.23-1.63,0.12-2.39c-0.06-0.32-0.09-0.65-0.09-0.98  c0.32-0.09,0.66-0.14,0.99-0.16c0.76-0.08,1.62-0.17,2.27-0.7c0.65-0.53,0.91-1.36,1.14-2.09c0.09-0.32,0.2-0.64,0.35-0.94  c0.33,0.06,0.65,0.15,0.95,0.28c0.72,0.26,1.54,0.55,2.36,0.35c0.82-0.2,1.4-0.83,1.92-1.38c0.22-0.26,0.47-0.49,0.73-0.7  c0.26,0.19,0.5,0.41,0.72,0.65c0.54,0.55,1.16,1.17,2,1.35c0.84,0.18,1.66-0.14,2.38-0.42c0.3-0.13,0.61-0.23,0.93-0.3  c0.16,0.3,0.29,0.61,0.39,0.94c0.25,0.72,0.52,1.53,1.18,2.04c0.66,0.51,1.54,0.59,2.3,0.65c0.33,0.01,0.66,0.06,0.99,0.14  c0.01,0.33-0.01,0.67-0.06,1c-0.09,0.76-0.19,1.62,0.18,2.37c0.38,0.75,1.12,1.18,1.78,1.56c0.3,0.16,0.58,0.34,0.84,0.55  c-0.13,0.3-0.29,0.59-0.48,0.86c-0.41,0.65-0.88,1.38-0.87,2.24c0.01,0.85,0.49,1.54,0.92,2.16c0.18,0.26,0.47,0.69,0.52,0.89  c-0.14,0.16-0.57,0.43-0.84,0.6c-0.64,0.4-1.37,0.85-1.72,1.6c-0.35,0.75-0.23,1.63-0.12,2.39c0.06,0.32,0.09,0.65,0.09,0.98  c-0.32,0.09-0.66,0.14-0.99,0.16c-0.76,0.08-1.62,0.17-2.27,0.7s-0.91,1.36-1.14,2.09c-0.09,0.32-0.2,0.64-0.35,0.94  c-0.33-0.06-0.65-0.15-0.95-0.28C54.49,80.41,53.68,80.12,52.85,80.32z M81.09,84.14c0,1.94-1.57,3.51-3.51,3.51H55.78v-4.41  c0.49,0.09,1,0.02,1.44-0.2c0.95-0.47,1.28-1.52,1.54-2.35c0.1-0.31,0.26-0.84,0.38-0.97c0.16-0.09,0.7-0.16,1.03-0.18  c0.87-0.09,1.96-0.2,2.62-1.05c0.65-0.84,0.49-1.91,0.36-2.77c-0.05-0.33-0.13-0.89-0.07-1.06c0.1-0.15,0.55-0.43,0.83-0.59  c0.75-0.47,1.69-1.04,1.92-2.1c0.22-1.06-0.39-1.97-0.89-2.7c-0.18-0.27-0.48-0.7-0.51-0.88c0.02-0.18,0.32-0.66,0.5-0.94  c0.47-0.73,1.05-1.65,0.8-2.67c-0.25-1.03-1.2-1.59-1.96-2.03c-0.28-0.17-0.76-0.44-0.86-0.59c-0.06-0.17,0.01-0.72,0.05-1.05  c0.1-0.87,0.23-1.95-0.44-2.77c-0.67-0.82-1.76-0.9-2.63-0.97c-0.34-0.03-0.9-0.07-1.04-0.16c-0.12-0.12-0.3-0.64-0.41-0.95  c-0.28-0.84-0.64-1.87-1.62-2.33c-0.32-0.15-0.68-0.21-1.03-0.19V44.7h2.56c0.31,2.22,0.19,4.48-0.37,6.66  c-0.16,0.63,0.22,1.26,0.84,1.42c0.36,0.09,0.74,0.01,1.03-0.23l4.78-3.97l3.73,3.75c0.46,0.46,1.2,0.46,1.66,0.01  c0.12-0.11,0.21-0.25,0.26-0.4c0.89-2.31,1.32-4.77,1.27-7.24h9.55V84.14z M84.52,38.84c0,1.94-1.57,3.51-3.51,3.51H71.3  c-0.24-1.38-0.69-2.72-1.33-3.96c-1.26-2.4-3.13-4.43-5.43-5.88h16.46c1.94,0,3.51,1.57,3.51,3.51V38.84z" />
+                  <path
+                    d="M48.02,66.61c1.39-1.39,1.39-3.64,0-5.03c-1.39-1.39-3.64-1.39-5.03,0c-1.39,1.39-1.39,3.64,0,5.03  c0.67,0.67,1.57,1.04,2.52,1.04C46.45,67.65,47.35,67.27,48.02,66.61z M44.65,64.95c-0.47-0.47-0.48-1.23-0.02-1.7  c0.01-0.01,0.01-0.01,0.02-0.02c0.47-0.47,1.24-0.47,1.72,0s0.47,1.24,0,1.72C45.89,65.42,45.12,65.42,44.65,64.95z" />
+                  <path
+                    d="M56.19,62.25c-0.46-0.46-1.2-0.46-1.66,0L43.66,73.12c-0.43,0.48-0.39,1.22,0.09,1.65c0.44,0.4,1.12,0.4,1.56,0L56.19,63.9  C56.64,63.45,56.64,62.71,56.19,62.25z" />
+                  <path
+                    d="M57.01,70.57c-1.39-1.39-3.64-1.39-5.03,0c-1.39,1.39-1.39,3.64,0,5.03c0.67,0.67,1.57,1.04,2.52,1.04  c0.94,0,1.85-0.37,2.51-1.04C58.4,74.21,58.4,71.96,57.01,70.57z M55.37,73.93c-0.01,0.01-0.01,0.01-0.02,0.02  c-0.47,0.47-1.24,0.47-1.72,0s-0.47-1.24,0-1.72c0.47-0.47,1.24-0.47,1.71,0C55.83,72.69,55.84,73.45,55.37,73.93z" />
+                </svg>
+
+              </div>
+              <p>Use coupon code <strong style="color: #007c6f;">FUTURE10 </strong> at checkout and get 10% off.</p>
+
+            </div>
+
+
+            <div class="container py-5">
+              <img class="img-quick" src="images/banners/banner1.png" alt="">
+            </div>
+
+
+
+
+
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+  </section>
+
+  <!-- footer -->
+  <div class="container-fluid p-0" id="footer">
+    <footer class="text-center text-lg-start text-white">
+      <!-- Grid container -->
+      <div class="container py-5">
+        <!--Grid row-->
+        <div class="row my-4">
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
+            <div class="d-flex justify-content-center">
+              <img class="ft-logo-1" src="image/logo/ft-logo.svg" alt="" loading="lazy" />
+              <img class="ft-logo-2" src="image/logo/futurelab-main logo.svg" alt="" loading="lazy" />
+            </div>
+
+            <p class="ft-p py-4">
+              Your trusted partner for convenient and reliable lab test
+              bookings. Delivering accuracy and care for your health, every
+              step of the way.
+            </p>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-2 col-md-6 col-sm-12 col-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase mb-4 ft-h">quick links</h5>
+
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="index.html" class="text-white">Home</a>
+              </li>
+              <li class="mb-2">
+                <a href="index.html#about" class="text-white">About</a>
+              </li>
+              <li class="mb-2">
+                <a href="index.html#footer" class="text-white">Contact</a>
+              </li>
+              <li class="mb-2">
+                <a href="privacy-policy.html" class="text-white">Privacy Policy</a>
+              </li>
+              <li class="mb-2">
+                <a href="terms-and-conditions.html" class="text-white">Terms & Conditions</a>
+              </li>
+              <li class="mb-2">
+                <a href="sitemap.html" class="text-white">Sitemap</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 col-sm-12 col-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase mb-4 ft-h">follow us on</h5>
+
+            <ul class="socail-media p-0">
+              <li>
+                <a target="_blank" href="#">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </li>
+
+              <li>
+                <a target="_blank" href="#">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </li>
+
+              <li>
+                <a target="_blank" href="#">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </li>
+
+              <li>
+                <a target="_blank" href="#">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase mb-4 ft-h">Contact with us</h5>
+
+            <ul class="list-unstyled">
+              <li>
+                <p>
+                  <i class="fas fa-map-marker-alt pe-2"></i>No:38, Ground
+                  Floor , Sumangali Sevashram Road, Cholanayakanahalli, Hebbal
+                  Near City Pearl Super Market, Bengaluru, Karnataka 560032
+                </p>
+              </li>
+              <li>
+                <a class="text-light" href="tel:08123459263"><i class="fas fa-phone pe-2"></i>081234 59263</a>
+              </li>
+              <li>
+                <a class="text-light" href="mailto:info@futurelabs.live">
+                  <i class="fas fa-envelope pe-2 mb-0"></i>info@futurelabs.live
+                </a>
+              </li>
+              <li class="pt-5">
+                <h4>Stay Updated!</h4>
+                <p>
+                  Subscribe to our WhatsApp Community for expert health tips, exclusive offers, and real-time updates on
+                  your lab test bookings.
+                </p>
+                <form class="form-whatsapp">
+                  <div>
+                    <input placeholder="Enter whatsapp number" type="phonenumber" name="whatsappnumber"
+                      id="whatsappnumber" />
+                    <button type="submit">Subscribe</button>
+                  </div>
+
+
+
+
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+      <div class="container pb-5">
+        <hr />
+
+        <a class="text-white fw-bolder " href="https://futurelabs.live">futurelab.live</a>
+        <br />
+        © 2024 All rights reserved.
+      </div>
+
+      <!-- Grid container -->
+
+      <!-- Copyright -->
+      <div class="container text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        <p class="disclaimer">
+          Disclaimer: Future Labs provides diagnostic test booking services
+          only. The results are for informational purposes and should not
+          replace professional medical advice. Consult a licensed healthcare
+          provider for diagnosis and treatment. Future Labs is not liable for
+          any decisions made based on the test results provided.
+        </p>
+      </div>
+      <!-- Copyright -->
+    </footer>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- First right Offcanvas -->
+    <div
+      class="offcanvas offcanvas-end offcavas-desig1 d-lg-block d-md-none d-sm-none d-none"
+      tabindex="-1"
+      id="offcanvasRight1"
+      aria-labelledby="offcanvasRight1Label"
+    >
+      
+    </div>
+
+    <!-- Second Offcanvas positioned at the bottom -->
+    <div
+      class="offcanvas offcanvas-bottom offcavas-desig2 d-lg-invisible d-md-visible d-sm-visible d-visible"
+      tabindex="-1"
+      id="offcanvasBottom"
+      aria-labelledby="offcanvasBottomLabel"
+    >
+     
+    </div>
+
+
+
+
+
+
+  <!-- offcanvasnew -->
+  <!-- First custom right Offcanvas -->
+  <div class="offcanvas    offcavas-desig1 offcanvas-end custom-offcanvas-right d-lg-block d-md-none d-sm-none d-none"
+    tabindex="-1" id="newOffcanvasRight" aria-labelledby="newOffcanvasRightLabel">
+   
+  </div>
+
+  <!-- Second custom Offcanvas positioned at the bottom -->
+  <div
+    class="offcanvas offcanvas-bottom custom-offcanvas-bottom    offcavas-desig2  d-lg-invisible d-md-visible d-sm-visible d-visible"
+    tabindex="-1" id="newOffcanvasBottom" aria-labelledby="newOffcanvasBottomLabel">
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <!-- banner -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
+  <script>
+    /* owl */
+    $(".testmonial_slider_area").owlCarousel({
+      autoplay: true,
+      slideSpeed: 1000,
+      items: 3,
+      loop: true,
+      nav: true,
+      navText: [
+        '<span class="fa fa-arrow-left"></span>',
+        '<span class="fa fa-arrow-right"></span>',
+      ],
+      margin: 30,
+      dots: true,
+      responsive: {
+        320: {
+          items: 1,
+        },
+        600: {
+          items: 2,
+        },
+        1000: {
+          items: 3,
+        },
+      },
+    });
+
+
+    // test
+    $(".new_carousel_slider").owlCarousel({
+      autoplay: true,
+      slideSpeed: 1000,
+      items: 3,
+      loop: true,
+      nav: true,
+      navText: [
+        '<span class="fa fa-chevron-left"></span>',
+        '<span class="fa fa-chevron-right"></span>',
+      ],
+      margin: 30,
+      dots: true,
+      responsive: {
+        320: {
+          items: 1,
+        },
+        600: {
+          items: 3,
+        },
+        1000: {
+          items: 3,
+        },
+      },
+    });
+
+
+    // testimonials
+    $(".carousel_new_slider").owlCarousel({
+      autoplay: true,
+      slideSpeed: 1000,
+      items: 3,
+      loop: true,
+      nav: true,
+      navText: [
+        '<span class="fa fa-chevron-left"></span>',
+        '<span class="fa fa-chevron-right"></span>',
+      ],
+      margin: 30,
+      dots: true,
+      responsive: {
+        320: {
+          items: 1,
+        },
+        600: {
+          items: 2,
+        },
+        1000: {
+          items: 3,
+        },
+      },
+    });
+
+
+
+
+
+
+    // Add rotation effect when dropdown is toggled
+    document.querySelectorAll(".dropdown-header").forEach((header) => {
+      header.addEventListener("click", () => {
+        const icon = header.querySelector("i");
+        icon.classList.toggle("rotate");
+      });
+    });
+
+    /* Smooth Scroll Event Script */
+    $(document).ready(function () {
+      let lastScrollTop = 0;
+      const scrollThreshold = 50;
+
+      const smoothScroll = () => {
+        let scrollTop = $("#offcanvasBottom .offcanvas-body").scrollTop();
+
+        // Add smooth background color transition when scrolling
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+          $("#offcanvasBottom").addClass("new-offcanvas-body");
+        } else if (scrollTop < lastScrollTop && scrollTop < scrollThreshold) {
+          $("#offcanvasBottom").removeClass("new-offcanvas-body");
+        }
+
+        lastScrollTop = scrollTop;
+        requestAnimationFrame(smoothScroll);
+      };
+
+      // Initialize smooth scrolling
+      smoothScroll();
+    });
+
+
+    // Get the button
+    var mybutton = document.getElementById("scrollBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    };
+
+    // When the user clicks on the button, scroll to the top of the document
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+
+
+
+
+
+    /*offcanvas2 Smooth Scroll Event Script */
+    $(document).ready(function () {
+      let lastScrollTop = 0;
+      const scrollThreshold = 50;
+
+      const smoothScroll = () => {
+        let scrollTop = $("#newOffcanvasBottom .offcanvas-body").scrollTop();
+
+        // Add smooth background color transition when scrolling
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+          $("#newOffcanvasBottom").addClass("new-offcanvas-body2");
+        } else if (scrollTop < lastScrollTop && scrollTop < scrollThreshold) {
+          $("#newOffcanvasBottom").removeClass("new-offcanvas-body2");
+        }
+
+        lastScrollTop = scrollTop;
+        requestAnimationFrame(smoothScroll);
+      };
+
+      // Initialize smooth scrolling
+      smoothScroll();
+    });
+
+
+
+
+
+
+
+    /* search */
+    // Desktop
+    const uniqueSearchInput = document.getElementById("unique-search-input");
+    const uniqueDropdownMenu = document.getElementById(
+      "unique-dropdown-menu"
+    );
+
+    // Mobile
+    const uniqueSearchInputMobile = document.getElementById(
+      "unique-search-input-mobile"
+    );
+    const uniqueDropdownMenuMobile = document.getElementById(
+      "unique-dropdown-menu-mobile"
+    );
+
+    // Desktop functionality
+    uniqueSearchInput.addEventListener("focus", () => {
+      uniqueDropdownMenu.classList.add("show");
+    });
+
+    uniqueSearchInput.addEventListener("blur", () => {
+      setTimeout(() => uniqueDropdownMenu.classList.remove("show"), 200);
+    });
+
+    uniqueDropdownMenu.addEventListener("click", (event) => {
+      if (event.target.tagName === "LI") {
+        uniqueSearchInput.value = event.target.textContent;
+        uniqueDropdownMenu.classList.remove("show");
+      }
+    });
+
+    // Mobile functionality
+    uniqueSearchInputMobile.addEventListener("focus", () => {
+      uniqueDropdownMenuMobile.classList.add("show");
+    });
+
+    uniqueSearchInputMobile.addEventListener("blur", () => {
+      setTimeout(
+        () => uniqueDropdownMenuMobile.classList.remove("show"),
+        200
+      );
+    });
+
+    uniqueDropdownMenuMobile.addEventListener("click", (event) => {
+      if (event.target.tagName === "LI") {
+        uniqueSearchInputMobile.value = event.target.textContent;
+        uniqueDropdownMenuMobile.classList.remove("show");
+      }
+    });
+  </script>
+  <script src="product.js" defer></script>
+</body>
+
+</html>

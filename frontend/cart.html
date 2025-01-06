@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="cart.css" />
+    <link rel="stylesheet" href="index.css" />
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+      integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>cart</title>
+    <style>
+
+     /* Green button style */
+     .patient-btn {
+      background-color: #007c6f !important;
+      border: none !important;
+      width: 140px;
+      color: white;
+      border-radius: 5px;
+      padding: 7px 15px; /* Adjust padding for better alignment */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: clamp(12px, 1vw, 20px) !important;
+   font-weight: 500;
+    }
+    .patient-btn::after {
+    display: inline-block !important;
+    margin-left: .255em !important;
+    vertical-align: .255em !important;
+    content: "" !important;
+    border-top: .3em solid !important;
+    border-right: .3em solid transparent !important;
+    border-bottom: 0 !important;
+    border-left: .3em solid transparent !important;
+}
+
+@media (max-width: 768px) {
+  .patient-btn {
+
+      width: 110px;
+
+    }
+}
+    .patient-btn:hover {
+      background-color: #5dc2b0 !important;
+    }
+
+    /* Custom Dropdown Menu */
+    .dropdown-item {
+      color: rgb(0, 0, 0);
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-item:hover {
+      background-color: transparent !important;
+    }
+
+    .form-check-input {
+      box-shadow: none !important;
+      border-color: #5dc2b0 !important;
+    }
+
+    .form-check-input:checked {
+      background-color: #5dc2b0 !important;
+      border-color: #5dc2b0 !important;
+    }
+
+    /* Make the checkmark inside the checkbox green */
+    .form-check-input:checked {
+      background-color: #5dc2b0 !important;
+      border-color: #5dc2b0 !important;
+    }
+
+    .form-check-input:checked::after {
+      color: #fff !important;
+      background-color: #fff !important;
+    }
+     
+      .btn-bookinglast{
+        background-color: #89ddcf;
+        color: #000000;
+        font-family: "Poppins", serif !important;
+  font-optical-sizing: auto !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: clamp(10px, 1vw, 20px) !important;
+      }
+      .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+        background-color: #007c6f;
+        color:#fff;
+      }
+      .frm-sub-main textarea::placeholder, input::placeholder{
+        font-family: "Poppins", serif !important;
+  font-optical-sizing: auto !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: clamp(11px, 0.8vw, 20px) !important;
+      }
+    </style>
+
+
+
+
+
+<script>
+  //mobile header scroll
+  const logoContainer = document.querySelector(".logo-container");
+let lastScrollTop = 0;
+let isTicking = false;
+
+window.addEventListener("scroll", () => {
+  const currentScrollTop = window.scrollY;
+
+  if (!isTicking) {
+    window.requestAnimationFrame(() => {
+      if (currentScrollTop > lastScrollTop && currentScrollTop > 60) {
+        // Scrolling down - hide the logo
+        logoContainer.classList.add("hidden");
+      } else if (currentScrollTop < lastScrollTop) {
+        // Scrolling up - show the logo
+        logoContainer.classList.remove("hidden");
+      }
+      lastScrollTop = Math.max(currentScrollTop, 0); // Prevent negative scroll
+      isTicking = false;
+    });
+    isTicking = true;
+  }
+});
+</script>
+  </head>
+  <body>
+
+    <!-- Modal remove-->
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog ">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #89DDCF; color:#007c6f ; ">
+            <h1 class="modal-title pop-h" id="exampleModalLabel">Are you sure you want to delete this item from your cart? </h1>
+            
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body pop-d">
+            Click 'Yes' to confirm or 'No' to keep it."
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-yn" >Yes</button>
+            <button type="button" class="btn-yn">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <header class="d-none d-sm-block">
+      <div class="container-fluid bg-light ">
+        <div class="row">
+          <div
+            class="col-lg-4 col-md-5 col-sm-12 col-12 d-flex gap-lg-3 gap-md-1"
+          >
+          <a href="index.html">   <img
+            src="images/logo/futurelab-main logo.svg"
+            alt=""
+            class="logo"
+          /></a>
+         
+
+            <!-- Dropdown -->
+            <div class="dropdown">
+              <button
+                class="dropdown-toggle location-btn"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i
+                  class="fa-solid fa-location-dot"
+                  style="font-size: clamp(16px, 1.7vw, 30px); color: #007c6f"
+                ></i>
+                <span class="text-start">
+                  <h6 class="m-0 dlv-addrss">Delivery Address</h6>
+                  <p class="m-0 slc-addrss">Select Address</p>
+                </span>
+                <i class="fa-solid fa-caret-down toggle-icon"></i>
+              </button>
+
+              <ul
+                class="dropdown-menu drp-location p-2 text-center"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <li>
+                  <!-- Modal Trigger Button -->
+                  <button class="current-l">
+                    <i class="fa-solid fa-location-crosshairs"></i> Use Current
+                    Location
+                  </button>
+                </li>
+                <li>
+                  <span class="d-flex align-items-center">
+                    <hr class="flex-grow-1" />
+                    <span class="mx-2">or</span>
+                    <hr class="flex-grow-1" />
+                  </span>
+                </li>
+
+                <li>
+                  <span
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                    class="d-flex gap-2"
+                    ><i
+                      class="fa-solid fa-location-dot"
+                      style="font-size: 21px"
+                    ></i>
+                    <p class="m-0">Enter Delivery Pincode</p></span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-4 col-sm-12 col-12 py-lg-3 py-md-2">
+            <div class="unique-search">
+              <input
+                id="unique-search-input"
+                placeholder="Search..."
+                type="text"
+              />
+              <button type="submit">Search</button>
+              <ul id="unique-dropdown-menu" class="unique-dropdown-menu p-0">
+                <li>Option 1</li>
+                <li>Option 2</li>
+                <li>Option 3</li>
+                <li>Option 4</li>
+                <li>Option 5</li>
+                <li>Option 6</li>
+                <li>Option 7</li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="col-lg-3 col-md-3 col-sm-12 col-12 text-end pt-lg-3 pt-md-3 pt-sm-2 pt-2"
+          >
+            <a href="#" class="offer-btn">
+              <img src="images/icon-svg/offer.svg" class="offers" alt="" />
+            </a>
+            <!-- Cart button with tooltip and badge -->
+            <a href="cart.html" class="cart">
+              <img src="images/icon-svg/cart.svg" class="offers" alt="" />
+
+              <!-- Cart Badge with number -->
+              <span class="cart-badge">5</span>
+            </a>
+            <!-- login -->
+            <button
+              class="login-button text-center"
+              data-bs-toggle="collapse"
+              data-bs-target="#sidebar"
+              aria-expanded="false"
+              aria-controls="sidebar"
+            >
+              <img src="images/icon-svg/login.svg" class="login-icon" alt="" />
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+    </header>
+
+
+
+
+
+<!-- mobile header-->
+<div
+class="logo-container d-xxl-none d-xl-none d-md-none d-lg-none d-sm-block d-xs-block d-block"
+>
+<div class="container-fluid">
+  <div class="row p-1">
+    <div class="col-4 p-0">
+      <a href="index.html">
+        <img
+          src="images/logo/futurelab-main logo.svg"
+          alt=""
+          class="logo"
+        />
+      </a>
+    </div>
+    <div class="col-4 p-2">
+      <!-- Dropdown -->
+      <div class="dropdown">
+        <button
+          class="dropdown-toggle location-btn"
+          id="dropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i
+            class="fa-solid fa-location-dot"
+            style="font-size: clamp(14px, 1.7vw, 30px); color: #007c6f"
+          ></i>
+          <span class="text-start">
+            <h6 class="m-0 dlv-addrss">Delivery Address</h6>
+            <p class="m-0 slc-addrss">Select Address</p>
+          </span>
+          <i class="fa-solid fa-caret-down toggle-icon"></i>
+        </button>
+
+        <ul
+          class="dropdown-menu drp-location p-2 text-center"
+          aria-labelledby="dropdownMenuButton"
+        >
+          <li>
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              class="current-l"
+            >
+              <i class="fa-solid fa-location-crosshairs"></i> Use Current
+              Location
+            </button>
+          </li>
+          <li>
+            <span class="d-flex align-items-center">
+              <hr class="flex-grow-1" />
+              <span class="mx-2">or</span>
+              <hr class="flex-grow-1" />
+            </span>
+          </li>
+
+          <li>
+            <span
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              class="d-flex gap-2"
+              ><i
+                class="fa-solid fa-location-dot"
+                style="font-size: 21px"
+              ></i>
+              <p class="m-0">Enter Delivery Pincode</p></span
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-4 p-0 text-end">
+      <!-- Cart button with tooltip and badge -->
+      <a href="cart.html" class="cart">
+        <img src="images/icon-svg/cart.svg" class="offers" alt="" />
+
+        <!-- Cart Badge with number -->
+        <span class="cart-badge">5</span>
+      </a>
+      <!-- login -->
+      <button
+        class="login-button text-center"
+        data-bs-toggle="collapse"
+        data-bs-target="#sidebar"
+        aria-expanded="false"
+        aria-controls="sidebar"
+      >
+        <img src="images/icon-svg/login.svg" class="login-icon" alt="" />
+        Login
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div
+class="search-container container-fluid d-xxl-none d-xl-none d-md-none d-lg-none d-sm-block d-xs-block d-block"
+>
+<div class="unique-search">
+  <input
+    id="unique-search-input-mobile"
+    placeholder="Search..."
+    type="text"
+  />
+  <button type="submit">Search</button>
+  <ul id="unique-dropdown-menu-mobile" class="unique-dropdown-menu p-0">
+    <li>Option 1</li>
+    <li>Option 2</li>
+    <li>Option 3</li>
+    <li>Option 4</li>
+    <li>Option 5</li>
+    <li>Option 6</li>
+    <li>Option 7</li>
+  </ul>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- scrool-btn -->
+    <button id="scrollBtn" onclick="scrollToTop()">
+      <i class="fa-solid fa-angle-up"></i>
+    </button>
+
+    <!-- Modal pincode-->
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">
+              Help us serve you better!
+            </h5>
+          </div>
+          <div class="modal-body">
+            <img
+              class="img-location"
+              src="images/icon-svg/mobile-location.svg"
+              alt=""
+            />
+            <p>
+              Please provide us your delivery location pincode for faster and
+              seamless deliveries.
+            </p>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                <div class="inputGroup">
+                  <input type="text" required="" autocomplete="off" />
+                  <label for="pincode">Pincode</label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                <!--    <p class="pincode-invalid">Invalid Pincode</p> -->
+                <p class="pincode-valid">valid Pincode</p>
+              </div>
+            </div>
+
+            <p>*Enter your 6 digit pincode to proceed</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn pincod-sub">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 
+login modal-->
+
+    <div class="collapse" id="sidebar">
+      <div class="d-flex flex-column">
+        <div class="container-fluid lgn d-flex flex-column">
+          <button
+            class="btn btn-light align-self-end mb-3"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#sidebar"
+            aria-expanded="true"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+          <h4 class="login-headline">Quick Login / Register</h4>
+        </div>
+
+        <form class="form_container">
+          <div class="input_container">
+            <input
+              placeholder="Enter your phone number"
+              title="Inpit title"
+              name="input-name"
+              type="text"
+              class="input_field"
+              id="email_field"
+            />
+          </div>
+
+          <button title="Sign In" type="submit" class="sign-in_btn">
+            <span>Log In</span>
+          </button>
+        </form>
+
+        <form class="otp-Form">
+          <span class="mainHeading">Enter OTP</span>
+          <p class="otpSubheading">
+            We have sent a verification code to your mobile number
+          </p>
+          <div class="inputContainer">
+            <input
+              required="required"
+              maxlength="1"
+              type="text"
+              class="otp-input"
+              id="otp-input1"
+            />
+            <input
+              required="required"
+              maxlength="1"
+              type="text"
+              class="otp-input"
+              id="otp-input2"
+            />
+            <input
+              required="required"
+              maxlength="1"
+              type="text"
+              class="otp-input"
+              id="otp-input3"
+            />
+            <input
+              required="required"
+              maxlength="1"
+              type="text"
+              class="otp-input"
+              id="otp-input4"
+            />
+          </div>
+          <button class="verifyButton" type="submit">Verify</button>
+
+          <p class="resendNote">
+            Didn't receive the code?
+            <button class="resendBtn">Resend Code</button>
+          </p>
+        </form>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- start -->
+    <section>
+      <div class="tabs-container">
+        <div class="tabs-line"></div>
+        <div class="tab-item active" data-target="#checkup1">
+          1
+          <div class="tooltip">Lab Tests Cart</div>
+        </div>
+        <div class="tab-item" data-target="#checkup2">
+          2
+          <div class="tooltip">Address & time</div>
+        </div>
+        <div class="tab-item" data-target="#checkup3">
+          3
+          <div class="tooltip">Submit</div>
+        </div>
+
+      </div>
+
+      <div class="tab-content">
+        <div id="checkup1" class="tab-pane active">
+          <section class="cart-section">
+            <div class="container">
+              <h2 class="checkup1-h">Selct Tests / Packages</h2>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <div class="main-cart">
+                    <div class="row">
+                      <div class="col-lg-1 col-md-2 col-sm-2 col-2 text-start">
+                        <img
+                          class="cart-img"
+                          src="images/icon-svg/cart/pr-1.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="col-lg-10 col-md-8 col-sm-8 col-8 p-0">
+                        <h1 class="cart-title">
+                          Comprehensive Plus Full Body Checkup with Vitamin D
+                          B12 and Electrolytes. Comprehensive Plus Full Body
+                          Checkup with Vitamin D B12 and Electrolytes.
+                        </h1>
+                        <div class="d-flex">
+                          <h3 class="cart-value">₹1,449</h3>
+                          <span class="d-flex">
+                            <del
+                              class="px-2 cart-real-value py-lg-2 py-md-1 pt-xxl-1 pt-xl-2 pt-sm-1 pt-1"
+                              >₹3,599</del
+                            >
+                            <p
+                              class="fw-bolder py-lg-2 py-md-1 pt-xxl-2 pt-xl-2 pt-sm-1 pt-1"
+                              style="color: #f47779"
+                            >
+                              60% OFF
+                            </p>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-lg-1 col-md-2 col-sm-2 col-2 text-end">
+                        <spn data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          <img
+                            src="images/icon-svg/cart/remove.svg"
+                            class="cart-remove"
+                            alt=""
+                        /></spn>
+                      </div>
+                    </div>
+                  <div class="d-flex justify-content-end">
+
+              
+                    <!-- patient Dropdown 1 -->
+      <div class="dropdown ">
+        <button
+          class="patient-btn dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          data-bs-display="static"
+        >
+          Select Patients
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#" data-patient="1"
+              ><input type="checkbox" class="form-check-input me-2" /> 1
+              Patient</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-patient="2"
+              ><input type="checkbox" class="form-check-input me-2" /> 2
+              Patients</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-patient="3"
+              ><input type="checkbox" class="form-check-input me-2" /> 3
+              Patients</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-patient="4"
+              ><input type="checkbox" class="form-check-input me-2" /> 4
+              Patients</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-patient="5"
+              ><input type="checkbox" class="form-check-input me-2" /> 5
+              Patients</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+                    <hr />
+                    <div class="container d-flex justify-content-evenly">
+                      <span class="d-flex gap-2"
+                        ><img
+                          src="images/icon-svg/product/feest.svg"
+                          class="svg-cart"
+                          alt=""
+                        />Fasting required : 8-10 hrs</span
+                      >
+                      <span class="d-flex gap-2"
+                        ><img
+                          src="images/icon-svg/product/report.svg"
+                          class="svg-cart"
+                          alt=""
+                        />Report in 15 hours</span
+                      >
+                    </div>
+                  </div>
+                  <div class="main-cart">
+                    <div class="row">
+                      <div class="col-lg-1 col-md-2 col-sm-2 col-2 text-start">
+                        <img
+                          class="cart-img"
+                          src="images/icon-svg/cart/pr-1.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="col-lg-10 col-md-8 col-sm-8 col-8 p-0">
+                        <h1 class="cart-title">
+                          Comprehensive Plus Full Body Checkup with Vitamin D
+                          B12 and Electrolytes. Comprehensive Plus Full Body
+                          Checkup with Vitamin D B12 and Electrolytes.
+                        </h1>
+                        <div class="d-flex">
+                          <h3 class="cart-value">₹1,449</h3>
+                          <span class="d-flex">
+                            <del
+                              class="px-2 cart-real-value py-lg-2 py-md-1 pt-xxl-1 pt-xl-2 pt-sm-1 pt-1"
+                              >₹3,599</del
+                            >
+                            <p
+                              class="fw-bolder py-lg-2 py-md-1 pt-xxl-2 pt-xl-2 pt-sm-1 pt-1"
+                              style="color: #f47779"
+                            >
+                              60% OFF
+                            </p>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-lg-1 col-md-2 col-sm-2 col-2 text-end">
+                        <spn data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          <img
+                            src="images/icon-svg/cart/remove.svg"
+                            class="cart-remove"
+                            alt=""
+                        /></spn>
+                      </div>
+                    </div>
+                  <div class="d-flex justify-content-end">
+
+              
+                    <!-- patient Dropdown 1 -->
+      <div class="dropdown ">
+        <button
+          class="patient-btn dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          data-bs-display="static"
+        >
+          Select Patients
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#" data-patient="1"
+              ><input type="checkbox" class="form-check-input me-2" /> 1
+              Patient</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-patient="2"
+              ><input type="checkbox" class="form-check-input me-2" /> 2
+              Patients</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-patient="3"
+              ><input type="checkbox" class="form-check-input me-2" /> 3
+              Patients</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-patient="4"
+              ><input type="checkbox" class="form-check-input me-2" /> 4
+              Patients</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-patient="5"
+              ><input type="checkbox" class="form-check-input me-2" /> 5
+              Patients</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+                    <hr />
+                    <div class="container d-flex justify-content-evenly">
+                      <span class="d-flex gap-2"
+                        ><img
+                          src="images/icon-svg/product/feest.svg"
+                          class="svg-cart"
+                          alt=""
+                        />Fasting required : 8-10 hrs</span
+                      >
+                      <span class="d-flex gap-2"
+                        ><img
+                          src="images/icon-svg/product/report.svg"
+                          class="svg-cart"
+                          alt=""
+                        />Report in 15 hours</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <div class="container py-5 py-sm-0">
+                    <ul class="list-group list-group-flush">
+                      <li
+                        class="list-group-item d-flex justify-content-between"
+                      >
+                        <p>Cart Value</p>
+                        <p><del>₹4899.00</del> ₹2199.00</p>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between"
+                      >
+                        <p>Sample Collection Charges</p>
+                        <p>
+                          <del>₹250.00</del>
+                          <strong style="color: #39a694">Free</strong>
+                        </p>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between"
+                      >
+                        <p>Order total</p>
+                        <p>₹2199.00</p>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between"
+                      >
+                        <strong>Amount Payable</strong>
+                        <strong> ₹2199.00</strong>
+                      </li>
+                    </ul>
+                    <div class="container my-2 p-md-0 p-sm-0 p-0">
+                      <button
+                        class="text-uppercase proceed-btn text-center toggle-button"
+                        data-target="#checkup2"
+                      >
+                        Proceed
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <!-- 2 -->
+        <div id="checkup2" class="tab-pane">
+          <div class="container">
+            <h3 class="bookapp-title">Book Your Appointment</h3>
+
+            <p class="bookapp-p">
+              We're excited to welcome you to Future Lab! Please fill out the
+              form below to schedule your appointment with our experts. We look
+              forward to helping you achieve your goals with our advanced
+              services.
+            </p>
+            <form class="frm-sub-main">
+              <div class="">
+                <label for="fname" class="col-form-label">Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="f-name"
+                  placeholder="Full Name"
+                />
+              </div>
+              <div class="">
+                <label for="phone-number" class="col-form-label"
+                  >Phone Number:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phone-number"
+                  placeholder="Mobile Number"
+                />
+              </div>
+              <div class="">
+                <label for="address" class="col-form-label">Address:</label>
+                <textarea
+                  class="form-control"
+                  id="message-text"
+                  placeholder="Address"
+                ></textarea>
+              </div>
+              <div class="">
+                <label for="pincode" class="col-form-label">Pincode:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pincode"
+                  placeholder="Pincode"
+                />
+              </div>
+              <div class="pt-2">
+                <label for="addresstype" class="col-form-label"
+                  >Address Type:</label
+                >
+                <br />
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="options"
+                  id="option1"
+                  autocomplete="off"
+                  checked
+                />
+                <label class="btn btn-bookinglast" for="option1">
+                  <i class="fa-solid fa-house-chimney pe-1"></i>Home</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="options"
+                  id="option2"
+                  autocomplete="off"
+                />
+                <label class="btn btn-bookinglast" for="option2"
+                  ><i class="fa-solid fa-building pe-1"></i>Office</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="options"
+                  id="option4"
+                  autocomplete="off"
+                />
+                <label class="btn btn-bookinglast" for="option4"
+                  ><i class="fa-solid fa-address-book pe-1"></i>Other</label
+                >
+              </div>
+            </form>
+           
+            <button
+              class="toggle-button btn-backtoggle"
+              data-target="#checkup1"
+            >
+              Back
+            </button>
+            <button
+              class="toggle-button btn-nexttoggle"
+              data-target="#checkup3"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+        <!--  3 -->
+        <div id="checkup3" class="tab-pane">
+          <div class="container d-flex justify-content-center">
+            <div class="thnk-main">
+              <h2>Thank You For Your Subimtion !</h2>
+            </div>
+
+           
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+
+
+
+ <!-- footer -->
+ <div class="container-fluid p-0 d-lg-block d-md-none d-sm-none d-none" id="footer">
+  <footer class="text-center text-lg-start text-white">
+    <!-- Grid container -->
+    <div class="container py-5">
+      <!--Grid row-->
+      <div class="row my-4">
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
+          <div class="d-flex justify-content-center">
+      <a href="index.html">      <img
+              class="ft-logo-1"
+              src="images/logo/ft-logo.svg"
+              alt=""
+              loading="lazy"
+            />
+      </a>
+          </div>
+
+          <p class="ft-p py-4">
+            Your trusted partner for convenient and reliable lab test
+            bookings. Delivering accuracy and care for your health, every
+            step of the way.
+          </p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-2 col-md-6 col-sm-12 col-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4 ft-h">quick links</h5>
+
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="index.html" class="text-white">Home</a>
+            </li>
+            <li class="mb-2">
+              <a href="#about" class="text-white">About</a>
+            </li>
+            <li class="mb-2">
+              <a href="#footer" class="text-white">Contact</a>
+            </li>
+            <li class="mb-2">
+              <a href="privacy-policy.html" class="text-white">Privacy Policy</a>
+            </li>
+            <li class="mb-2">
+              <a href="terms-and-conditions.html" class="text-white">Terms & Conditions</a>
+            </li>
+            <li class="mb-2">
+              <a href="sitemap.html" class="text-white">Sitemap</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 col-sm-12 col-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4 ft-h">follow us on</h5>
+
+          <ul class="socail-media p-0">
+            <li>
+              <a target="_blank" href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+
+            <li>
+              <a target="_blank" href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+
+            <li>
+              <a target="_blank" href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+
+            <li>
+              <a target="_blank" href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4 ft-h">Contact with us</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <p>
+                <i class="fas fa-map-marker-alt pe-2"></i>No:38, Ground
+                Floor , Sumangali Sevashram Road, Cholanayakanahalli, Hebbal
+                Near City Pearl Super Market, Bengaluru, Karnataka 560032
+              </p>
+            </li>
+            <li>
+              <a class="text-light" href="tel:08123459263"
+                ><i class="fas fa-phone pe-2"></i>081234 59263</a
+              >
+            </li>
+            <li>
+              <a class="text-light" href="mailto:info@futurelabs.live">
+                <i class="fas fa-envelope pe-2 mb-0"></i
+                >info@futurelabs.live
+              </a>
+            </li>
+            <li class="pt-5">
+              <h4>Stay Updated!</h4>
+              <p>
+                Subscribe to our WhatsApp Community for expert health tips, exclusive offers, and real-time updates on your lab test bookings.
+              </p>
+              <form class="form-whatsapp">
+                <div>
+                  <input
+                    placeholder="Enter whatsapp number"
+                    type="phonenumber"
+                    name="whatsappnumber"
+                    id="whatsappnumber"
+                  />
+                  <button type="submit">Subscribe</button>
+                </div>
+         
+        
+      
+           
+          </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <div class="container pb-5">
+      <hr />
+
+      <a class="text-white fw-bolder " href="https://futurelabs.live"
+        >futurelab.live</a
+      >
+      <br />
+      © 2024 All rights reserved.
+    </div>
+
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div
+      class="container text-center p-3"
+      style="background-color: rgba(0, 0, 0, 0.2)"
+    >
+      <p class="disclaimer">
+        Disclaimer: Future Labs provides diagnostic test booking services
+        only. The results are for informational purposes and should not
+        replace professional medical advice. Consult a licensed healthcare
+        provider for diagnosis and treatment. Future Labs is not liable for
+        any decisions made based on the test results provided.
+      </p>
+    </div>
+    <!-- Copyright -->
+  </footer>
+</div>
+
+
+
+
+
+
+
+
+<!-- mobilefooter -->
+
+
+<footer class="mobile-footer container-fluid d-lg-none d-md-block d-sm-block d-block">
+  <div class="row text-center">
+    <div class="col-2">
+      <a href="index.html" class="active" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.95-8.95a1.125 1.125 0 011.6 0L21.75 12M4.5 9.75V20a1.125 1.125 0 001.125 1.125h4.125V17.25c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125A1.125 1.125 0 0020.25 20V9.75M8.25 21h7.5" />
+        </svg>
+        <span>Home</span>
+      </a>
+    </div>
+    <div class="col-3">
+      <a  href="index.html"  aria-label="Home">
+        <svg class="offr-moblie" fill="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" style="enable-background:new 0 0 100 100;" xml:space="preserve"><path d="M50,88.75c-2.755,0-4.656-2.1-6.334-3.953c-0.735-0.813-1.847-2.041-2.404-2.19c-0.629-0.151-2.197,0.334-3.345,0.701  c-2.338,0.747-4.988,1.589-7.301,0.251c-2.339-1.353-2.931-4.094-3.452-6.511c-0.25-1.16-0.593-2.747-1.029-3.184  c-0.436-0.435-2.024-0.779-3.184-1.028c-2.418-0.522-5.159-1.113-6.514-3.455c-1.337-2.312-0.492-4.961,0.255-7.297  c0.366-1.147,0.867-2.717,0.699-3.345c-0.149-0.559-1.377-1.67-2.19-2.407C13.35,54.656,11.25,52.754,11.25,50  s2.1-4.656,3.953-6.333c0.813-0.737,2.041-1.848,2.189-2.405c0.168-0.63-0.332-2.2-0.698-3.345c-0.746-2.339-1.592-4.988-0.253-7.3  c1.353-2.339,4.093-2.932,6.511-3.455c1.16-0.249,2.748-0.593,3.184-1.028c0.436-0.437,0.779-2.024,1.03-3.186  c0.521-2.417,1.113-5.159,3.456-6.511c2.307-1.338,4.957-0.488,7.297,0.254c1.147,0.369,2.714,0.862,3.344,0.701  c0.557-0.149,1.667-1.377,2.404-2.19C45.343,13.35,47.245,11.25,50,11.25s4.656,2.1,6.334,3.953c0.735,0.813,1.847,2.041,2.404,2.19  c0.634,0.164,2.198-0.332,3.345-0.701c2.339-0.747,4.987-1.589,7.301-0.251c2.339,1.353,2.931,4.094,3.452,6.511  c0.25,1.16,0.593,2.747,1.029,3.184c0.436,0.435,2.024,0.779,3.184,1.028c2.418,0.522,5.159,1.113,6.514,3.455  c1.337,2.312,0.492,4.961-0.255,7.297c-0.366,1.147-0.867,2.717-0.699,3.345c0.149,0.559,1.377,1.67,2.19,2.407  C86.65,45.344,88.75,47.246,88.75,50s-2.1,4.656-3.953,6.333c-0.813,0.737-2.041,1.848-2.189,2.405  c-0.168,0.63,0.332,2.2,0.698,3.345c0.746,2.339,1.592,4.988,0.253,7.3c-1.353,2.339-4.093,2.932-6.511,3.455  c-1.16,0.249-2.748,0.593-3.184,1.028c-0.436,0.437-0.779,2.024-1.03,3.186c-0.521,2.417-1.113,5.159-3.456,6.511  c-2.306,1.338-4.958,0.491-7.297-0.254c-1.146-0.366-2.711-0.854-3.344-0.701c-0.557,0.149-1.667,1.377-2.404,2.19  C54.657,86.65,52.755,88.75,50,88.75z M40.973,77.581c0.532,0,1.061,0.059,1.58,0.198c1.982,0.53,3.424,2.122,4.819,3.662  c0.731,0.808,2.091,2.31,2.628,2.31s1.897-1.501,2.628-2.31c1.394-1.541,2.837-3.132,4.818-3.662  c2.047-0.544,4.227,0.151,6.156,0.767c0.98,0.312,2.804,0.894,3.279,0.686c0.427-0.278,0.859-2.275,1.067-3.237  c0.444-2.058,0.905-4.187,2.382-5.664s3.605-1.936,5.664-2.38c0.961-0.208,2.961-0.64,3.239-1.072  c0.208-0.466-0.375-2.292-0.688-3.274c-0.615-1.926-1.313-4.111-0.765-6.157c0.529-1.98,2.122-3.423,3.663-4.819  c0.807-0.73,2.308-2.09,2.308-2.627s-1.501-1.897-2.308-2.627c-1.542-1.396-3.135-2.839-3.665-4.822  c-0.547-2.043,0.151-4.229,0.767-6.157c0.314-0.979,0.896-2.805,0.687-3.276c-0.272-0.427-2.275-0.859-3.237-1.067  c-2.058-0.444-4.187-0.903-5.664-2.38s-1.936-3.606-2.38-5.664c-0.209-0.962-0.641-2.964-1.072-3.24  c-0.466-0.2-2.292,0.378-3.274,0.688c-1.926,0.615-4.116,1.313-6.156,0.767c-1.982-0.53-3.424-2.122-4.819-3.662  c-0.731-0.808-2.091-2.31-2.628-2.31s-1.897,1.501-2.628,2.31c-1.394,1.541-2.837,3.132-4.818,3.662  c-2.046,0.549-4.229-0.151-6.156-0.767c-0.979-0.31-2.802-0.884-3.279-0.686c-0.427,0.278-0.859,2.275-1.067,3.237  c-0.444,2.058-0.905,4.187-2.382,5.664s-3.605,1.936-5.664,2.38c-0.961,0.208-2.961,0.64-3.239,1.072  c-0.208,0.466,0.375,2.292,0.688,3.274c0.615,1.926,1.313,4.111,0.765,6.157c-0.529,1.98-2.122,3.423-3.663,4.819  c-0.807,0.73-2.308,2.09-2.308,2.627s1.501,1.897,2.308,2.627c1.542,1.396,3.135,2.839,3.665,4.822  c0.547,2.043-0.151,4.229-0.767,6.157c-0.314,0.979-0.896,2.805-0.687,3.276c0.272,0.427,2.275,0.859,3.237,1.067  c2.058,0.444,4.187,0.903,5.664,2.38s1.936,3.606,2.38,5.664c0.209,0.962,0.641,2.964,1.072,3.24  c0.477,0.203,2.292-0.376,3.274-0.688C37.833,78.086,39.414,77.581,40.973,77.581z M38.51,65.027l26.516-26.519  c0.977-0.977,0.977-2.559,0-3.535s-2.559-0.977-3.535,0L34.974,61.492c-0.977,0.977-0.977,2.559,0,3.535  c0.488,0.488,1.128,0.732,1.768,0.732S38.021,65.515,38.51,65.027z M40,47.5c-4.136,0-7.5-3.364-7.5-7.5s3.364-7.5,7.5-7.5  s7.5,3.364,7.5,7.5S44.136,47.5,40,47.5z M40,37.5c-1.378,0-2.5,1.121-2.5,2.5s1.122,2.5,2.5,2.5s2.5-1.121,2.5-2.5  S41.378,37.5,40,37.5z M60,67.5c-4.136,0-7.5-3.364-7.5-7.5s3.364-7.5,7.5-7.5s7.5,3.364,7.5,7.5S64.136,67.5,60,67.5z M60,57.5  c-1.378,0-2.5,1.121-2.5,2.5s1.122,2.5,2.5,2.5s2.5-1.121,2.5-2.5S61.378,57.5,60,57.5z"/></svg>
+           <span>Offers</span>
+      </a>
+    </div>
+    <div class="col-2">
+      <a href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+        </svg>
+        
+        </svg>
+        <span>Call</span>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="#">
+        <svg fill="white" class="wts-mblie" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 64 80" style="enable-background:new 0 0 64 64;" xml:space="preserve"><g><path d="M57.4,25.4C55,16.2,47.6,8.8,38.3,6.5C29,4.2,18.9,7.2,12.5,14.4c-7.9,8.8-8.9,22-2.5,32c-0.5,3.6-0.9,7.2-1.4,10.8   c-0.2,1.3,1.4,2.2,2.5,1.9c3.5-1,7.1-1.9,10.6-2.9c9.5,3.9,20.5,2.1,28.1-4.9C56.9,44.8,59.8,34.6,57.4,25.4z M50.4,44.7   c-6,8.8-17.8,12.1-27.5,7.7c0,0,0,0-0.1,0c-0.4-0.2-0.9-0.3-1.5-0.2c-2.8,0.8-5.6,1.5-8.4,2.3c0.3-2.4,0.6-4.7,0.9-7.1   c0.1-0.8,0.3-1.7-0.1-2.5c-0.3-0.5-0.7-1-1-1.6c-0.7-1.2-1.3-2.5-1.8-3.8c-1.6-4.6-1.7-9.7-0.2-14.3c2.6-8.1,10-14.2,18.4-15.2   C37.8,8.8,46.5,13,51,20.3C55.6,27.8,55.3,37.4,50.4,44.7z"/><path d="M45.9,35.3l-4.5-3.5c-1.4-1.1-3.3-0.9-4.5,0.3l-1.3,1.3c-1-0.6-1.9-1.3-2.8-2.1c-0.8-0.8-1.5-1.8-2.1-2.8l1.3-1.3   c1.2-1.2,1.3-3.1,0.3-4.5l-3.5-4.6c-0.7-1-1.8-1.6-3-1.6c-1.2-0.1-2.4,0.4-3.2,1.2l-3.9,3.9c-2.2,2.2-2.7,5.6-1.3,8.4   c1.9,3.6,4.3,6.8,7.1,9.6c2.8,2.8,6.1,5.2,9.6,7.1c1.1,0.6,2.2,0.8,3.3,0.8c1.8,0,3.7-0.7,5-2.1l3.9-3.9c0.8-0.8,1.3-2,1.2-3.2   C47.5,37.1,46.9,36,45.9,35.3z M43.5,38.7l-3.9,3.9c-1,1-2.5,1.2-3.7,0.6c-3.2-1.7-6.1-3.8-8.7-6.4c-2.6-2.6-4.7-5.5-6.4-8.7   c-0.6-1.2-0.4-2.7,0.6-3.7l3.9-3.9c0,0,0,0,0.1,0c0,0,0,0,0,0c0.1,0,0.1,0,0.1,0.1l3.2,4.2L27.4,26c-1,1-1.3,2.6-0.6,3.9   c0.8,1.6,1.9,3,3.1,4.2c1.2,1.2,2.6,2.3,4.2,3.1c1.3,0.7,2.8,0.4,3.8-0.6l1.4-1.4l4.1,3.2c0,0,0.1,0,0.1,0.1   C43.5,38.6,43.5,38.7,43.5,38.7z"/></g></svg>
+                   <span>WhatsApp</span>
+      </a>
+    </div>
+    <div class="col-2">
+      <a href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
+        
+        <span>Profile</span>
+      </a>
+    </div>
+    
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- bootrap -->
+  <script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
+
+
+
+
+    <!-- JavaScript -->
+    <script>
+/* patient */
+const dropdownItems = document.querySelectorAll(".dropdown-item");
+
+dropdownItems.forEach((item) => {
+  item.addEventListener("click", function (e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    const currentDropdown = this.closest(".dropdown-menu");
+    const checkbox = this.querySelector("input[type='checkbox']");
+
+    // Uncheck all checkboxes in the current dropdown
+    currentDropdown
+      .querySelectorAll("input[type='checkbox']")
+      .forEach((el) => (el.checked = false));
+
+    checkbox.checked = true; // Check the selected checkbox
+
+    // Update dropdown button text
+    const selectedPatients =
+      this.querySelector("input").nextSibling.textContent.trim();
+    const dropdownButton =
+      this.closest(".dropdown").querySelector(".dropdown-toggle");
+    dropdownButton.textContent = selectedPatients;
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      /* Tabs Functionality with Button Toggle */
+      document.querySelectorAll(".toggle-button").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          // Get the target content based on the button
+          const targetId = e.target.getAttribute("data-target");
+          const targetContent = document.querySelector(targetId);
+
+          // Toggle the visibility of the target content
+          targetContent.classList.toggle("active");
+
+          // Optionally, deactivate the other tab contents
+          document.querySelectorAll(".tab-pane").forEach((pane) => {
+            if (pane !== targetContent) {
+              pane.classList.remove("active");
+            }
+          });
+
+          // Change active tab color
+          document.querySelectorAll(".tab-item").forEach((tab) => {
+            if (tab.getAttribute("data-target") === targetId) {
+              tab.classList.add("active"); // Add active class to the clicked tab
+            } else {
+              tab.classList.remove("active"); // Remove active class from other tabs
+            }
+          });
+        });
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* search */
+      // Desktop
+      const uniqueSearchInput = document.getElementById("unique-search-input");
+      const uniqueDropdownMenu = document.getElementById(
+        "unique-dropdown-menu"
+      );
+
+      // Mobile
+      const uniqueSearchInputMobile = document.getElementById(
+        "unique-search-input-mobile"
+      );
+      const uniqueDropdownMenuMobile = document.getElementById(
+        "unique-dropdown-menu-mobile"
+      );
+
+      // Desktop functionality
+      uniqueSearchInput.addEventListener("focus", () => {
+        uniqueDropdownMenu.classList.add("show");
+      });
+
+      uniqueSearchInput.addEventListener("blur", () => {
+        setTimeout(() => uniqueDropdownMenu.classList.remove("show"), 200);
+      });
+
+      uniqueDropdownMenu.addEventListener("click", (event) => {
+        if (event.target.tagName === "LI") {
+          uniqueSearchInput.value = event.target.textContent;
+          uniqueDropdownMenu.classList.remove("show");
+        }
+      });
+
+      // Mobile functionality
+      uniqueSearchInputMobile.addEventListener("focus", () => {
+        uniqueDropdownMenuMobile.classList.add("show");
+      });
+
+      uniqueSearchInputMobile.addEventListener("blur", () => {
+        setTimeout(
+          () => uniqueDropdownMenuMobile.classList.remove("show"),
+          200
+        );
+      });
+
+      uniqueDropdownMenuMobile.addEventListener("click", (event) => {
+        if (event.target.tagName === "LI") {
+          uniqueSearchInputMobile.value = event.target.textContent;
+          uniqueDropdownMenuMobile.classList.remove("show");
+        }
+      });
+
+   
+    </script>
+  </body>
+</html>
