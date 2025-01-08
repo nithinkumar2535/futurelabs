@@ -1,9 +1,10 @@
-const baseUrl = "http://localhost:3000"
+
+let allTestData = []
 
 document.addEventListener("DOMContentLoaded", async () => {
     try {
       // Fetch all APIs simultaneously
-      const [mainBanner,lessPrice, ads, vitalOrganData, womenAgeData, womenCareData, menAgeData, menCareData, lifeStyleData, specialPackageData, singleTestData ] = await Promise.all([
+      const [mainBanner,lessPrice, ads, vitalOrganData, womenAgeData, womenCareData, menAgeData, menCareData, lifeStyleData, specialPackageData, singleTestData, allTestData ] = await Promise.all([
         fetch(`${baseUrl}/api/v1/mainbanners/get`).then((res) => res.json()),
         fetch(`${baseUrl}/api/v1/category/lessPrice/selected`).then((res) => res.json()),
         fetch(`${baseUrl}/api/v1/bottombanners/get`).then((res) => res.json()),
@@ -15,6 +16,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         fetch(`${baseUrl}/api/v1/category/lifestyle/selected`).then((res) => res.json()),
         fetch(`${baseUrl}/api/v1/tests/selected/Special Care Packages`).then((res) => res.json()),
         fetch(`${baseUrl}/api/v1/tests/selected/Single Test`).then((res) => res.json()),
+        fetch(`${baseUrl}/api/v1/tests/get`).then((res) => res.json()),
+        
 
       ]);
   
@@ -30,6 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       renderLifeStyle(lifeStyleData)
       renderSpecialCare(specialPackageData)
       renderSingleTest(singleTestData)
+      renderTestList(allTestData)
       
     } catch (error) {
       console.error("Error loading API data:", error);
@@ -143,7 +147,7 @@ function renderVitalOrgans(data) {
 
   // Clear previous content
   container.innerHTML = categories.map(organ => `
-    <a href="vital-organ.html" class="carousel4-card">
+    <a href="vital-organ.html?tab=${encodeURIComponent(organ.name)}" class="carousel4-card">
       <img
         src="${baseUrl}/${organ.imagePath}"
         class="carousel4-img"
@@ -177,7 +181,7 @@ function renderWomenAgeData(data) {
 
   // Clear previous content
   container.innerHTML = categories.map(item => `
-    <a href="${item.link}" class="test-cardmain">
+    <a href="woman-care.html?tab=${encodeURIComponent(item.name)}" class="test-cardmain">
       <div class="test-card text-center">
         <img class="test-cardimg" src="${baseUrl}/${item.imagePath}" alt="${item.name}" />
         <h4 class="testcard-head">${item.name}</h4>
@@ -226,7 +230,7 @@ function renderWomenCareData(data) {
   
   container.innerHTML = categories.map(item => `
     <div class="col-lg-3 col-md-3 col-sm-6 col-6">
-      <a href="${item.link}">
+      <a href="woman-care.html?tab=${encodeURIComponent(item.name)}">
         <div class="test-cardmain">
           <div class="test-card text-center">
             <img
@@ -249,7 +253,7 @@ function renderMenAgeData(data) {
   container.innerHTML = categories
     .map(
       (item) => `
-        <a href="${item.link}" class="test-cardmain">
+        <a href="men-care.html?tab=${encodeURIComponent(item.name)}" class="test-cardmain">
           <div class="test-card text-center">
             <img class="test-cardimg" src="${baseUrl}/${item.imagePath}" alt="${item.name}" />
             <h4 class="testcard-head">${item.name}</h4>
@@ -306,7 +310,7 @@ function renderMenCare(data) {
         .map(
           (item) => `
           <div class="col-lg-3 col-md-3 col-sm-6 col-6">
-            <a href="men-care.html">
+            <a href="men-care.html?tab=${encodeURIComponent(item.name)}">
               <div class="test-cardmain">
                 <div class="test-card text-center">
                   <img class="test-cardimg" src="${baseUrl}/${item.imagePath}" alt="${item.name}" />
@@ -328,7 +332,7 @@ function renderLifeStyle(data) {
   .map(
     (item) => `
     <div class="lyf-cardmain">
-      <a href="${item.link || 'lyfestyle-health-checkup.html'}" class="lyf-card text-center">
+      <a href="lyfestyle-health-checkup.html?tab=${encodeURIComponent(item.name)}" class="lyf-card text-center">
         <img 
           class="lyf-cardimg" 
           src="${baseUrl}/${item.imagePath || 'placeholder.svg'}" 
@@ -401,7 +405,7 @@ function renderSpecialCare(data) {
                             </div>
                         </div>
                         <div class="fdiv">
-                            <a href="product.html?id=${product.id}" class="book-cta">Book Now</a>
+                            <a href="product.html?id=${product._id}&category=${product.category}" class="book-cta">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -428,68 +432,375 @@ function renderSingleTest(data) {
   const carousel = document.querySelector(".carousel7");
   carousel.innerHTML = ""; // Clear existing cards
   const cards = data? data.data : []
-  const tests = cards.length
+  
 
-  cards.forEach((test) => {
-    const cardHTML = `
-      <div class="new-cardo">
-        <div class="newcard-main">
-          <div class="newcard-titlemain">
-            <div class="row">
-              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                <h5 class="newcard-title">${test.testName}</h5>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4 col-4 px-lg-auto px-md-1 px-sm-auto px-auto">
-                <div class="d-flex justify-content-end">
-                  <p class="newcard-test">${tests} Tests</p>
-                </div>
-                <div class="d-flex justify-content-end">
-                  <div class="d-block">
-                    <span class="fw-bolder newcard-price">
-                      <del>${test.price}</del> ${test.offerPrice}
-                    </span>
-                    <br />
-                    <div class="newcard-offer">${test.discountPercentage}</div>
-                  </div>
-                </div>
-              </div>
+ 
+ 
+    carousel.innerHTML = cards.map((test, index) =>  `
+    <div class="new-cardo">
+      <div class="newcard-main">
+        <div class="newcard-titlemain">
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+              <h5 class="newcard-title">${test.testName}</h5>
             </div>
-          </div>
-          <div class="newcard-content">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <div class="d-flex">
-                  <img class="newcard-svg" src="images/icon-svg/newcard/research.png" alt="" />
-                  <div class="d-block rt-newcard">
-                    <h5>Reports with in</h5>
-                    <h6>${test.reportTime}</h6>
-                  </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4 px-lg-auto px-md-1 px-sm-auto px-auto">
+              <div class="d-flex justify-content-end">
+                <p class="newcard-test">${test.totalTests} Tests</p>
+              </div>
+              <div class="d-flex justify-content-end">
+                <div class="d-block">
+                  <span class="fw-bolder newcard-price">
+                    <del>₹${test.price}</del> ₹${test.offerPrice}
+                  </span>
+                  <br />
+                  <div class="newcard-offer">${test.discountPercentage}% OFF</div>
                 </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <div class="d-flex">
-                  <img class="newcard-svg" src="images/icon-svg/newcard/lab.png" alt="" />
-                  <div class="d-block rt-newcard">
-                    <h5>1 Test</h5>
-                    <h6>included</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6 pt-4">
-                <a href="#" class="view-newcard d-lg-block d-md-none d-sm-none d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight1" aria-controls="offcanvasRight1">View Details</a>
-                <a href="#" class="view-newcard d-lg-none d-md-block d-sm-block d-block" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">View Details</a>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6 pt-4">
-                <a href="#" class="cart-newcard">Add to Cart</a>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    `;
-    carousel.insertAdjacentHTML("beforeend", cardHTML);
-  });
+        <div class="newcard-content">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+              <div class="d-flex">
+                <img class="newcard-svg" src="images/icon-svg/newcard/research.png" alt="" />
+                <div class="d-block rt-newcard">
+                  <h5>Reports with in</h5>
+                  <h6>${test.reportTime}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+              <div class="d-flex">
+                <img class="newcard-svg" src="images/icon-svg/newcard/lab.png" alt="" />
+                <div class="d-block rt-newcard">
+                  <h5>${test.totalTests} Test</h5>
+                  <h6>included</h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 pt-4">
+            <div
+              class="view-newcard d-lg-block d-md-none d-sm-none d-none"
+              data-bs-id="${test._id}"
+              data-index="${index}"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight1"
+              aria-controls="offcanvasRight1"
+            >
+              View Details
+            </div>
 
+          <div
+            class="view-newcard d-lg-none d-md-block d-sm-block d-block"
+            data-bs-id="${test._id}"
+            data-index="${index}"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasBottom"
+            aria-controls="offcanvasBottom"
+          >
+            View Details
+          </div>
+              
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 pt-4">
+              <a href="product.html?id=${test._id}&category=${test.category}" class="cart-newcard">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `);
+
+  document.querySelectorAll(".view-newcard").forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      const index = event.currentTarget.dataset.index;
+      const test = cards[index];
+      updateOffcanvasContent(test);
+      
+      
+    });
+  });
+   
+
+  
+
+    
+
+
+   
+     
+    
+};
+
+function updateOffcanvasContent(test) {
+ 
+
+  const rightOffcanvas = document.getElementById("offcanvasRight1")
+  const bottomOffcanvas = document.getElementById("offcanvasBottom")
+
+
+
+  rightOffcanvas.innerHTML = `
+  <div class="offcanvas-header pkgmbl-header">
+<h5 class="offcanvas-title titleof-offcanvas" id="offcanvasRight1Label">
+ Package Details
+</h5>
+<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+<div class="container">
+ <h2 class="offcanvascheckup-card-h">
+ ${test.testName}
+ </h2>
+ <p>Includes ${test.totalTests} ParaMeters</p>
+ <a href="#" class="offcanvasbtn-offers">
+   <strong>${test.discountPercentage}%off</strong> for a limited period</a>
+ <a href="#" class="offcanvasbtn-cart"> Add To Cart</a>
+ <div class="offcanvas-homesmpl">
+   <img src="images/delivery-doctor.png" alt="" class="offcanvas-homesmplimg" />
+   <p class="offcanvas-homesmplp">Home Sample Collecton Available</p>
+ </div>
+ 
+ <div class="offcavas-prdmain mt-4 py-3">
+   <div class="container">
+     <div class="row">
+       <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/sample.svg" class="svg-lab" alt="" />
+           <h6 class="types">Sample Type</h6>
+           <span class="smpl-type">${test.sampleType}</span>
+         </div>
+       </div>
+
+       ${test.fasting ? ` <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/feest.svg" class="svg-lab" alt="" />
+           <h6 class="types">Fasting Required</h6>
+           <span class="smpl-type">${test.fastingTime} Hours</span>
+         </div>
+       </div>` : ` <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/feest.svg" class="svg-lab" alt="" />
+           <h6 class="types">Fasting Not Required</h6>
+          
+         </div>
+       </div>`}
+      
+       <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/report.svg" class="svg-lab" alt="" />
+           <h6 class="types">Report In</h6>
+           <span class="smpl-type">${test.reportTime} Hours</span>
+         </div>
+       </div>
+       <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-2 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/feest.svg" class="svg-lab" alt="" />
+           <h6 class="types">Tube Type</h6>
+
+           <span class="smpl-type">${test.tubeType}</span>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="py-3">
+   <h2 class="offcanvas-question">What is it for?</h2>
+   <p class="offcanvas-answer">
+    ${test.description}
+   </p>
+ </div>
+
+ <div class="d-flex gap-2">
+   <svg aria-hidden="true" focusable="false" role="img" fill="none" preserveAspectRatio="xMidYMid meet"
+     data-icon="back" viewBox="0 0 22 20" width="22" height="23"
+     class="sc-f32db17d-0 sc-c1dcc9aa-0 kzlEmI hhQbhi sc-b9d72297-0 fBJtou">
+     <path
+       d="M19.0392 1H3C1.89543 1 1 1.89543 1 3V17C1 18.1046 1.89543 19 3 19H19.0392C20.1438 19 21.0392 18.1046 21.0392 17V3C21.0392 1.89543 20.1438 1 19.0392 1Z"
+       stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+     <path d="M14.3893 7.70223L11.0248 4.98802L7.65039 7.70223V1H14.3893V7.70223Z" stroke="currentColor"
+       stroke-linecap="round" stroke-linejoin="round"></path>
+   </svg>
+   <h5 class="pkg">Package Instructions</h5>
+ </div>
+ <ul class="age-ul">
+   <li><strong>Age Group:</strong> ${test.instruction}</li>
+ </ul>
+
+ <img class="adfor-product" src="images/banners/banner1.png" alt="" />
+</div>
+<div class="container my-4" style="height: auto">
+ <h2 class="included-h">Included Tests</h2>
+ <!-- Dropdown -->
+   ${test.includedTests.map((test, index) => `
+ <div>
+   <div class="dropdown-header" data-bs-toggle="collapse" data-bs-target="#dropdownContent${index}" id="dropdown${index}">
+     <div class="d-flex align-items-center">
+       <img class="drptst-icon" src="images/icon-svg/dropdown/liver (1).png" alt="Icon" />
+       <h5>${test.category}</h5>
+     </div>
+     <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon${index}"></i>
+   </div>
+   <ul id="dropdownContent${index}" class="collapse dropdown-content dropdown-ul">
+     ${test.tests.map(item => `<li>${item}</li>`).join('')}
+   </ul>
+ </div>
+  `).join('')}
+ </div>
+</div>
+</div>`
+
+  bottomOffcanvas.innerHTML = `
+  <div class="offcanvas-header pkgmbl-header">
+<h5 class="offcanvas-title titleof-offcanvas" id="offcanvasBottomLabel">
+ Package Details
+</h5>
+<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+<div class="container">
+ <h2 class="offcanvascheckup-card-h">
+   ${test.testName}
+ </h2>
+ <p>Includes  ${test.totalTests} ParaMeters</p>
+ <a href="#" class="offcanvasbtn-offers">
+   <strong>${test.discountPercentage}%off</strong> for a limited period</a>
+ <a href="#" class="offcanvasbtn-cart"> Add To Cart</a>
+ <div class="offcanvas-homesmpl">
+   <img src="images/delivery-doctor.png" alt="" class="offcanvas-homesmplimg" />
+   <p class="offcanvas-homesmplp">Home Sample Collecton Available</p>
+ </div>
+
+
+ <div class="offcavas-prdmain mt-4 py-3">
+   <div class="container">
+     <div class="row">
+       <div class="col-lg-4 col-md-4 col-sm-6 col-6 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/sample.svg" class="svg-lab" alt="" />
+           <h6 class="types">Sample Type</h6>
+           <span class="smpl-type">${test.sampleType}</span>
+         </div>
+       </div>
+
+       ${test.fasting ? ` <div class="col-lg-4 col-md-4 col-sm-6 col-6 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/feest.svg" class="svg-lab" alt="" />
+           <h6 class="types">Fasting Required</h6>
+           <span class="smpl-type">${test.fastingTime} Hours</span>
+         </div>
+       </div>` : ` <div class="col-lg-4 col-md-4 col-sm-6 col-6 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/feest.svg" class="svg-lab" alt="" />
+           <h6 class="types">Fasting Not Required</h6>
+           
+         </div>
+       </div>`}
+      
+       <div class="col-lg-4 col-md-4 col-sm-6 col-6 mt-lg-0 mt-md-0 mt-sm-2 mt-2 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/report.svg" class="svg-lab" alt="" />
+           <h6 class="types">Report In</h6>
+           <span class="smpl-type">${test.reportTime} Hours</span>
+         </div>
+       </div>
+       <div class="col-lg-12 col-md-12 col-sm-6 col-6 mt-2 p-0">
+         <div class="text-center align-content-center">
+           <img src="images/icon-svg/product/feest.svg" class="svg-lab" alt="" />
+           <h6 class="types">Tube Type</h6>
+
+           <span class="smpl-type">${test.tubeType}</span>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="py-3">
+   <h2 class="offcanvas-question">What is it for?</h2>
+   <p class="offcanvas-answer">
+     ${test.description}
+   </p>
+ </div>
+
+ <div class="d-flex gap-2">
+   <svg aria-hidden="true" focusable="false" role="img" fill="none" preserveAspectRatio="xMidYMid meet"
+     data-icon="back" viewBox="0 0 22 20" width="22" height="23"
+     class="sc-f32db17d-0 sc-c1dcc9aa-0 kzlEmI hhQbhi sc-b9d72297-0 fBJtou">
+     <path
+       d="M19.0392 1H3C1.89543 1 1 1.89543 1 3V17C1 18.1046 1.89543 19 3 19H19.0392C20.1438 19 21.0392 18.1046 21.0392 17V3C21.0392 1.89543 20.1438 1 19.0392 1Z"
+       stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+     <path d="M14.3893 7.70223L11.0248 4.98802L7.65039 7.70223V1H14.3893V7.70223Z" stroke="currentColor"
+       stroke-linecap="round" stroke-linejoin="round"></path>
+   </svg>
+   <h5 class="pkg">Package Instructions</h5>
+ </div>
+ <ul class="age-ul">
+   <li><strong>Age Group:</strong> ${test.instruction}</li>
+ </ul>
+
+ <img class="adfor-product" src="images/banners/banner1.png" alt="" />
+</div>
+<div class="container my-4" style="height: auto">
+ <h2 class="included-h">Included Tests</h2>
+ <!-- Dropdown -->
+  ${test.includedTests.map((test, index) => `
+ <div>
+   <div class="dropdown-header" data-bs-toggle="collapse" data-bs-target="#dropdownContent${index}" id="dropdown${index}">
+     <div class="d-flex align-items-center">
+       <img class="drptst-icon" src="images/icon-svg/dropdown/liver (1).png" alt="Icon" />
+       <h5>${test.category}</h5>
+     </div>
+     <i class="fa-solid fa-chevron-down drp-dwnicon"id="icon${index}"></i>
+   </div>
+   <ul id="dropdownContent${index}" class="collapse dropdown-content dropdown-ul">
+     ${test.tests.map(item => `<li>${item}</li>`).join('')}
+   </ul>
+ </div>
+   `).join('')}
+ </div>
+</div>
+</div>`
+}
+
+function renderTestList(data) {
+  const tests = data.data
+  console.log(tests);
+  
+  const searchInput = document.getElementById('unique-search-input')[0].value.toLowerCase();
+  if (!searchInput) {
+    // If search input is empty, clear the test list
+    displayTestList([]);
+    return;
+  }
+  const filteredTests = tests.filter(test => test.testName.toLowerCase().includes(searchInput));
+  displayTestList(filteredTests);
+}
+
+function displayTestList (filteredTests) {
+  
+
+  const testListContainer = document.getElementById('test-list')[0];
+  testListContainer.innerHTML = ''; // Clear previous content
+
+  if (filteredTests.length === 0) {
+    testListContainer.innerHTML = 'No tests found';
+    return;
+  }
+  filteredTests.forEach(test => {
+    const testElement = document.createElement('div');
+    testElement.textContent = test.testName;
+    testElement.style.cursor = 'pointer'; // Make it look clickable
+    testElement.addEventListener('click', () => navigateToTestPage(test._id));
+    testListContainer.appendChild(testElement);
+  });
+}
+
+
+
+function navigateToTestPage(testId) {
+  window.location.href = `/test/${testId}`; // Navigate to the test page
 }
 
 

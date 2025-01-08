@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3000"
+
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       
       const similarTestData = similarTestDataResponse.data
 
-      const filteredSimilarTests = similarTestData.filter(
+      const filteredSimilarTests = similarTestData?.filter(
         (test) => test._id !== testData._id
       );
 
@@ -60,9 +60,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </span>
                 <p class="chechup-disc">
                   ${threeTests}
-                  <span class="toggle-span d-none d-lg-inline-block" data-bs-toggle="offcanvas"
+                  <span class="toggle-span d-none d-lg-inline-block ms-2" data-bs-toggle="offcanvas"
                     data-bs-target="#newOffcanvasRight" aria-controls="newOffcanvasRight">
-                    Test + ${(data.totalTests) - 3} Tests <i class="fa-solid fa-angle-right"></i>
+                            ${(data.totalTests)}  Tests <i class="fa-solid fa-angle-right"></i>
                   </span>
   
                   <span class="toggle-span d-inline-block d-md-none" data-bs-toggle="offcanvas"
@@ -204,8 +204,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   
                     <ul class="px-5 li-pkg">
                       <li>${allTests[0]}</li>
-                      <li>${allTests[1]}</li>
-                      <li>${allTests[2]}</li>
+                      ${allTests.length >= 2 ? ` <li>${allTests[1]}</li>
+                      <li>${allTests[2]}</li>` : ""}
+                     
                       </span>
                       <span id="toggleMenu" class="toggle-span fw-bolder d-lg-block d-md-none d-sm-none d-none"
                         data-bs-toggle="offcanvas" data-bs-target="#newOffcanvasRight" aria-controls="newOffcanvasRight">

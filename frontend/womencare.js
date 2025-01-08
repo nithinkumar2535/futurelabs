@@ -1,4 +1,5 @@
 
+
 document.addEventListener("DOMContentLoaded", async function () {
   const tabList = document.getElementById("tabList");
   const urlParams = new URLSearchParams(window.location.search);
@@ -7,77 +8,84 @@ document.addEventListener("DOMContentLoaded", async function () {
   const rightOffcanvas = document.getElementById("offcanvasRight1")
   const bottomOffcanvas = document.getElementById("offcanvasBottom")
 
-  // Fetch checkups from the backend
- try {
-   await fetch(`${baseUrl}/api/v1/category/lessPrice/get`)
-     .then((response) => response.json())
-     .then((data) => {
-       const tabs = data.data;
-       tabs.forEach((tab, index) => {
-         const isActive = activeTabName ? tab.name === activeTabName : index === 0 ? "active" : "";
-         const tabItem = `
-         <div class="tab-item ${isActive}" data-name="${tab.name}">
-           <img src="${baseUrl}/${tab.imagePath}" alt="${tab.name}" />
-           <h4>${tab.name}</h4>
-         </div>
-         `;
- 
-         tabList.insertAdjacentHTML("beforeend", tabItem);
- 
- 
-         // Activate the correct tab
-   if (activeTabName) {
-     document.querySelectorAll(".tab-item").forEach((tabElement) => {
-       const tabName = tabElement.getAttribute("data-name");
-       if (tabName === activeTabName) {
-         tabElement.classList.add("active");
-         fetchTabContent(tabName);
-       }
-     });
-   } else if (tabs[0]) {
-     fetchTabContent(tabs[0].name);
-   }
- 
-         // Add click event listeners for each tab
-         document.querySelectorAll(".tab-item").forEach((tabElement) => {
-           tabElement.addEventListener("click", () => {
-             // Remove active class from all tabs
-             document.querySelectorAll(".tab-item").forEach((el) => el.classList.remove("active"));
-             // Add active class to the clicked tab
-             tabElement.classList.add("active");
- 
-             // Fetch and render content for the clicked tab
-             const tabName = tabElement.getAttribute("data-name");
+  try {
+    const [womenAgeData, womenCareData] = await Promise.all([
+      fetch(`${baseUrl}/api/v1/category/womenage/get`).then((res) => res.json()),
+      fetch(`${baseUrl}/api/v1/category/women/get`).then((res) => res.json()),
 
-              // Clear previous content and show loading
-              tabContent.innerHTML = ' <div style="display: flex; justify-content: center; height: 100vh; margin-top:100px;"> \
-              <div id="loadingSpinner" class="spinner-border text-primary" role="status"> \
-                <span class="visually-hidden">Loading...</span> \
-              </div> \
-            </div>';
-    
+    ])
+    console.log(womenAgeData, womenCareData);
 
-             fetchTabContent(tabName);
-           });
-         });
-       })
-      })
- } catch (error) {
-  console.error("Error fetching tabs:", error)
- }
-       
+    const womenData = [...womenAgeData.data, ...womenCareData.data]
+
+    renderWomenCareTab(womenData)
 
 
-      // Function to fetch and render tab content
-      async function fetchTabContent (tabName) {
-        tabContent.innerHTML = `
+  } catch (error) {
+    console.error("Error fetching API data", error)
+  }
+
+  function renderWomenCareTab(data) {
+    const tabs = data? data : []
+    tabs.forEach((tab, index) => {
+      const isActive = activeTabName ? tab.name === activeTabName : index === 0 ? "active" : "";
+      const tabItem = `
+        <div class="tab-item ${isActive}" data-name="${tab.name}">
+          <img src="${baseUrl}/${tab.imagePath}" alt="${tab.name}" />
+          <h4>${tab.name}</h4>
+        </div>
+        `;
+
+      tabList.insertAdjacentHTML("beforeend", tabItem);
+
+
+      // Activate the correct tab
+      if (activeTabName) {
+        document.querySelectorAll(".tab-item").forEach((tabElement) => {
+          const tabName = tabElement.getAttribute("data-name");
+          if (tabName === activeTabName) {
+            tabElement.classList.add("active");
+            fetchTabContent(tabName);
+          }
+        });
+      } else if (tabs[0]) {
+        fetchTabContent(tabs[0].name);
+      }
+
+      // Add click event listeners for each tab
+      document.querySelectorAll(".tab-item").forEach((tabElement) => {
+        tabElement.addEventListener("click", () => {
+          // Remove active class from all tabs
+          document.querySelectorAll(".tab-item").forEach((el) => el.classList.remove("active"));
+          // Add active class to the clicked tab
+          tabElement.classList.add("active");
+
+          // Fetch and render content for the clicked tab
+          const tabName = tabElement.getAttribute("data-name");
+          fetchTabContent(tabName);
+        });
+      });
+    })
+      .catch((error) => console.error("Error fetching tabs:", error));
+
+  }
+
+
+
+
+
+  // Function to fetch and render tab content
+  function fetchTabContent(tabName) {
+    tabContent.innerHTML = `
         <div style="display: flex; justify-content: center;  height: 100vh; margin-top:100px;">
           <div id="loadingSpinner" class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       `;
-        await fetch(`${baseUrl}/api/v1/tests/get/lessPrice/${encodeURIComponent(tabName)}`)
+    try {
+    
+      fetch(`${baseUrl}/api/v1/tests/women-tests/${encodeURIComponent(tabName)}`)
         .then((response) => {
           if(!response.ok) {
             console.log("no tests found");
@@ -86,93 +94,97 @@ document.addEventListener("DOMContentLoaded", async function () {
           }
           return response.json()
         })
-          .then((Data) => {
-            const data = Data? Data.data : []
+        .then((Data) => {
+         
+          const data = Data? Data.data : []
+        
+          
 
 
-            tabContent.innerHTML = `
-        <div class="container-fluid p-2">
-          <div class="row">
-          ${data.length === 0 ? (`<div> No tests available </div>`) : (data
-                .map(
-                  (test, index) => `
-              <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="checkup-cardmain">
-                  <div class="d-flex justify-content-between">
-                    <h2 class="checkup-card-h">${test.testName}</h2>
-                    <span class="checkup-cardprice text-end">
-                      ₹${test.offerPrice} <br /><del>₹${test.price}</del>
-                    </span>
-                  </div>
-                  <p class="checkup-card-disc">${test.description}</p>
-                  <span class="checkup-cardoff">${test.discountPercentage}% OFF</span>
-                 
+          tabContent.innerHTML = `
+         <div class="container-fluid p-2">
+           <div class="row">
+             ${data.length === 0 ? (`<div> No tests available </div>`) : (data
+              .map(
+                (test, index) => `
+               <div class="col-lg-4 col-md-6 col-sm-12">
+                 <div class="checkup-cardmain">
+                   <div class="d-flex justify-content-between">
+                     <h2 class="checkup-card-h">${test.testName}</h2>
+                     <span class="checkup-cardprice text-end">
+                       ₹${test.offerPrice} <br /><del>₹${test.price}</del>
+                     </span>
+                   </div>
+                   <p class="checkup-card-disc">${test.description}</p>
+                   <span class="checkup-cardoff">${test.discountPercentage}% OFF</span>
+                  
+ 
+ 
+ 
+             <div
+             class="checkup-cardmore d-lg-block d-md-none d-sm-none d-none"
+             data-bs-id="${test._id}"
+             data-index="${index}"
+             data-bs-toggle="offcanvas"
+             data-bs-target="#offcanvasRight1"
+             aria-controls="offcanvasRight1"
+           >
+             know more+ <i class="fa-solid fa-chevron-down"></i>
+           </div>
+ 
+           <div
+             class="checkup-cardmore d-lg-none d-md-block d-sm-block d-block"
+             data-bs-id="${test._id}"
+             data-index="${index}"
+             data-bs-toggle="offcanvas"
+             data-bs-target="#offcanvasBottom"
+             aria-controls="offcanvasBottom"
+           >
+             know more+ <i class="fa-solid fa-chevron-down"></i>
+           </div>
+ 
+           <div class="d-flex justify-content-between">
+             <div class="checkup-cardrta">
+               Report in <span class="checkup-hours">${test.reportTime}</span>
+             </div>
+                 <span class="add-check-up">
+                   Add
+                   <a href="product.html?id=${test._id}&category=${test.category}" class="checkup-cardadd">
+                     <i class="fa-solid fa-plus"></i>
+                   </a>
+                 </span>
+           </div>
+                 </div>
+               </div>
+             `
+              ))
+              .join("")}
+           </div>
+         </div>
+         `;
 
-
-
-            <div
-            class="checkup-cardmore d-lg-block d-md-none d-sm-none d-none"
-            data-bs-id="${test._id}"
-            data-index="${index}"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight1"
-            aria-controls="offcanvasRight1"
-          >
-            know more+ <i class="fa-solid fa-chevron-down"></i>
-          </div>
-
-          <div
-            class="checkup-cardmore d-lg-none d-md-block d-sm-block d-block"
-            data-bs-id="${test._id}"
-            data-index="${index}"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasBottom"
-            aria-controls="offcanvasBottom"
-          >
-            know more+ <i class="fa-solid fa-chevron-down"></i>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <div class="checkup-cardrta">
-              Report in <span class="checkup-hours">${test.reportTime}</span>
-            </div>
-                <span class="add-check-up">
-                  Add
-                  <a href="product.html?id=${test._id}&category=${test.category}" class="checkup-cardadd">
-                    <i class="fa-solid fa-plus"></i>
-                  </a>
-                </span>
-          </div>
-                </div>
-              </div>
-            `
-                ))
-                .join("")}
-          </div>
-        </div>
-        `;
-
-            // Add click event listeners to update the offcanvas dynamically
-            document.querySelectorAll(".checkup-cardmore").forEach((btn) => {
-              btn.addEventListener("click", (event) => {
-                const index = event.currentTarget.dataset.index;
-                const test = data[index];
-                updateOffcanvasContent(test);
-              });
+          // Add click event listeners to update the offcanvas dynamically
+          document.querySelectorAll(".checkup-cardmore").forEach((btn) => {
+            btn.addEventListener("click", (event) => {
+              const index = event.currentTarget.dataset.index;
+              const test = data[index];
+              updateOffcanvasContent(test);
             });
-
-
-          })
-          .catch((error) => {
-            tabContent.innerHTML = `<div>Error loading content. Please try again later.</div>`;
-            console.error("Error fetching tab content:", error);
           });
-      }
-
-      function updateOffcanvasContent(test) {
 
 
-        rightOffcanvas.innerHTML = `
+        })
+    } catch (error) {
+      tabContent.innerHTML = `<div>No tests available</div>`;
+      console.log("Error fetching tab content:", error);
+    }
+
+  }
+
+  function updateOffcanvasContent(test) {
+
+
+    rightOffcanvas.innerHTML = `
         <div class="offcanvas-header pkgmbl-header">
      <h5 class="offcanvas-title titleof-offcanvas" id="offcanvasRight1Label">
        Package Details
@@ -282,7 +294,7 @@ document.addEventListener("DOMContentLoaded", async function () {
      </div>
       </div>`
 
-        bottomOffcanvas.innerHTML = `
+    bottomOffcanvas.innerHTML = `
         <div class="offcanvas-header pkgmbl-header">
      <h5 class="offcanvas-title titleof-offcanvas" id="offcanvasBottomLabel">
        Package Details
@@ -392,10 +404,10 @@ document.addEventListener("DOMContentLoaded", async function () {
        </div>
      </div>
       </div>`
-      }
+  }
 
-    });
 
+});
 
 
 

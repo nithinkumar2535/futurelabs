@@ -1,5 +1,6 @@
 
-document.addEventListener("DOMContentLoaded", async function () {
+
+document.addEventListener("DOMContentLoaded", function () {
   const tabList = document.getElementById("tabList");
   const urlParams = new URLSearchParams(window.location.search);
   const activeTabName = urlParams.get("tab") || null;
@@ -8,68 +9,54 @@ document.addEventListener("DOMContentLoaded", async function () {
   const bottomOffcanvas = document.getElementById("offcanvasBottom")
 
   // Fetch checkups from the backend
- try {
-   await fetch(`${baseUrl}/api/v1/category/lessPrice/get`)
-     .then((response) => response.json())
-     .then((data) => {
-       const tabs = data.data;
-       tabs.forEach((tab, index) => {
-         const isActive = activeTabName ? tab.name === activeTabName : index === 0 ? "active" : "";
-         const tabItem = `
-         <div class="tab-item ${isActive}" data-name="${tab.name}">
-           <img src="${baseUrl}/${tab.imagePath}" alt="${tab.name}" />
-           <h4>${tab.name}</h4>
-         </div>
-         `;
- 
-         tabList.insertAdjacentHTML("beforeend", tabItem);
- 
- 
-         // Activate the correct tab
-   if (activeTabName) {
-     document.querySelectorAll(".tab-item").forEach((tabElement) => {
-       const tabName = tabElement.getAttribute("data-name");
-       if (tabName === activeTabName) {
-         tabElement.classList.add("active");
-         fetchTabContent(tabName);
-       }
-     });
-   } else if (tabs[0]) {
-     fetchTabContent(tabs[0].name);
-   }
- 
-         // Add click event listeners for each tab
-         document.querySelectorAll(".tab-item").forEach((tabElement) => {
-           tabElement.addEventListener("click", () => {
-             // Remove active class from all tabs
-             document.querySelectorAll(".tab-item").forEach((el) => el.classList.remove("active"));
-             // Add active class to the clicked tab
-             tabElement.classList.add("active");
- 
-             // Fetch and render content for the clicked tab
-             const tabName = tabElement.getAttribute("data-name");
+  fetch(`${baseUrl}/api/v1/category/lifestyle/get`)
+    .then((response) => response.json())
+    .then((data) => {
+      const tabs = data.data;
+      tabs.forEach((tab, index) => {
+        const isActive = activeTabName ? tab.name === activeTabName : index === 0 ? "active" : "";
+        const tabItem = `
+        <div class="tab-item ${isActive}" data-name="${tab.name}">
+          <img src="${baseUrl}/${tab.imagePath}" alt="${tab.name}" />
+          <h4>${tab.name}</h4>
+        </div>
+        `;
 
-              // Clear previous content and show loading
-              tabContent.innerHTML = ' <div style="display: flex; justify-content: center; height: 100vh; margin-top:100px;"> \
-              <div id="loadingSpinner" class="spinner-border text-primary" role="status"> \
-                <span class="visually-hidden">Loading...</span> \
-              </div> \
-            </div>';
-    
+        tabList.insertAdjacentHTML("beforeend", tabItem);
 
-             fetchTabContent(tabName);
-           });
-         });
-       })
+
+        // Activate the correct tab
+  if (activeTabName) {
+    document.querySelectorAll(".tab-item").forEach((tabElement) => {
+      const tabName = tabElement.getAttribute("data-name");
+      if (tabName === activeTabName) {
+        tabElement.classList.add("active");
+        fetchTabContent(tabName);
+      }
+    });
+  } else if (tabs[0]) {
+    fetchTabContent(tabs[0].name);
+  }
+
+        // Add click event listeners for each tab
+        document.querySelectorAll(".tab-item").forEach((tabElement) => {
+          tabElement.addEventListener("click", () => {
+            // Remove active class from all tabs
+            document.querySelectorAll(".tab-item").forEach((el) => el.classList.remove("active"));
+            // Add active class to the clicked tab
+            tabElement.classList.add("active");
+
+            // Fetch and render content for the clicked tab
+            const tabName = tabElement.getAttribute("data-name");
+            fetchTabContent(tabName);
+          });
+        });
       })
- } catch (error) {
-  console.error("Error fetching tabs:", error)
- }
-       
+        .catch((error) => console.error("Error fetching tabs:", error));
 
 
       // Function to fetch and render tab content
-      async function fetchTabContent (tabName) {
+      function fetchTabContent(tabName) {
         tabContent.innerHTML = `
         <div style="display: flex; justify-content: center;  height: 100vh; margin-top:100px;">
           <div id="loadingSpinner" class="spinner-border text-primary" role="status">
@@ -77,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           </div>
         </div>
       `;
-        await fetch(`${baseUrl}/api/v1/tests/get/lessPrice/${encodeURIComponent(tabName)}`)
+        fetch(`${baseUrl}/api/v1/tests/get/lifestyle/${encodeURIComponent(tabName)}`)
         .then((response) => {
           if(!response.ok) {
             console.log("no tests found");
@@ -395,7 +382,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
     });
-
+});
 
 
 

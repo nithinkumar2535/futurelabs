@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { addTest, deleteTest, editTest, fechAllTests, getRandomSixTestsByCategory, getSelectedPackages, getTestsByCategory, getTestsByCategoryAndSubcategory, getTestsById, updateSelection } from "../controllers/test.controller.js";
+import { addTest, deleteTest, editTest, fechAllTests, getMenTests, getRandomSixTestsByCategory, getSelectedPackages, getTestsByCategory, getTestsByCategoryAndSubcategory, getTestsById, getWomenTests, updateSelection } from "../controllers/test.controller.js";
 
 
 
@@ -12,10 +12,12 @@ router.route('/delete/:id').delete(verifyJWT, deleteTest)
 router.route('/get').get(fechAllTests)
 router.route('/get/:category/:subcategory').get(getTestsByCategoryAndSubcategory)
 router.route('/update/:id').patch(verifyJWT, updateSelection)
-router.route('/:category').get(getTestsByCategory)
+router.route('/category/:category').get(getTestsByCategory)
 router.route('/similar/:category').get(getRandomSixTestsByCategory)
 router.route('/selected/:category').get(getSelectedPackages)
 router.route('/get-test/:id').get(getTestsById)
+router.route('/women-tests/:subcategory').get(getWomenTests)
+router.route('/men-tests/:subcategory').get(getMenTests)
 
 
 export default router

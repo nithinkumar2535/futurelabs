@@ -14,7 +14,7 @@ function SpecialPackages() {
   const fetchTests = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/Special Care Packages`, { withCredentials: true });
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/category/Special Care Packages`, { withCredentials: true });
       setTests(response.data.data);
       console.log(response.data);
 

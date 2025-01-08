@@ -1,4 +1,5 @@
 import { TestModel } from "../models/test.model.js";
+import { WomenAge } from "../models/womenAge.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -164,6 +165,7 @@ const updateSelection = asyncHandler( async (req, res) => {
 
 const getTestsByCategory = asyncHandler(async (req, res) => {
     const { category } = req.params;
+    
 
     if (!category) {
         throw new ApiError(400, "Category is required");
@@ -175,7 +177,7 @@ const getTestsByCategory = asyncHandler(async (req, res) => {
     });
 
     if (!tests || tests.length === 0) {
-        throw new ApiError(404, "No tests found for the given category and subcategory");
+        throw new ApiError(404, "No tests found for the given category ");
     }
 
     return res
@@ -241,6 +243,55 @@ const getRandomSixTestsByCategory = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, tests, "Tests fetched successfully"));
 });
 
+const getWomenTests = asyncHandler (async (req, res) => {
+    const categories = ['womenage', 'women']
+    const {subcategory} = req.params
+
+    
+    const query = {
+        category: { $in: categories },
+    };
+
+    if(subcategory) {
+        query.subcategory = subcategory
+    }
+
+   
+    const tests = await TestModel.find(query);
+
+    
+    
+    // Handle case where no tests are found
+    if (!tests || tests.length === 0) {
+        throw new ApiError(404, "No tests found for the categories 'womenage' and 'women'");
+    }
+
+    // Respond with the fetched tests
+    return res
+        .status(200)
+        .json(new ApiResponse(200, tests, "Tests fetched successfully for 'womenage' and 'women' categories"));
+})
+
+const getMenTests = asyncHandler (async (req, res) => {
+    const categories = ['menage', 'men']
+    const {subcategory} = req.params
+
+
+    const query = {
+        category: { $in: categories },
+    };
+
+    if(subcategory) {
+        query.subcategory = subcategory
+    }
+   
+    const tests = await TestModel.find(query);
+
+    // Respond with the fetched tests
+    return res
+        .status(200)
+        .json(new ApiResponse(200, tests, "Tests fetched successfully for 'womenage' and 'women' categories"));
+})
 
 
 
@@ -258,5 +309,7 @@ export {
     getTestsByCategory,
     getSelectedPackages,
     getTestsById,
-    getRandomSixTestsByCategory
+    getRandomSixTestsByCategory,
+    getMenTests,
+    getWomenTests
 }

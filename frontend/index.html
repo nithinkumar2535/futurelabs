@@ -154,23 +154,17 @@
               </ul>
             </div>
           </div>
-          <div class="col-lg-5 col-md-4 col-sm-12 col-12 py-lg-3 py-md-2">
+          <div class="col-lg-5 col-md-4 col-sm-12 col-12 py-lg-3 py-md-2" >
             <div class="unique-search">
               <input
                 id="unique-search-input"
+                class="search-input"
                 placeholder="Search..."
                 type="text"
+                onkeyup="displayTestList()"
               />
               <button type="submit">Search</button>
-              <ul id="unique-dropdown-menu" class="unique-dropdown-menu p-0">
-                <li>Option 1</li>
-                <li>Option 2</li>
-                <li>Option 3</li>
-                <li>Option 4</li>
-                <li>Option 5</li>
-                <li>Option 6</li>
-                <li>Option 7</li>
-              </ul>
+              <div id="test-list"></div>
             </div>
           </div>
           <div
@@ -310,19 +304,13 @@ class="search-container container-fluid d-xxl-none d-xl-none d-md-none d-lg-none
 <div class="unique-search">
   <input
     id="unique-search-input-mobile"
+    class="search-input"
     placeholder="Search..."
     type="text"
+    onkeyup="searchTests()"
   />
   <button type="submit">Search</button>
-  <ul id="unique-dropdown-menu-mobile" class="unique-dropdown-menu p-0">
-    <li>Option 1</li>
-    <li>Option 2</li>
-    <li>Option 3</li>
-    <li>Option 4</li>
-    <li>Option 5</li>
-    <li>Option 6</li>
-    <li>Option 7</li>
-  </ul>
+ <div class="test-list"></div>
 </div>
 </div>
 
@@ -580,7 +568,7 @@ section-3 Special care packages-->
   <div class="container">
     <div class="new-bg d-flex justify-content-between">
       <h2 class="sec-1h text-start">Special Care Packages</h2>
-      <a class="view-all" href="#">View All</a>
+      <a class="view-all" href="special-care.html">View All</a>
     </div>
   </div>
 
@@ -970,7 +958,7 @@ section-13 -->
   <div class="container">
     <div class="new-bg d-flex justify-content-between">
       <h2 class="sec-1h text-start">Single Test Details</h2>
-      <a class="view-all" href="#">View All</a>
+      <a class="view-all" href="single-test.html">View All</a>
     </div>
   </div>
 
@@ -1250,534 +1238,25 @@ section-13 -->
 
 
     <!-- First right Offcanvas -->
-    <div
-      class="offcanvas offcanvas-end offcavas-desig1 d-lg-block d-md-none d-sm-none d-none"
-      tabindex="-1"
-      id="offcanvasRight1"
-      aria-labelledby="offcanvasRight1Label"
-    >
-      <div class="offcanvas-header pkgmbl-header">
-        <h5 class="offcanvas-title titleof-offcanvas" id="offcanvasRight1Label">
-          Package Details
-        </h5>
-        <button
-          type="button"
-          class="btn-close text-reset"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="container">
-          <h2 class="offcanvascheckup-card-h">
-            Full body checkups Full body checkups Full body checkups Full body
-            checkups
-          </h2>
-          <p>Includes 91 ParaMeters</p>
-          <a href="#" class="offcanvasbtn-offers">
-            <strong>79%off</strong> for a limited period</a
-          >
-          <a href="#" class="offcanvasbtn-cart"> Add To Cart</a>
-          <div class="offcanvas-homesmpl">
-            <img
-              src="images/delivery-doctor.png"
-              alt=""
-              class="offcanvas-homesmplimg"
-            />
-            <p class="offcanvas-homesmplp">Home Sample Collecton Available</p>
-          </div>
-          <div class="d-flex justify-content-center offcanvas-compare">
-            <i class="fa-solid fa-code-compare"></i>
-            <p>Compare With Similar Packages</p>
-          </div>
+ <div
+ class="offcanvas offcanvas-end offcavas-desig1 d-lg-block d-md-none d-sm-none d-none"
+ tabindex="-1"
+ id="offcanvasRight1"
+ aria-labelledby="offcanvasRight1Label"
+>
+ 
+</div>
 
-          <div class="offcavas-prdmain mt-4 py-3">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0">
-                  <div class="text-center align-content-center">
-                    <img
-                      src="images/icon-svg/product/sample.svg"
-                      class="svg-lab"
-                      alt=""
-                    />
-                    <h6 class="types">Sample Type</h6>
-                    <span class="smpl-type">Blood,Urine</span>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0">
-                  <div class="text-center align-content-center">
-                    <img
-                      src="images/icon-svg/product/feest.svg"
-                      class="svg-lab"
-                      alt=""
-                    />
-                    <h6 class="types">Fasting Required</h6>
-                    <span class="smpl-type">10-12 Hours</span>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0">
-                  <div class="text-center align-content-center">
-                    <img
-                      src="images/icon-svg/product/report.svg"
-                      class="svg-lab"
-                      alt=""
-                    />
-                    <h6 class="types">Report In</h6>
-                    <span class="smpl-type">15 Hours</span>
-                  </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-2 p-0">
-                  <div class="text-center align-content-center">
-                    <img
-                      src="images/icon-svg/product/feest.svg"
-                      class="svg-lab"
-                      alt=""
-                    />
-                    <h6 class="types">Tube Type</h6>
+<!-- Second Offcanvas positioned at the bottom -->
+<div
+ class="offcanvas offcanvas-bottom offcavas-desig2 d-lg-invisible d-md-visible d-sm-visible d-visible"
+ tabindex="-1"
+ id="offcanvasBottom"
+ aria-labelledby="offcanvasBottomLabel"
+>
 
-                    <span class="smpl-type">1Serum,Edta,Flouride,Urine</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="py-3">
-            <h2 class="offcanvas-question">What is it for?</h2>
-            <p class="offcanvas-answer">
-              It include many test that healp in the early diagnosis health
-              diseas of monitaor health
-            </p>
-          </div>
+</div>
 
-          <div class="d-flex gap-2">
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              role="img"
-              fill="none"
-              preserveAspectRatio="xMidYMid meet"
-              data-icon="back"
-              viewBox="0 0 22 20"
-              width="22"
-              height="23"
-              class="sc-f32db17d-0 sc-c1dcc9aa-0 kzlEmI hhQbhi sc-b9d72297-0 fBJtou"
-            >
-              <path
-                d="M19.0392 1H3C1.89543 1 1 1.89543 1 3V17C1 18.1046 1.89543 19 3 19H19.0392C20.1438 19 21.0392 18.1046 21.0392 17V3C21.0392 1.89543 20.1438 1 19.0392 1Z"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M14.3893 7.70223L11.0248 4.98802L7.65039 7.70223V1H14.3893V7.70223Z"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </svg>
-            <h5 class="pkg">Package Instructions</h5>
-          </div>
-          <ul class="age-ul">
-            <li><strong>Age Group:</strong> 13+ Years</li>
-          </ul>
-
-          <img class="adfor-product" src="images/banners/banner1.png" alt="" />
-        </div>
-        <div class="container my-4" style="height: auto">
-          <h2 class="included-h">Included Tests</h2>
-          <!-- Dropdown -->
-          <div>
-            <div
-              class="dropdown-header"
-              data-bs-toggle="collapse"
-              data-bs-target="#dropdownContent1"
-              id="dropdown1"
-            >
-              <div class="d-flex align-items-center">
-                <img
-                  class="drptst-icon"
-                  src="images/icon-svg/dropdown/liver (1).png"
-                  alt="Icon"
-                />
-                <h5>Liver Functin Test (12)</h5>
-              </div>
-              <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon1"></i>
-            </div>
-            <ul
-              id="dropdownContent1"
-              class="collapse dropdown-content dropdown-ul"
-            >
-              <li>Fasting Blood Sugar (FBS) Test</li>
-              <li>Chloride (Cl) Test</li>
-              <li>HbA1c (Glycosylated Hemoglobin) Test</li>
-              <li>Serum Sodium (Na) Test</li>
-              <li>Average Blood Glucose</li>
-              <h5 class="pt-3">Lipid Profile Test</h5>
-              <li>LDL Cholesterol Direct Test</li>
-              <li>HDL Cholesterol Test</li>
-              <li>Total Cholesterol Test</li>
-              <li>Triglycerides Test</li>
-            </ul>
-          </div>
-
-          <!-- Dropdown 2 -->
-          <div>
-            <div
-              class="dropdown-header"
-              data-bs-toggle="collapse"
-              data-bs-target="#dropdownContent2"
-              id="dropdown2"
-            >
-              <div class="d-flex align-items-center">
-                <img
-                  class="drptst-icon"
-                  src="images/icon-svg/dropdown/liver (1).png"
-                  alt="Icon"
-                />
-                <h5>Liver Functin Test (12)</h5>
-              </div>
-              <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon2"></i>
-            </div>
-            <ul
-              id="dropdownContent2"
-              class="collapse dropdown-content dropdown-ul"
-            >
-              <li>Fasting Blood Sugar (FBS) Test</li>
-              <li>Chloride (Cl) Test</li>
-              <li>HbA1c (Glycosylated Hemoglobin) Test</li>
-              <li>Serum Sodium (Na) Test</li>
-              <li>Average Blood Glucose</li>
-            </ul>
-          </div>
-
-          <!-- Dropdown 3 -->
-          <div>
-            <div
-              class="dropdown-header"
-              data-bs-toggle="collapse"
-              data-bs-target="#dropdownContent3"
-              id="dropdown3"
-            >
-              <div class="d-flex align-items-center">
-                <img
-                  class="drptst-icon"
-                  src="images/icon-svg/dropdown/liver (1).png"
-                  alt="Icon"
-                />
-                <h5>Package Details</h5>
-              </div>
-              <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon3"></i>
-            </div>
-            <ul
-              id="dropdownContent3"
-              class="collapse dropdown-content dropdown-ul"
-            >
-              <li>Fasting Blood Sugar (FBS) Test</li>
-              <li>Chloride (Cl) Test</li>
-              <li>HbA1c (Glycosylated Hemoglobin) Test</li>
-              <li>Serum Sodium (Na) Test</li>
-              <li>Average Blood Glucose</li>
-            </ul>
-          </div>
-          <!-- Dropdown 4 -->
-          <div>
-            <div
-              class="dropdown-header"
-              data-bs-toggle="collapse"
-              data-bs-target="#dropdownContent4"
-              id="dropdown4"
-            >
-              <div class="d-flex align-items-center">
-                <img
-                  class="drptst-icon"
-                  src="images/icon-svg/dropdown/liver (1).png"
-                  alt="Icon"
-                />
-                <h5>Liver Functin Test (12)</h5>
-              </div>
-              <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon3"></i>
-            </div>
-            <ul
-              id="dropdownContent4"
-              class="collapse dropdown-content dropdown-ul"
-            >
-              <li>Fasting Blood Sugar (FBS) Test</li>
-              <li>Chloride (Cl) Test</li>
-              <li>HbA1c (Glycosylated Hemoglobin) Test</li>
-              <li>Serum Sodium (Na) Test</li>
-              <li>Average Blood Glucose</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Second Offcanvas positioned at the bottom -->
-    <div
-      class="offcanvas offcanvas-bottom offcavas-desig2 d-lg-invisible d-md-visible d-sm-visible d-visible"
-      tabindex="-1"
-      id="offcanvasBottom"
-      aria-labelledby="offcanvasBottomLabel"
-    >
-      <div class="offcanvas-header pkgmbl-header">
-        <h5 class="offcanvas-title titleof-offcanvas" id="offcanvasBottomLabel">
-          Package Details
-        </h5>
-        <button
-          type="button"
-          class="btn-close text-reset"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="container">
-          <h2 class="offcanvascheckup-card-h">
-            Full body checkups Full body checkups Full body checkups Full body
-            checkups
-          </h2>
-          <p>Includes 91 ParaMeters</p>
-          <a href="#" class="offcanvasbtn-offers">
-            <strong>79%off</strong> for a limited period</a
-          >
-          <a href="#" class="offcanvasbtn-cart"> Add To Cart</a>
-          <div class="offcanvas-homesmpl">
-            <img
-              src="images/delivery-doctor.png"
-              alt=""
-              class="offcanvas-homesmplimg"
-            />
-            <p class="offcanvas-homesmplp">Home Sample Collecton Available</p>
-          </div>
-          <div class="d-flex justify-content-center offcanvas-compare">
-            <i class="fa-solid fa-code-compare"></i>
-            <p>Compare With Similar Packages</p>
-          </div>
-
-          <div class="offcavas-prdmain mt-4 py-3">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-6 p-0">
-                  <div class="text-center align-content-center">
-                    <img
-                      src="images/icon-svg/product/sample.svg"
-                      class="svg-lab"
-                      alt=""
-                    />
-                    <h6 class="types">Sample Type</h6>
-                    <span class="smpl-type">Blood,Urine</span>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-6 p-0">
-                  <div class="text-center align-content-center">
-                    <img
-                      src="images/icon-svg/product/feest.svg"
-                      class="svg-lab"
-                      alt=""
-                    />
-                    <h6 class="types">Fasting Required</h6>
-                    <span class="smpl-type">10-12 Hours</span>
-                  </div>
-                </div>
-                <div
-                  class="col-lg-4 col-md-4 col-sm-6 col-6 mt-lg-0 mt-md-0 mt-sm-2 mt-2 p-0"
-                >
-                  <div class="text-center align-content-center">
-                    <img
-                      src="images/icon-svg/product/report.svg"
-                      class="svg-lab"
-                      alt=""
-                    />
-                    <h6 class="types">Report In</h6>
-                    <span class="smpl-type">15 Hours</span>
-                  </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-6 col-6 mt-2 p-0">
-                  <div class="text-center align-content-center">
-                    <img
-                      src="images/icon-svg/product/feest.svg"
-                      class="svg-lab"
-                      alt=""
-                    />
-                    <h6 class="types">Tube Type</h6>
-
-                    <span class="smpl-type">1Serum,Edta,Flouride,Urine</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="py-3">
-            <h2 class="offcanvas-question">What is it for?</h2>
-            <p class="offcanvas-answer">
-              It include many test that healp in the early diagnosis health
-              diseas of monitaor health
-            </p>
-          </div>
-
-          <div class="d-flex gap-2">
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              role="img"
-              fill="none"
-              preserveAspectRatio="xMidYMid meet"
-              data-icon="back"
-              viewBox="0 0 22 20"
-              width="22"
-              height="23"
-              class="sc-f32db17d-0 sc-c1dcc9aa-0 kzlEmI hhQbhi sc-b9d72297-0 fBJtou"
-            >
-              <path
-                d="M19.0392 1H3C1.89543 1 1 1.89543 1 3V17C1 18.1046 1.89543 19 3 19H19.0392C20.1438 19 21.0392 18.1046 21.0392 17V3C21.0392 1.89543 20.1438 1 19.0392 1Z"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M14.3893 7.70223L11.0248 4.98802L7.65039 7.70223V1H14.3893V7.70223Z"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </svg>
-            <h5 class="pkg">Package Instructions</h5>
-          </div>
-          <ul class="age-ul">
-            <li><strong>Age Group:</strong> 13+ Years</li>
-          </ul>
-
-          <img class="adfor-product" src="images/banners/banner1.png" alt="" />
-        </div>
-        <div class="container my-4" style="height: auto">
-          <h2 class="included-h">Included Tests</h2>
-          <!-- Dropdown -->
-          <div>
-            <div
-              class="dropdown-header"
-              data-bs-toggle="collapse"
-              data-bs-target="#dropdownContent1"
-              id="dropdown1"
-            >
-              <div class="d-flex align-items-center">
-                <img
-                  class="drptst-icon"
-                  src="images/icon-svg/dropdown/liver (1).png"
-                  alt="Icon"
-                />
-                <h5>Liver Functin Test (12)</h5>
-              </div>
-              <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon1"></i>
-            </div>
-            <ul
-              id="dropdownContent1"
-              class="collapse dropdown-content dropdown-ul"
-            >
-              <li>Fasting Blood Sugar (FBS) Test</li>
-              <li>Chloride (Cl) Test</li>
-              <li>HbA1c (Glycosylated Hemoglobin) Test</li>
-              <li>Serum Sodium (Na) Test</li>
-              <li>Average Blood Glucose</li>
-              <h5 class="pt-3">Lipid Profile Test</h5>
-              <li>LDL Cholesterol Direct Test</li>
-              <li>HDL Cholesterol Test</li>
-              <li>Total Cholesterol Test</li>
-              <li>Triglycerides Test</li>
-            </ul>
-          </div>
-
-          <!-- Dropdown 2 -->
-          <div>
-            <div
-              class="dropdown-header"
-              data-bs-toggle="collapse"
-              data-bs-target="#dropdownContent2"
-              id="dropdown2"
-            >
-              <div class="d-flex align-items-center">
-                <img
-                  class="drptst-icon"
-                  src="images/icon-svg/dropdown/liver (1).png"
-                  alt="Icon"
-                />
-                <h5>Liver Functin Test (12)</h5>
-              </div>
-              <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon2"></i>
-            </div>
-            <ul
-              id="dropdownContent2"
-              class="collapse dropdown-content dropdown-ul"
-            >
-              <li>Fasting Blood Sugar (FBS) Test</li>
-              <li>Chloride (Cl) Test</li>
-              <li>HbA1c (Glycosylated Hemoglobin) Test</li>
-              <li>Serum Sodium (Na) Test</li>
-              <li>Average Blood Glucose</li>
-            </ul>
-          </div>
-
-          <!-- Dropdown 3 -->
-          <div>
-            <div
-              class="dropdown-header"
-              data-bs-toggle="collapse"
-              data-bs-target="#dropdownContent3"
-              id="dropdown3"
-            >
-              <div class="d-flex align-items-center">
-                <img
-                  class="drptst-icon"
-                  src="images/icon-svg/dropdown/liver (1).png"
-                  alt="Icon"
-                />
-                <h5>Package Details</h5>
-              </div>
-              <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon3"></i>
-            </div>
-            <ul
-              id="dropdownContent3"
-              class="collapse dropdown-content dropdown-ul"
-            >
-              <li>Fasting Blood Sugar (FBS) Test</li>
-              <li>Chloride (Cl) Test</li>
-              <li>HbA1c (Glycosylated Hemoglobin) Test</li>
-              <li>Serum Sodium (Na) Test</li>
-              <li>Average Blood Glucose</li>
-            </ul>
-          </div>
-          <!-- Dropdown 4 -->
-          <div>
-            <div
-              class="dropdown-header"
-              data-bs-toggle="collapse"
-              data-bs-target="#dropdownContent4"
-              id="dropdown4"
-            >
-              <div class="d-flex align-items-center">
-                <img
-                  class="drptst-icon"
-                  src="images/icon-svg/dropdown/liver (1).png"
-                  alt="Icon"
-                />
-                <h5>Liver Functin Test (12)</h5>
-              </div>
-              <i class="fa-solid fa-chevron-down drp-dwnicon" id="icon3"></i>
-            </div>
-            <ul
-              id="dropdownContent4"
-              class="collapse dropdown-content dropdown-ul"
-            >
-              <li>Fasting Blood Sugar (FBS) Test</li>
-              <li>Chloride (Cl) Test</li>
-              <li>HbA1c (Glycosylated Hemoglobin) Test</li>
-              <li>Serum Sodium (Na) Test</li>
-              <li>Average Blood Glucose</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
 
 
     <!-- bootrap -->
@@ -1884,7 +1363,8 @@ $(document).ready(function () {
       });
 
     </script>
-     <script src="frontPage.js" defer></script>
+    <script src="config.js" ></script>
+     <script src="frontPage.js" defer ></script>
      <script src="location.js"></script>
      <script src="login.js"></script>
      <script src="prescription.js"></script>

@@ -22,6 +22,11 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
+<style>
+    body{
+    overflow-x: hidden !important;
+  }
+</style>
 
     <script>
       //mobile header scroll
@@ -48,12 +53,9 @@
       }
     });
 </script>
-
-
   </head>
 
   <body>
-
     <header class="d-none d-sm-block">
       <div class="container-fluid bg-light ">
         <div class="row">
@@ -302,7 +304,6 @@ class="search-container container-fluid d-xxl-none d-xl-none d-md-none d-lg-none
   
   
   
-  
       <!-- scrool-btn -->
       <button id="scrollBtn" onclick="scrollToTop()">
         <i class="fa-solid fa-angle-up"></i>
@@ -449,17 +450,13 @@ login modal-->
 
 
 
-    
-
     <section class="py-lg-5 py-md-4 py-sm-3 py-2">
       <div class="headlinenew-sec d-flex justify-content-between my-2">
-        <h2 class=" text-center">
-          Women Care
-         </h2>
+        <h2 class="text-ce">Special Care Packages</h2>
       </div>
-      <div class="scrollable-tabs" id="tabList"></div>
       <div class="tab-content" id="tabContent"></div>
     </section>
+    
 
 
 
@@ -709,29 +706,29 @@ login modal-->
 
 
 
+ <!-- First right Offcanvas -->
+ <div
+ class="offcanvas offcanvas-end offcavas-desig1 d-lg-block d-md-none d-sm-none d-none"
+ tabindex="-1"
+ id="offcanvasRight1"
+ aria-labelledby="offcanvasRight1Label"
+>
+ 
+</div>
+
+<!-- Second Offcanvas positioned at the bottom -->
+<div
+ class="offcanvas offcanvas-bottom offcavas-desig2 d-lg-invisible d-md-visible d-sm-visible d-visible"
+ tabindex="-1"
+ id="offcanvasBottom"
+ aria-labelledby="offcanvasBottomLabel"
+>
+
+</div>
 
 
 
 
-   <!-- First right Offcanvas -->
-   <div
-   class="offcanvas offcanvas-end offcavas-desig1 d-lg-block d-md-none d-sm-none d-none"
-   tabindex="-1"
-   id="offcanvasRight1"
-   aria-labelledby="offcanvasRight1Label"
-  >
-   
-  </div>
-  
-  <!-- Second Offcanvas positioned at the bottom -->
-  <div
-   class="offcanvas offcanvas-bottom offcavas-desig2 d-lg-invisible d-md-visible d-sm-visible d-visible"
-   tabindex="-1"
-   id="offcanvasBottom"
-   aria-labelledby="offcanvasBottomLabel"
-  >
-  
-  </div>
 
 
 
@@ -788,7 +785,7 @@ login modal-->
 
 
      /* tabs */
-      const tabList = document.getElementById("tabList");
+     /*  const tabList = document.getElementById("tabList");
       let isMouseDown = false,
         startX,
         scrollLeft;
@@ -811,9 +808,9 @@ login modal-->
       tabList.addEventListener("touchmove", onDrag);
       tabList.addEventListener("mouseup", () => (isMouseDown = false));
       tabList.addEventListener("touchend", () => (isMouseDown = false));
-      tabList.addEventListener("mouseleave", () => (isMouseDown = false));
+      tabList.addEventListener("mouseleave", () => (isMouseDown = false)); */
 
-      document.querySelectorAll(".tab-item").forEach((tab) => {
+     /*  document.querySelectorAll(".tab-item").forEach((tab) => {
         tab.addEventListener("click", () => {
           document
             .querySelectorAll(".tab-item")
@@ -826,7 +823,7 @@ login modal-->
             tab.getAttribute("data-target")
           ).style.display = "block";
         });
-      });
+      }); */
 
 
 
@@ -839,10 +836,15 @@ login modal-->
 
 
 
-      
 
 
- /* search */
+
+
+
+
+
+
+       /* search */
       // Desktop
       const uniqueSearchInput = document.getElementById("unique-search-input");
       const uniqueDropdownMenu = document.getElementById(
@@ -891,8 +893,9 @@ login modal-->
           uniqueDropdownMenuMobile.classList.remove("show");
         }
       });
+
     </script>
     <script src="config.js"></script>
-    <script src="womencare.js"></script>
+    <script src="special-care.js" defer></script>
   </body>
 </html>

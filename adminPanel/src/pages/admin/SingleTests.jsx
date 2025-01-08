@@ -14,7 +14,7 @@ function SingleTests() {
   const fetchTests = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/Single Test`, { withCredentials: true });
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/category/Single Test`, { withCredentials: true });
       setTests(response.data.data);
       console.log(response.data);
 
