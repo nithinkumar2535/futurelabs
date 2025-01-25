@@ -55,8 +55,7 @@
 
 <body>
 
-
-  <header class="d-none d-sm-block">
+  <header class="d-xxl-block d-xl-block d-md-block d-lg-block d-sm-none d-xs-none d-none">
     <div class="container-fluid bg-light ">
       <div class="row">
         <div class="col-lg-4 col-md-5 col-sm-12 col-12 d-flex gap-lg-3 gap-md-1">
@@ -102,33 +101,26 @@
         </div>
         <div class="col-lg-5 col-md-4 col-sm-12 col-12 py-lg-3 py-md-2">
           <div class="unique-search">
-            <input id="unique-search-input" placeholder="Search..." type="text" />
+            <input id="unique-search-input" class="search-input" placeholder="Search..." type="text"
+              autocomplete="off" />
             <button type="submit">Search</button>
-            <ul id="unique-dropdown-menu" class="unique-dropdown-menu p-0">
-              <li>Option 1</li>
-              <li>Option 2</li>
-              <li>Option 3</li>
-              <li>Option 4</li>
-              <li>Option 5</li>
-              <li>Option 6</li>
-              <li>Option 7</li>
-            </ul>
+            <div id="suggestions" class="suggestions-container"></div>
           </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-12 text-end pt-lg-3 pt-md-3 pt-sm-2 pt-2">
-          <a href="#" class="offer-btn">
+          <a href="package.html" class="offer-btn">
             <img src="images/icon-svg/offer.svg" class="offers" alt="" />
           </a>
           <!-- Cart button with tooltip and badge -->
-          <a href="cart.html" class="cart">
+          <a href="cart.html" class="cart cart-button" id="cart-button-desktop" style="display: none;">
             <img src="images/icon-svg/cart.svg" class="offers" alt="" />
 
             <!-- Cart Badge with number -->
-            <span class="cart-badge">5</span>
+            <span class="cart-badge" id="cart-badge-desktop">0</span>
           </a>
           <!-- login -->
-          <button class="login-button text-center" data-bs-toggle="collapse" data-bs-target="#sidebar"
-            aria-expanded="false" aria-controls="sidebar">
+          <button class="login-button text-center" id="login-button-desktop" data-bs-toggle="collapse"
+            data-bs-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
             <img src="images/icon-svg/login.svg" class="login-icon" alt="" />
             Login
           </button>
@@ -138,10 +130,6 @@
 
 
   </header>
-
-
-
-
 
   <!-- mobile header-->
   <div class="logo-container d-xxl-none d-xl-none d-md-none d-lg-none d-sm-block d-xs-block d-block">
@@ -167,7 +155,7 @@
 
             <ul class="dropdown-menu drp-location p-2 text-center" aria-labelledby="dropdownMenuButton">
               <li>
-                <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="current-l">
+                <button class="current-l">
                   <i class="fa-solid fa-location-crosshairs"></i> Use Current
                   Location
                 </button>
@@ -191,15 +179,16 @@
         </div>
         <div class="col-4 p-0 text-end">
           <!-- Cart button with tooltip and badge -->
-          <a href="cart.html" class="cart">
+          <a href="cart.html" class="cart" id="cart-button-mobile" style="display: none;">
             <img src="images/icon-svg/cart.svg" class="offers" alt="" />
 
             <!-- Cart Badge with number -->
-            <span class="cart-badge">5</span>
+            <span class="cart-badge" id="cart-badge-mobile">0</span>
           </a>
           <!-- login -->
-          <button class="login-button text-center" data-bs-toggle="collapse" data-bs-target="#sidebar"
-            aria-expanded="false" aria-controls="sidebar">
+
+          <button class="login-button text-center" id="login-button-mobile" data-bs-toggle="collapse"
+            data-bs-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
             <img src="images/icon-svg/login.svg" class="login-icon" alt="" />
             Login
           </button>
@@ -210,24 +199,11 @@
 
   <div class="search-container container-fluid d-xxl-none d-xl-none d-md-none d-lg-none d-sm-block d-xs-block d-block">
     <div class="unique-search">
-      <input id="unique-search-input-mobile" placeholder="Search..." type="text" />
+      <input id="unique-search-input-mobile" class="search-input" placeholder="Search..." type="text" />
       <button type="submit">Search</button>
-      <ul id="unique-dropdown-menu-mobile" class="unique-dropdown-menu p-0">
-        <li>Option 1</li>
-        <li>Option 2</li>
-        <li>Option 3</li>
-        <li>Option 4</li>
-        <li>Option 5</li>
-        <li>Option 6</li>
-        <li>Option 7</li>
-      </ul>
+      <div id="suggestions-mobile" class="suggestions-container"></div>
     </div>
   </div>
-
-
-
-
-
 
 
 
@@ -239,8 +215,6 @@
   <button id="scrollBtn" onclick="scrollToTop()">
     <i class="fa-solid fa-angle-up"></i>
   </button>
-
-
 
   <!-- Modal pincode-->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -266,8 +240,8 @@
               </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-              <!--    <p class="pincode-invalid">Invalid Pincode</p> -->
-              <p class="pincode-valid">valid Pincode</p>
+              <p class="pincode-invalid"></p>
+
             </div>
           </div>
 
@@ -283,48 +257,67 @@
     </div>
   </div>
 
-  <!-- 
-login modal-->
+  <!-- login modal-->
 
   <div class="collapse" id="sidebar">
     <div class="d-flex flex-column">
+      <!-- Sidebar Header -->
       <div class="container-fluid lgn d-flex flex-column">
-        <button class="btn btn-light align-self-end mb-3" type="button" data-bs-toggle="collapse"
+        <button class="btn login-back align-self-end mb-3" type="button" data-bs-toggle="collapse"
           data-bs-target="#sidebar" aria-expanded="true">
           <i class="fas fa-times"></i>
         </button>
         <h4 class="login-headline">Quick Login / Register</h4>
       </div>
 
-      <form class="form_container">
+      <!-- Phone Number Form -->
+      <form class="form_container" id="phone-form">
         <div class="input_container">
-          <input placeholder="Enter your phone number" title="Inpit title" name="input-name" type="text"
-            class="input_field" id="email_field" />
+          <input placeholder="Enter your phone number" title="Input title" name="input-name" type="text"
+            class="input_field" id="phone_field" />
         </div>
-
+        <small id="phone-error" class="text-danger"></small>
         <button title="Sign In" type="submit" class="sign-in_btn">
-          <span>Log In</span>
+          Send OTP
         </button>
       </form>
 
-      <form class="otp-Form">
+      <!-- OTP Form -->
+      <form class="otp-Form" id="otp-form" style="display:none;">
         <span class="mainHeading">Enter OTP</span>
         <p class="otpSubheading">
           We have sent a verification code to your mobile number
         </p>
+
         <div class="inputContainer">
-          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input1" />
-          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input2" />
-          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input3" />
-          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input4" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input1" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input2" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input3" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input4" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input5" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input6" />
         </div>
-        <button class="verifyButton" type="submit">Verify</button>
+        <small id="otp-error" class="text-danger"></small>
+
+
+
+
+        <button class="verifyButton mt-1" type="submit">Verify</button>
 
         <p class="resendNote">
           Didn't receive the code?
-          <button class="resendBtn">Resend Code</button>
+          <button class="resendBtn" type="button" id="resend-btn">
+
+            Resend Code
+          </button>
+        </p>
+        <p>
+          <a href="javascript:void(0)" id="change-number" class="resendNote">Change Number</a>
         </p>
       </form>
+
+      <!-- Success/Error Message Container -->
+      <div id="message-container" class="text-center mt-3"></div>
     </div>
   </div>
 
@@ -355,9 +348,9 @@ login modal-->
 
 
           <div id="test-card">
-           
+
           </div>
-          
+
 
 
 
@@ -371,11 +364,8 @@ login modal-->
             <h3 class="testimonial_areah">Similar Health Packages</h3>
             <div class="container">
               <div class="row">
-                <div class="col-md-12">
-                  <div class="testmonial_slider_area owl-carousel" id="testimonial-card">
-
-
-                  </div>
+                <div class="col-md-12 similar-cards">
+                  
                 </div>
               </div>
             </div>
@@ -478,9 +468,9 @@ login modal-->
 
                 <!-- Additional Toggle 1 -->
                 <div class="description-section" id="overview-note">
-                 
 
-                 
+
+
                 </div>
               </ul>
 
@@ -516,8 +506,8 @@ login modal-->
 
                 <!-- Additional Toggle 2 -->
                 <div class="description-section" id="risk-note">
-                 
-                 
+
+
                 </div>
               </ul>
             </div>
@@ -990,8 +980,8 @@ login modal-->
             </div>
 
 
-            <div class="container py-5">
-              <img class="img-quick" src="images/banners/banner1.png" alt="">
+            <div class="container py-5" id="banner">
+
             </div>
 
 
@@ -1009,7 +999,7 @@ login modal-->
   </section>
 
   <!-- footer -->
-  <div class="container-fluid p-0" id="footer">
+  <div class="container-fluid p-0 d-lg-block d-md-none d-sm-none d-none" id="footer">
     <footer class="text-center text-lg-start text-white">
       <!-- Grid container -->
       <div class="container py-5">
@@ -1018,8 +1008,13 @@ login modal-->
           <!--Grid column-->
           <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
             <div class="d-flex justify-content-center">
-              <img class="ft-logo-1" src="image/logo/ft-logo.svg" alt="" loading="lazy" />
-              <img class="ft-logo-2" src="image/logo/futurelab-main logo.svg" alt="" loading="lazy" />
+        <a href="index.html">      <img
+                class="ft-logo-1"
+                src="images/logo/ft-logo.svg"
+                alt=""
+                loading="lazy"
+              />
+        </a>
             </div>
 
             <p class="ft-p py-4">
@@ -1039,10 +1034,10 @@ login modal-->
                 <a href="index.html" class="text-white">Home</a>
               </li>
               <li class="mb-2">
-                <a href="index.html#about" class="text-white">About</a>
+                <a href="#about" class="text-white">About</a>
               </li>
               <li class="mb-2">
-                <a href="index.html#footer" class="text-white">Contact</a>
+                <a href="#footer" class="text-white">Contact</a>
               </li>
               <li class="mb-2">
                 <a href="privacy-policy.html" class="text-white">Privacy Policy</a>
@@ -1102,30 +1097,36 @@ login modal-->
                 </p>
               </li>
               <li>
-                <a class="text-light" href="tel:08123459263"><i class="fas fa-phone pe-2"></i>081234 59263</a>
+                <a class="text-light" href="tel:08123459263"
+                  ><i class="fas fa-phone pe-2"></i>081234 59263</a
+                >
               </li>
               <li>
                 <a class="text-light" href="mailto:info@futurelabs.live">
-                  <i class="fas fa-envelope pe-2 mb-0"></i>info@futurelabs.live
+                  <i class="fas fa-envelope pe-2 mb-0"></i
+                  >info@futurelabs.live
                 </a>
               </li>
               <li class="pt-5">
                 <h4>Stay Updated!</h4>
                 <p>
-                  Subscribe to our WhatsApp Community for expert health tips, exclusive offers, and real-time updates on
-                  your lab test bookings.
+                  Subscribe to our WhatsApp Community for expert health tips, exclusive offers, and real-time updates on your lab test bookings.
                 </p>
                 <form class="form-whatsapp">
                   <div>
-                    <input placeholder="Enter whatsapp number" type="phonenumber" name="whatsappnumber"
-                      id="whatsappnumber" />
+                    <input
+                      placeholder="Enter whatsapp number"
+                      type="phonenumber"
+                      name="whatsappnumber"
+                      id="whatsappnumber"
+                    />
                     <button type="submit">Subscribe</button>
                   </div>
-
-
-
-
-              </li>
+           
+          
+        
+             
+            </li>
             </ul>
           </div>
           <!--Grid column-->
@@ -1135,15 +1136,21 @@ login modal-->
       <div class="container pb-5">
         <hr />
 
-        <a class="text-white fw-bolder " href="https://futurelabs.live">futurelab.live</a>
+        <a class="text-white fw-bolder " href="https://futurelabs.live"
+          >futurelab.live</a
+        >
         <br />
-        © 2024 All rights reserved.
+        <h6 class="copy-right">Copyright © 2024 All Rights Reserved. <br> Design By <a  href="https://admizzer.com/">admizzer. com</a></h6>
+
       </div>
 
       <!-- Grid container -->
 
       <!-- Copyright -->
-      <div class="container text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      <div
+        class="container text-center p-3"
+        style="background-color: rgba(0, 0, 0, 0.2)"
+      >
         <p class="disclaimer">
           Disclaimer: Future Labs provides diagnostic test booking services
           only. The results are for informational purposes and should not
@@ -1156,54 +1163,97 @@ login modal-->
     </footer>
   </div>
 
+<!-- mobilefooter -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- First right Offcanvas -->
-    <div
-      class="offcanvas offcanvas-end offcavas-desig1 d-lg-block d-md-none d-sm-none d-none"
-      tabindex="-1"
-      id="offcanvasRight1"
-      aria-labelledby="offcanvasRight1Label"
-    >
-      
+<footer class="mobile-footer container-fluid d-lg-none d-md-block d-sm-block d-block">
+  <div class="row text-center">
+    <div class="col-2">
+      <a href="index.html" class="active" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.95-8.95a1.125 1.125 0 011.6 0L21.75 12M4.5 9.75V20a1.125 1.125 0 001.125 1.125h4.125V17.25c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125A1.125 1.125 0 0020.25 20V9.75M8.25 21h7.5" />
+        </svg>
+        <span>Home</span>
+      </a>
     </div>
-
-    <!-- Second Offcanvas positioned at the bottom -->
-    <div
-      class="offcanvas offcanvas-bottom offcavas-desig2 d-lg-invisible d-md-visible d-sm-visible d-visible"
-      tabindex="-1"
-      id="offcanvasBottom"
-      aria-labelledby="offcanvasBottomLabel"
-    >
-     
+    <div class="col-3">
+      <a  href="package.html"  aria-label="Home">
+        <svg class="offr-moblie" fill="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" style="enable-background:new 0 0 100 100;" xml:space="preserve"><path d="M50,88.75c-2.755,0-4.656-2.1-6.334-3.953c-0.735-0.813-1.847-2.041-2.404-2.19c-0.629-0.151-2.197,0.334-3.345,0.701  c-2.338,0.747-4.988,1.589-7.301,0.251c-2.339-1.353-2.931-4.094-3.452-6.511c-0.25-1.16-0.593-2.747-1.029-3.184  c-0.436-0.435-2.024-0.779-3.184-1.028c-2.418-0.522-5.159-1.113-6.514-3.455c-1.337-2.312-0.492-4.961,0.255-7.297  c0.366-1.147,0.867-2.717,0.699-3.345c-0.149-0.559-1.377-1.67-2.19-2.407C13.35,54.656,11.25,52.754,11.25,50  s2.1-4.656,3.953-6.333c0.813-0.737,2.041-1.848,2.189-2.405c0.168-0.63-0.332-2.2-0.698-3.345c-0.746-2.339-1.592-4.988-0.253-7.3  c1.353-2.339,4.093-2.932,6.511-3.455c1.16-0.249,2.748-0.593,3.184-1.028c0.436-0.437,0.779-2.024,1.03-3.186  c0.521-2.417,1.113-5.159,3.456-6.511c2.307-1.338,4.957-0.488,7.297,0.254c1.147,0.369,2.714,0.862,3.344,0.701  c0.557-0.149,1.667-1.377,2.404-2.19C45.343,13.35,47.245,11.25,50,11.25s4.656,2.1,6.334,3.953c0.735,0.813,1.847,2.041,2.404,2.19  c0.634,0.164,2.198-0.332,3.345-0.701c2.339-0.747,4.987-1.589,7.301-0.251c2.339,1.353,2.931,4.094,3.452,6.511  c0.25,1.16,0.593,2.747,1.029,3.184c0.436,0.435,2.024,0.779,3.184,1.028c2.418,0.522,5.159,1.113,6.514,3.455  c1.337,2.312,0.492,4.961-0.255,7.297c-0.366,1.147-0.867,2.717-0.699,3.345c0.149,0.559,1.377,1.67,2.19,2.407  C86.65,45.344,88.75,47.246,88.75,50s-2.1,4.656-3.953,6.333c-0.813,0.737-2.041,1.848-2.189,2.405  c-0.168,0.63,0.332,2.2,0.698,3.345c0.746,2.339,1.592,4.988,0.253,7.3c-1.353,2.339-4.093,2.932-6.511,3.455  c-1.16,0.249-2.748,0.593-3.184,1.028c-0.436,0.437-0.779,2.024-1.03,3.186c-0.521,2.417-1.113,5.159-3.456,6.511  c-2.306,1.338-4.958,0.491-7.297-0.254c-1.146-0.366-2.711-0.854-3.344-0.701c-0.557,0.149-1.667,1.377-2.404,2.19  C54.657,86.65,52.755,88.75,50,88.75z M40.973,77.581c0.532,0,1.061,0.059,1.58,0.198c1.982,0.53,3.424,2.122,4.819,3.662  c0.731,0.808,2.091,2.31,2.628,2.31s1.897-1.501,2.628-2.31c1.394-1.541,2.837-3.132,4.818-3.662  c2.047-0.544,4.227,0.151,6.156,0.767c0.98,0.312,2.804,0.894,3.279,0.686c0.427-0.278,0.859-2.275,1.067-3.237  c0.444-2.058,0.905-4.187,2.382-5.664s3.605-1.936,5.664-2.38c0.961-0.208,2.961-0.64,3.239-1.072  c0.208-0.466-0.375-2.292-0.688-3.274c-0.615-1.926-1.313-4.111-0.765-6.157c0.529-1.98,2.122-3.423,3.663-4.819  c0.807-0.73,2.308-2.09,2.308-2.627s-1.501-1.897-2.308-2.627c-1.542-1.396-3.135-2.839-3.665-4.822  c-0.547-2.043,0.151-4.229,0.767-6.157c0.314-0.979,0.896-2.805,0.687-3.276c-0.272-0.427-2.275-0.859-3.237-1.067  c-2.058-0.444-4.187-0.903-5.664-2.38s-1.936-3.606-2.38-5.664c-0.209-0.962-0.641-2.964-1.072-3.24  c-0.466-0.2-2.292,0.378-3.274,0.688c-1.926,0.615-4.116,1.313-6.156,0.767c-1.982-0.53-3.424-2.122-4.819-3.662  c-0.731-0.808-2.091-2.31-2.628-2.31s-1.897,1.501-2.628,2.31c-1.394,1.541-2.837,3.132-4.818,3.662  c-2.046,0.549-4.229-0.151-6.156-0.767c-0.979-0.31-2.802-0.884-3.279-0.686c-0.427,0.278-0.859,2.275-1.067,3.237  c-0.444,2.058-0.905,4.187-2.382,5.664s-3.605,1.936-5.664,2.38c-0.961,0.208-2.961,0.64-3.239,1.072  c-0.208,0.466,0.375,2.292,0.688,3.274c0.615,1.926,1.313,4.111,0.765,6.157c-0.529,1.98-2.122,3.423-3.663,4.819  c-0.807,0.73-2.308,2.09-2.308,2.627s1.501,1.897,2.308,2.627c1.542,1.396,3.135,2.839,3.665,4.822  c0.547,2.043-0.151,4.229-0.767,6.157c-0.314,0.979-0.896,2.805-0.687,3.276c0.272,0.427,2.275,0.859,3.237,1.067  c2.058,0.444,4.187,0.903,5.664,2.38s1.936,3.606,2.38,5.664c0.209,0.962,0.641,2.964,1.072,3.24  c0.477,0.203,2.292-0.376,3.274-0.688C37.833,78.086,39.414,77.581,40.973,77.581z M38.51,65.027l26.516-26.519  c0.977-0.977,0.977-2.559,0-3.535s-2.559-0.977-3.535,0L34.974,61.492c-0.977,0.977-0.977,2.559,0,3.535  c0.488,0.488,1.128,0.732,1.768,0.732S38.021,65.515,38.51,65.027z M40,47.5c-4.136,0-7.5-3.364-7.5-7.5s3.364-7.5,7.5-7.5  s7.5,3.364,7.5,7.5S44.136,47.5,40,47.5z M40,37.5c-1.378,0-2.5,1.121-2.5,2.5s1.122,2.5,2.5,2.5s2.5-1.121,2.5-2.5  S41.378,37.5,40,37.5z M60,67.5c-4.136,0-7.5-3.364-7.5-7.5s3.364-7.5,7.5-7.5s7.5,3.364,7.5,7.5S64.136,67.5,60,67.5z M60,57.5  c-1.378,0-2.5,1.121-2.5,2.5s1.122,2.5,2.5,2.5s2.5-1.121,2.5-2.5S61.378,57.5,60,57.5z"/></svg>
+           <span>Offers</span>
+      </a>
     </div>
+    <div class="col-2">
+      <a href="tel:08123459263">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+        </svg>
+        
+        </svg>
+        <span>Call</span>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="https://wa.me/+918123459263">
+        <svg fill="white" class="wts-mblie" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 64 80" style="enable-background:new 0 0 64 64;" xml:space="preserve"><g><path d="M57.4,25.4C55,16.2,47.6,8.8,38.3,6.5C29,4.2,18.9,7.2,12.5,14.4c-7.9,8.8-8.9,22-2.5,32c-0.5,3.6-0.9,7.2-1.4,10.8   c-0.2,1.3,1.4,2.2,2.5,1.9c3.5-1,7.1-1.9,10.6-2.9c9.5,3.9,20.5,2.1,28.1-4.9C56.9,44.8,59.8,34.6,57.4,25.4z M50.4,44.7   c-6,8.8-17.8,12.1-27.5,7.7c0,0,0,0-0.1,0c-0.4-0.2-0.9-0.3-1.5-0.2c-2.8,0.8-5.6,1.5-8.4,2.3c0.3-2.4,0.6-4.7,0.9-7.1   c0.1-0.8,0.3-1.7-0.1-2.5c-0.3-0.5-0.7-1-1-1.6c-0.7-1.2-1.3-2.5-1.8-3.8c-1.6-4.6-1.7-9.7-0.2-14.3c2.6-8.1,10-14.2,18.4-15.2   C37.8,8.8,46.5,13,51,20.3C55.6,27.8,55.3,37.4,50.4,44.7z"/><path d="M45.9,35.3l-4.5-3.5c-1.4-1.1-3.3-0.9-4.5,0.3l-1.3,1.3c-1-0.6-1.9-1.3-2.8-2.1c-0.8-0.8-1.5-1.8-2.1-2.8l1.3-1.3   c1.2-1.2,1.3-3.1,0.3-4.5l-3.5-4.6c-0.7-1-1.8-1.6-3-1.6c-1.2-0.1-2.4,0.4-3.2,1.2l-3.9,3.9c-2.2,2.2-2.7,5.6-1.3,8.4   c1.9,3.6,4.3,6.8,7.1,9.6c2.8,2.8,6.1,5.2,9.6,7.1c1.1,0.6,2.2,0.8,3.3,0.8c1.8,0,3.7-0.7,5-2.1l3.9-3.9c0.8-0.8,1.3-2,1.2-3.2   C47.5,37.1,46.9,36,45.9,35.3z M43.5,38.7l-3.9,3.9c-1,1-2.5,1.2-3.7,0.6c-3.2-1.7-6.1-3.8-8.7-6.4c-2.6-2.6-4.7-5.5-6.4-8.7   c-0.6-1.2-0.4-2.7,0.6-3.7l3.9-3.9c0,0,0,0,0.1,0c0,0,0,0,0,0c0.1,0,0.1,0,0.1,0.1l3.2,4.2L27.4,26c-1,1-1.3,2.6-0.6,3.9   c0.8,1.6,1.9,3,3.1,4.2c1.2,1.2,2.6,2.3,4.2,3.1c1.3,0.7,2.8,0.4,3.8-0.6l1.4-1.4l4.1,3.2c0,0,0.1,0,0.1,0.1   C43.5,38.6,43.5,38.7,43.5,38.7z"/></g></svg>
+                   <span>WhatsApp</span>
+      </a>
+    </div>
+    <div class="col-2">
+      <a href="#" data-bs-toggle="collapse"
+      data-bs-target="#sidebar"
+      aria-expanded="false"
+      aria-controls="sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
+        
+        <span>Profile</span>
+      </a>
+    </div>
+    
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- First right Offcanvas -->
+  <div class="offcanvas offcanvas-end offcavas-desig1 d-lg-block d-md-none d-sm-none d-none" tabindex="-1"
+    id="offcanvasRight1" aria-labelledby="offcanvasRight1Label">
+
+  </div>
+
+  <!-- Second Offcanvas positioned at the bottom -->
+  <div class="offcanvas offcanvas-bottom offcavas-desig2 d-lg-invisible d-md-visible d-sm-visible d-visible"
+    tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+
+  </div>
 
 
 
@@ -1214,14 +1264,27 @@ login modal-->
   <!-- First custom right Offcanvas -->
   <div class="offcanvas    offcavas-desig1 offcanvas-end custom-offcanvas-right d-lg-block d-md-none d-sm-none d-none"
     tabindex="-1" id="newOffcanvasRight" aria-labelledby="newOffcanvasRightLabel">
-   
+
   </div>
 
   <!-- Second custom Offcanvas positioned at the bottom -->
   <div
     class="offcanvas offcanvas-bottom custom-offcanvas-bottom    offcavas-desig2  d-lg-invisible d-md-visible d-sm-visible d-visible"
     tabindex="-1" id="newOffcanvasBottom" aria-labelledby="newOffcanvasBottomLabel">
-    
+
+  </div>
+
+   <!-- bootstrap toast-->
+   <div class="toast" id="loginToast" style="position: absolute; bottom: 20px; right: 20px; max-width: 300px;" data-delay="3000">
+    <div class="toast-body">
+      You have logged in successfully!
+    </div>
+  </div>
+
+  <div class="toast" id="logoutToast" style="position: absolute; bottom: 20px; right: 20px; max-width: 300px;" data-delay="3000">
+    <div class="toast-body">
+      You have logged out successfully!
+    </div>
   </div>
 
 
@@ -1239,42 +1302,22 @@ login modal-->
 
 
 
-
-
+  <script src="config.js" defer></script>
+  <script src="checkAuth.js" defer></script>
+  <script src="product.js" defer></script>
+  <script src="location.js" defer></script>
+  <script src="search.js" defer></script>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
   <!-- banner -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
   <script>
-    /* owl */
-    $(".testmonial_slider_area").owlCarousel({
-      autoplay: true,
-      slideSpeed: 1000,
-      items: 3,
-      loop: true,
-      nav: true,
-      navText: [
-        '<span class="fa fa-arrow-left"></span>',
-        '<span class="fa fa-arrow-right"></span>',
-      ],
-      margin: 30,
-      dots: true,
-      responsive: {
-        320: {
-          items: 1,
-        },
-        600: {
-          items: 2,
-        },
-        1000: {
-          items: 3,
-        },
-      },
-    });
+   
 
 
     // test
@@ -1421,58 +1464,9 @@ login modal-->
 
 
 
-    /* search */
-    // Desktop
-    const uniqueSearchInput = document.getElementById("unique-search-input");
-    const uniqueDropdownMenu = document.getElementById(
-      "unique-dropdown-menu"
-    );
-
-    // Mobile
-    const uniqueSearchInputMobile = document.getElementById(
-      "unique-search-input-mobile"
-    );
-    const uniqueDropdownMenuMobile = document.getElementById(
-      "unique-dropdown-menu-mobile"
-    );
-
-    // Desktop functionality
-    uniqueSearchInput.addEventListener("focus", () => {
-      uniqueDropdownMenu.classList.add("show");
-    });
-
-    uniqueSearchInput.addEventListener("blur", () => {
-      setTimeout(() => uniqueDropdownMenu.classList.remove("show"), 200);
-    });
-
-    uniqueDropdownMenu.addEventListener("click", (event) => {
-      if (event.target.tagName === "LI") {
-        uniqueSearchInput.value = event.target.textContent;
-        uniqueDropdownMenu.classList.remove("show");
-      }
-    });
-
-    // Mobile functionality
-    uniqueSearchInputMobile.addEventListener("focus", () => {
-      uniqueDropdownMenuMobile.classList.add("show");
-    });
-
-    uniqueSearchInputMobile.addEventListener("blur", () => {
-      setTimeout(
-        () => uniqueDropdownMenuMobile.classList.remove("show"),
-        200
-      );
-    });
-
-    uniqueDropdownMenuMobile.addEventListener("click", (event) => {
-      if (event.target.tagName === "LI") {
-        uniqueSearchInputMobile.value = event.target.textContent;
-        uniqueDropdownMenuMobile.classList.remove("show");
-      }
-    });
+    
   </script>
-  <script src="config.js"></script>
-  <script src="product.js" defer></script>
+
 </body>
 
 </html>

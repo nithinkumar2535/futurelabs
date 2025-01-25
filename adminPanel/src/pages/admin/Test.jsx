@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { Textarea } from "@/components/ui/textarea";
 
 const initialFormState = {
@@ -41,7 +41,7 @@ function LabTests() {
 
 
 
-  console.log(formData);
+
 
   const [singleTest, setSingleTest] = useState({ name: "", category: "" });
 
@@ -380,72 +380,81 @@ function LabTests() {
           <option value="men">Men Packages</option>
           <option value="lifestyle">Life Style Health Checkups</option>
           <option value="Single Test">Single Test</option>
+          <option value="Exclusive">Exclusive Packages</option>
           
           
         </select>
       </div>
 
-
-      {searchedProducts && searchedProducts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 md:gap-10">
-          {searchedProducts.map((product) => (
-            <div
-              key={product._id}
-              className="bg-white rounded-lg cursor-pointer transition duration-300 ease-in-out shadow-lg border-2 border-gray-200 hover:border-green-200 p-4"
-            >
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-row gap-3 p-4">
-                  <div className="flex flex-col gap-2">
-                    <h1
-                      className="font-bold text-black text-lg transition duration-300"
-                    >
-                      {product.testName}
-                    </h1>
-                    <span className="bg-cover bg-no-repeat bg-center bg-[url('a7a056f5.svg')] px-4 py-1 text-red-600 font-semibold text-sm">
-                      {product.discountPercentage} % OFF
-                    </span>
-                  </div>
-                </div>
-
-                <div className="text-sm text-gray-700 font-semibold px-4">
-                  <span className="inline-block bg-gray-200 text-gray-800 px-2 py-1 rounded-full mr-2">
-                    Category: {product.category}
-                  </span>
-                  {product.subcategory && <span className="inline-block bg-gray-200 text-gray-800 px-2 py-1 rounded-full">
-                    Subcategory: {product.subcategory}
-                  </span>
-                  }
-                </div>
-
-                <div className="flex justify-between items-center px-4 mt-2">
-                  <div className="flex flex-col">
-                    <span className="font-bold text-lg text-green-700">
-                      ₹{product.offerPrice}
-                    </span>
-                    <del className="text-gray-500">₹{product.price}</del>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => openEditDialog(product)}
-                      className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      onClick={() => deleteLabTest(product._id)}
-                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      {loading ? (<div className="flex justify-center items-center">
+        <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
+      </div>
       ) : (
-        <p className="m-5 text-center text-gray-700">No tests found</p>
+        searchedProducts && searchedProducts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 md:gap-10">
+            {searchedProducts.map((product) => (
+              <Link to={`/admin/tests/${product._id}`}>
+                <div
+                  key={product._id}
+                  className="bg-white rounded-lg cursor-pointer transition duration-300 ease-in-out shadow-lg border-2 border-gray-200 hover:border-green-200 p-4"
+                >
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-row gap-3 p-4">
+                      <div className="flex flex-col gap-2">
+                        <h1
+                          className="font-bold text-black text-lg transition duration-300"
+                        >
+                          {product.testName}
+                        </h1>
+                        <span className="bg-cover bg-no-repeat bg-center bg-[url('a7a056f5.svg')] px-4 py-1 text-red-600 font-semibold text-sm">
+                          {product.discountPercentage} % OFF
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="text-sm text-gray-700 font-semibold px-4">
+                      <span className="inline-block bg-gray-200 text-gray-800 px-2 py-1 rounded-full mr-2">
+                        Category: {product.category}
+                      </span>
+                      {product.subcategory && <span className="inline-block bg-gray-200 text-gray-800 px-2 py-1 rounded-full">
+                        Subcategory: {product.subcategory}
+                      </span>
+                      }
+                    </div>
+
+                    <div className="flex justify-between items-center px-4 mt-2">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-lg text-green-700">
+                          ₹{product.offerPrice}
+                        </span>
+                        <del className="text-gray-500">₹{product.price}</del>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={() => openEditDialog(product)}
+                          className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          onClick={() => deleteLabTest(product._id)}
+                          className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+             
+            ))}
+          </div>
+        ) : (
+          <p className="m-5 text-center text-gray-700">No tests found</p>
+        )
       )}
+      
 
 
 
@@ -482,6 +491,7 @@ function LabTests() {
                 <option value="men">Men Packages</option>
                 <option value="lifestyle">Life Style Health Checkups</option>
                 <option value="Single Test">Single Test</option>
+                <option value="Exclusive">Exclusive Packages</option>
               </select>
               {errors.category && <p className="mt-1 text-sm text-red-600">{errors.category}</p>}
             </div>

@@ -20,6 +20,18 @@ function MenuItems({ setOpen }) {
 
   const adminSidebarMenuItems = [
     {
+      id: "orders",
+      label: "Orders",
+      path: "/admin/orders",
+      icon: <LayoutDashboard />,
+    },
+    {
+      id: "users",
+      label: "Users",
+      path: "/admin/users",
+      icon: <LayoutDashboard />,
+    },
+    {
       id: "Tests",
       label: "Tests",
       path: "/admin",
@@ -185,29 +197,36 @@ function AdminSidebar({open, setOpen}) {
   const navigate = useNavigate()
   return (
     <Fragment>
+      {/* Sliding Sidebar (For smaller screens) */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="left" className="w-64">
-          <div className="flex flex-col h-full">
+          <div onClick={() => navigate("/admin/orders")} className="flex flex-col h-full">
             <SheetHeader className="border-b">
-              <SheetTitle className="flex gap-2 mt-3 ">
+              <SheetTitle className="flex gap-2 mt-3">
                 <ChartNoAxesCombined size={30} />
-                <h1 className="text-2xl font-extrabold">Admin Panel</h1>
+                <img src="/ft-logo.svg" alt="AdminPanel" />
               </SheetTitle>
             </SheetHeader>
-            <MenuItems setOpen={setOpen}/>
+            <div className="flex-1 overflow-y-auto">
+              <MenuItems setOpen={setOpen} />
+            </div>
           </div>
         </SheetContent>
       </Sheet>
 
-      <aside className="hidden w-64 flex-col border-r bg-background p-6 lg:flex ">
+      {/* Fixed Sidebar (For larger screens) */}
+      <aside className="hidden w-64 flex-col border-r bg-background p-6 lg:flex">
         <div
-          onClick={() => navigate("/admin/dashboard")}
+          onClick={() => navigate("/admin/orders")}
           className="flex items-center gap-2"
         >
           <ChartNoAxesCombined size={30} />
-          <h1 className="text-2xl font-extrabold">Admin Panel</h1>
+          <img src="/ft-logo.svg" alt="AdminPanel" />
         </div>
-        <MenuItems />
+        {/* Add scrolling to the menu */}
+        <div className="flex-1 overflow-y-auto mt-4">
+          <MenuItems />
+        </div>
       </aside>
     </Fragment>
   );

@@ -16,6 +16,7 @@ const userSchema = new Schema({
     address: [{
         type: String
     }],
+    lastLogin: { type: Date },
     refreshToken: {
         type: String
     }
@@ -28,7 +29,6 @@ userSchema.methods.generateAccessToken = function(){
     //short lived access token
     return jwt.sign({
         _id: this._id,
-        phone: this.phone,
       },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }

@@ -17,6 +17,31 @@
 
 }
 
+
+.suggestions-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  z-index: 1000;
+  display: none;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+
+
+
 a{
     text-decoration: none !important;
     
@@ -361,7 +386,14 @@ padding: 5px;
     width: 18px !important;
   }
   }
+  .login-back{
+    background-color: white !important;
 
+  }
+  .login-back:hover{
+    background-color: #ffffff9e !important;
+    
+  }
 
 
   /*  cart */
@@ -517,13 +549,6 @@ padding: 5px;
   }
 
 
-
-  .lgn {
-
-    background-color: #77d8ce;
-    padding: 15px;
-    border-radius: 5px;
-  }
 
 
 
@@ -922,7 +947,9 @@ padding: 5px;
       text-align: center;
       margin-top: 20px;
     }
-
+.owl-dots span{
+  display: none !important;
+}
     .owl-dot {
       height: 13px;
       width: 13px;
@@ -970,7 +997,7 @@ padding: 5px;
 
 /* form prescription */
 
-    
+/*     
 .priscription-form label {
   font-family: "Poppins", serif;
   font-weight: 500;
@@ -1018,7 +1045,56 @@ border-radius: 20px;
 margin-top: 30px ;
 margin-bottom: 20px;
 }
+ */
 
+    
+ #prescriptionForm label ,.prescription-label{
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: normal;
+  text-decoration: none;
+
+  font-size: clamp(10px, 1.3vw, 30px);
+}
+#prescriptionForm input[type="tel"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #007c6f;
+  border-radius: 2px;
+}
+.prescription {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(15px, 1.7vw, 30px) !important;
+  color: #000000;
+}
+.prescription-submit {
+  padding: 7px 25px;
+  background: #5CC3B1;
+
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all ease-in-out 0.3s;
+}
+.prescription-submit:hover {
+  background: #c0f2ea;
+
+  color: #209380;
+  border: none;
+}
+
+.new-bg{
+  background: linear-gradient(to right, #eef9fc, #a0e0d330, #eef9fc);
+padding: 4px 8px;
+width: 100%;
+border-radius: 20px;
+margin-top: 30px ;
+margin-bottom: 20px;
+}
 
 
 
@@ -1120,7 +1196,7 @@ height: 150px;
   
   }
   .test-card {
-    height: min-content;
+    height:  145px;
     padding: 6px;
   }
 }
@@ -1337,11 +1413,11 @@ height: 76px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease !important;
 }
 
 .prd-cardo:hover {
-  transform: scale(1.2 );
+  transform: scale(1.2 ) !important;
   opacity: 1 !important;
 }
 
@@ -1352,8 +1428,8 @@ height: 76px;
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-between;
-  width: 440px;
-  z-index: 100;
+  width: 490px;
+  z-index: 0;
 }
 
 .prdnav-btn {
@@ -1795,10 +1871,18 @@ section9 */
 .sec9-container{
   background-color: #007C6F;
   border-radius: 26px;
-  padding: 5px;
+  padding:5px 5px 0px 5px;
 
 
 }
+@media  (max-width: 576px) {
+  .sec9-container{
+ 
+    padding:5px 10px 0px 10px;
+  
+  }
+  }
+
 
 .se9-img{
   height: auto;
@@ -2211,7 +2295,7 @@ margin-bottom: 2px;
 }
 }
 /* section13*/
-.newcard-main {
+/* .newcard-main {
   width: fit-content;
   background-color: #fefefe;
   border-radius: 20px;
@@ -2266,7 +2350,7 @@ margin-bottom: 2px;
   max-width: 100%;
   width: 100%;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit the title to 2 lines */
+  -webkit-line-clamp: 3; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2343,10 +2427,241 @@ margin-bottom: 2px;
   font-style: normal;
   font-weight: 400;
 }
-
-/* section3 */
+ */
 
 /* Carousel */
+.prd-carouse-m {
+  max-width: 100%;
+  margin: auto;
+  position: relative;
+}
+
+.new-cardo {
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.new-cardo:hover {
+  transform: scale(1.1);
+
+  opacity: 1 !important;
+}
+
+.newcardcustom-nav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-between;
+  width: 550px;
+  z-index: 100;
+}
+
+.newcardnav-btn {
+  border: none;
+  font-size: clamp(15px, 1.6vw, 30px);
+  color: #008e98;
+  cursor: pointer;
+  background-color: #ffff;
+  box-shadow: #77737338 0px 1px 20px 8px;
+  border-radius: 8px;
+  padding: 2px 9px;
+}
+
+.newcardnav-btn:hover {
+  color: #007c6f;
+}
+@media (max-width: 768px) {
+  .newcardcustom-nav {
+    width: 300px;
+  }
+  .newcard-svg {
+    width: 48px !important;
+  }
+  .newcard-title {
+    height: 60px;
+  }
+  .newcard-titlemain {
+    padding: 0 10px 15px 10px;
+  }
+
+  .newcard-content {
+    padding: 25px 15px;
+  }
+  .new-cardo {
+    margin: 50px 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .newcardcustom-nav {
+    width: 100%;
+    padding: 0 3px;
+  }
+
+  .newcard-main {
+    width: 280px;
+  }
+  .newcard-title {
+    height: 60px;
+  }
+}
+
+/* section13*/
+.newcard-main {
+  width: fit-content;
+  background-color: #fefefe;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  height: auto;
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: #afb7b785 0px 8px 13px 0px;
+}
+.newcard-titlemain {
+  background: linear-gradient(135deg, #007c6f, #005b52, #0a4148);
+
+  border-radius: 20px;
+  padding: 0 25px 35px 25px;
+  color: white;
+  box-shadow: #1b3c539e 0px 8px 13px 0px;
+}
+.newcard-test {
+  background: white;
+  width: 100px;
+  font-weight: 700;
+  padding: 8px 0;
+  color: #005b52;
+  border-radius: 0px 0px 10px 10px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-size: clamp(10px, 0.8vw, 25px);
+}
+.newcard-offer {
+  background-color: #07af7b;
+  font-size: clamp(10px, 1vw, 25px);
+  border-radius: 3px;
+  text-align: center;
+  color: white;
+}
+.newcard-title {
+  padding: 20px 0;
+  text-align: left;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(12px, 1vw, 25px);
+  color: rgb(255, 255, 255);
+  font-optical-sizing: auto;
+  font-weight: 700;
+  height: 76px;
+  max-width: 100%;
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit the title to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.newcard-svg {
+  height: auto;
+  max-width: 100%;
+  width: 60px !important;
+}
+.newcard-content {
+  padding: 45px 20px;
+}
+.view-newcard {
+  width: 100%;
+  text-align: center;
+
+  border: 2px solid #77d8ce;
+  color: #007c6f;
+  font-weight: 600;
+  font-size: clamp(10px, 1.2vw, 22px);
+  font-family: "Poppins", serif;
+  display: block;
+  font-style: normal;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-decoration: none;
+  border-radius: 15px;
+  transition: all ease-in-out 0.5s;
+}
+.view-newcard:hover {
+  color: black;
+
+  transition: all ease-in-out 0.5s;
+  background: linear-gradient(1deg, #dcfffc, #ffffff, #ffffff);
+  border: 2px solid #77d8ce;
+  box-shadow: 1px 0px 8px 1px #77d8ce51;
+}
+.cart-newcard {
+  width: 100%;
+  text-align: center;
+
+  background-color: #03a370;
+  color: #fff;
+  font-weight: 600;
+  font-size: clamp(10px, 1.2vw, 22px);
+  font-family: "Poppins", serif;
+  display: block;
+  font-style: normal;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-decoration: none;
+  border-radius: 15px;
+  transition: all ease-in-out 0.5s;
+}
+.cart-newcard:hover {
+  background-color: #04ba81dd;
+  color: #fff;
+  transition: all ease-in-out 0.5s;
+}
+.newcard-price {
+  font-size: clamp(12px, 1.2vw, 25px);
+}
+.newcard-price del {
+  color: rgba(255, 255, 255, 0.708);
+  font-weight: 400 !important;
+}
+.rt-newcard h5 {
+  font-size: clamp(11px, 1.1vw, 25px);
+  font-family: "Poppins", serif;
+  display: block;
+  font-style: normal;
+  font-weight: 600;
+}
+.rt-newcard h6 {
+  font-size: clamp(9px, 1vw, 20px);
+  font-family: "Poppins", serif;
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Carousel *//* 
 .prd-carouse-m {
   max-width: 100%;
   margin: auto;
@@ -2430,7 +2745,7 @@ margin-bottom: 2px;
     height: 60px;
   }
 }
-/* Owl carousel settings */
+
 .owl-carousel .item {
   display: flex;
   justify-content: center;
@@ -2442,7 +2757,7 @@ margin-bottom: 2px;
   justify-content: center;
 }
 
-
+ */
 /* 
 sectionlast banner */
 .last-banner{

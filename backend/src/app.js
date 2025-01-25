@@ -46,6 +46,7 @@ import LPMTRouter from './routes/LPMT.route.js'
 import menPackageRouter from './routes/menPackage.route.js'
 import organTestRouter from './routes/oraganTests.route.js'
 import womenTestRouter from './routes/women.route.js'
+import orderRouter from './routes/orders.router.js'
 
 
 // routes
@@ -64,6 +65,7 @@ app.use('/api/v1/category/lifestyle', lifestyleRouter)
 app.use('/api/v1/category/men', menPackageRouter)
 app.use('/api/v1/category/organ', organTestRouter)
 app.use('/api/v1/category/women', womenTestRouter)
+app.use('/api/v1/orders', orderRouter)
 
 
 export { app } 

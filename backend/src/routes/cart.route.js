@@ -6,11 +6,11 @@ import { addToCart, clearCart, getCartItems, removeItem, updateItemQuantity } fr
 
 const router = Router()
 
-router.route('/add').post(verifyJWT, addToCart)
-router.route('/').get(verifyJWT, getCartItems)
-router.route('/:productId').delete(verifyJWT, removeItem)
-router.route('/:productId').put(verifyJWT, updateItemQuantity)
-router.route('/delete').delete(verifyJWT, clearCart)
+router.route('/add').post(addToCart)
+router.route('/get/:userId').get(getCartItems)
+router.route('/remove-item').delete(removeItem)
+router.route('/update').put(updateItemQuantity)
+router.route('/delete/:id').delete(clearCart)
 
 
 

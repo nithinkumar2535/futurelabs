@@ -1,1 +1,1 @@
-const baseUrl = "https://api.futurelabs24.com"
+const baseUrl = "https://futurelab-etvr.onrender.com"

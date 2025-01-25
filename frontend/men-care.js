@@ -8,181 +8,198 @@ document.addEventListener("DOMContentLoaded", async function () {
   const rightOffcanvas = document.getElementById("offcanvasRight1")
   const bottomOffcanvas = document.getElementById("offcanvasBottom")
 
- try {
-   const [menAgeData, menCareData ] = await Promise.all([
-     fetch(`${baseUrl}/api/v1/category/menage/get`).then((res) => res.json()),
-     fetch(`${baseUrl}/api/v1/category/men/get`).then((res) => res.json()),
-     
-   ])
-   
-   const menData = [...menAgeData.data, ...menCareData.data]
-   
-   renderMenCareTab(menData)
+  try {
 
- } catch (error) {
-    console.error("Error fetching API data ", error)
- }
-  
-
-  function renderMenCareTab (data) {
-    const tabs = data ? data : []
-      tabs.forEach((tab, index) => {
-        const isActive = activeTabName ? tab.name === activeTabName : index === 0 ? "active" : "";
-        const tabItem = `
-        <div class="tab-item ${isActive}" data-name="${tab.name}">
-          <img src="${baseUrl}/${tab.imagePath}" alt="${tab.name}" />
-          <h4>${tab.name}</h4>
-        </div>
-        `;
-
-        tabList.insertAdjacentHTML("beforeend", tabItem);
-
-
-        // Activate the correct tab
-  if (activeTabName) {
-    document.querySelectorAll(".tab-item").forEach((tabElement) => {
-      const tabName = tabElement.getAttribute("data-name");
-      if (tabName === activeTabName) {
-        tabElement.classList.add("active");
-        fetchTabContent(tabName);
-      }
-    });
-  } else if (tabs[0]) {
-    fetchTabContent(tabs[0].name);
-  }
-
-        // Add click event listeners for each tab
-        document.querySelectorAll(".tab-item").forEach((tabElement) => {
-          tabElement.addEventListener("click", () => {
-            // Remove active class from all tabs
-            document.querySelectorAll(".tab-item").forEach((el) => el.classList.remove("active"));
-            // Add active class to the clicked tab
-            tabElement.classList.add("active");
-
-            // Fetch and render content for the clicked tab
-            const tabName = tabElement.getAttribute("data-name");
-            fetchTabContent(tabName);
-          });
-        });
-      })
-
-  }
-  
-   
-    
-      
-
-      // Function to fetch and render tab content
-      function fetchTabContent(tabName) {
-        tabContent.innerHTML = `
+    tabContent.innerHTML = `
         <div style="display: flex; justify-content: center;  height: 100vh; margin-top:100px;">
           <div id="loadingSpinner" class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       `;
+    const [menAgeData, menCareData, banner] = await Promise.all([
+      fetch(`${baseUrl}/api/v1/category/menage/get`).then((res) => res.json()),
+      fetch(`${baseUrl}/api/v1/category/men/get`).then((res) => res.json()),
+      fetch(`${baseUrl}/api/v1/bottombanners/get-random`).then((res) => res.json()),
 
-       try {
+    ])
 
-       
+    const menData = [...menAgeData.data, ...menCareData.data]
 
-         fetch(`${baseUrl}/api/v1/tests/men-tests/${encodeURIComponent(tabName)}`)
-           .then((response) => {
-          if(!response.ok) {
-            console.log("no tests found");
-            return null
-            
+    renderMenCareTab(menData, banner)
+
+  } catch (error) {
+    console.error("Error fetching API data ", error)
+  }
+
+
+  function renderMenCareTab(data, Banner) {
+    const tabs = data ? data : []
+    const banner = Banner.data
+    tabs.forEach((tab, index) => {
+      const isActive = activeTabName ? tab.name === activeTabName : index === 0 ? "active" : "";
+      const tabItem = `
+      <div class="tab-item ${isActive}" data-name="${tab.name}">
+        <img src="${baseUrl}/${tab.imagePath}" alt="${tab.name}" />
+        <h4>${tab.name}</h4>
+      </div>
+      `;
+
+      tabList.insertAdjacentHTML("beforeend", tabItem);
+
+
+      // Activate the correct tab
+      if (activeTabName) {
+        document.querySelectorAll(".tab-item").forEach((tabElement) => {
+          const tabName = tabElement.getAttribute("data-name");
+          if (tabName === activeTabName) {
+            tabElement.classList.add("active");
+            fetchTabContent(tabName, banner);
           }
-          return response.json()
-        })
-           .then((Data) => {
-             const data = Data? Data.data : []
- 
- 
-             tabContent.innerHTML = `
-         <div class="container-fluid p-2">
-           <div class="row">
-             ${data.length === 0 ? (`<div> No tests available </div>`) : (data
-                 .map(
-                   (test, index) => `
-               <div class="col-lg-4 col-md-6 col-sm-12">
-                 <div class="checkup-cardmain">
-                   <div class="d-flex justify-content-between">
-                     <h2 class="checkup-card-h">${test.testName}</h2>
-                     <span class="checkup-cardprice text-end">
-                       ₹${test.offerPrice} <br /><del>₹${test.price}</del>
-                     </span>
-                   </div>
-                   <p class="checkup-card-disc">${test.description}</p>
-                   <span class="checkup-cardoff">${test.discountPercentage}% OFF</span>
-                  
- 
- 
- 
-             <div
-             class="checkup-cardmore d-lg-block d-md-none d-sm-none d-none"
-             data-bs-id="${test._id}"
-             data-index="${index}"
-             data-bs-toggle="offcanvas"
-             data-bs-target="#offcanvasRight1"
-             aria-controls="offcanvasRight1"
-           >
-             know more+ <i class="fa-solid fa-chevron-down"></i>
-           </div>
- 
-           <div
-             class="checkup-cardmore d-lg-none d-md-block d-sm-block d-block"
-             data-bs-id="${test._id}"
-             data-index="${index}"
-             data-bs-toggle="offcanvas"
-             data-bs-target="#offcanvasBottom"
-             aria-controls="offcanvasBottom"
-           >
-             know more+ <i class="fa-solid fa-chevron-down"></i>
-           </div>
- 
-           <div class="d-flex justify-content-between">
-             <div class="checkup-cardrta">
-               Report in <span class="checkup-hours">${test.reportTime}</span>
-             </div>
-                 <span class="add-check-up">
-                   Add
-                   <a href="product.html?id=${test._id}&category=${test.category}" class="checkup-cardadd">
-                     <i class="fa-solid fa-plus"></i>
-                   </a>
-                 </span>
-           </div>
-                 </div>
-               </div>
-             `
-                 ))
-                 .join("")}
-           </div>
-         </div>
-         `;
- 
-             // Add click event listeners to update the offcanvas dynamically
-             document.querySelectorAll(".checkup-cardmore").forEach((btn) => {
-               btn.addEventListener("click", (event) => {
-                 const index = event.currentTarget.dataset.index;
-                 const test = data[index];
-                 updateOffcanvasContent(test);
-               });
-             });
- 
- 
-           })
-       } catch (error) {
-        tabContent.innerHTML = `<div>No tests available</div>`;
-            console.error("Error fetching tab content:", error);
-       }
-         
+        });
+      } else if (tabs[0]) {
+        fetchTabContent(tabs[0].name, banner);
       }
 
-      function updateOffcanvasContent(test) {
+      // Add click event listeners for each tab
+      document.querySelectorAll(".tab-item").forEach((tabElement) => {
+        tabElement.addEventListener("click", () => {
+          // Remove active class from all tabs
+          document.querySelectorAll(".tab-item").forEach((el) => el.classList.remove("active"));
+          // Add active class to the clicked tab
+          tabElement.classList.add("active");
+
+          // Fetch and render content for the clicked tab
+          const tabName = tabElement.getAttribute("data-name");
+
+          // Clear previous content and show loading
+          tabContent.innerHTML = ' <div style="display: flex; justify-content: center; height: 100vh; margin-top:100px;"> \
+           <div id="loadingSpinner" class="spinner-border text-primary" role="status"> \
+             <span class="visually-hidden">Loading...</span> \
+           </div> \
+         </div>';
 
 
-        rightOffcanvas.innerHTML = `
+          fetchTabContent(tabName, banner);
+        });
+      });
+    })
+
+  }
+
+
+
+
+
+  // Function to fetch and render tab content
+  async function fetchTabContent(tabName, banner) {
+    console.log(banner);
+
+    tabContent.innerHTML = `
+        <div style="display: flex; justify-content: center;  height: 100vh; margin-top:100px;">
+          <div id="loadingSpinner" class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      `;
+    await fetch(`${baseUrl}/api/v1/tests/men-tests/${encodeURIComponent(tabName)}`)
+      .then((response) => {
+        if (!response.ok) {
+          console.log("no tests found");
+          return null
+
+        }
+        return response.json()
+      })
+      .then((Data) => {
+        const data = Data ? Data.data : []
+
+
+        tabContent.innerHTML = `
+        <div class="container-fluid p-2">
+          <div class="row">
+          ${data.length === 0 ? (`<div> No tests available </div>`) : (data
+            .map(
+              (test, index) => `
+              <div class="col-lg-4 col-md-6 col-sm-12 mt-lg-3 mt-md-2 mt-sm-2 mt-2">
+                <div class="checkup-cardmain">
+                  <div class="d-flex justify-content-between">
+                    <h2 class="checkup-card-h">${test.testName}</h2>
+                    <span class="checkup-cardprice text-end">
+                      ₹${test.offerPrice} <br /><del>₹${test.price}</del>
+                    </span>
+                  </div>
+                  <p class="checkup-card-disc">${test.description}</p>
+                  <span class="checkup-cardoff">${test.discountPercentage}% OFF</span>
+                 
+
+
+
+            <div
+            class="checkup-cardmore d-lg-block d-md-none d-sm-none d-none"
+            data-bs-id="${test._id}"
+            data-index="${index}"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight1"
+            aria-controls="offcanvasRight1"
+          >
+            know more+ <i class="fa-solid fa-chevron-down"></i>
+          </div>
+
+          <div
+            class="checkup-cardmore d-lg-none d-md-block d-sm-block d-block"
+            data-bs-id="${test._id}"
+            data-index="${index}"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasBottom"
+            aria-controls="offcanvasBottom"
+          >
+            know more+ <i class="fa-solid fa-chevron-down"></i>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <div class="checkup-cardrta">
+              Report in <span class="checkup-hours">${test.reportTime}</span>
+            </div>
+                <span class="add-check-up">
+                  Add
+                  <a href="product.html?id=${test._id}&category=${test.category}" class="checkup-cardadd">
+                    <i class="fa-solid fa-plus"></i>
+                  </a>
+                </span>
+          </div>
+                </div>
+              </div>
+            `
+            ))
+            .join("")}
+          </div>
+        </div>
+        `;
+
+        // Add click event listeners to update the offcanvas dynamically
+        document.querySelectorAll(".checkup-cardmore").forEach((btn) => {
+          btn.addEventListener("click", (event) => {
+            const index = event.currentTarget.dataset.index;
+            const test = data[index];
+            updateOffcanvasContent(test, banner);
+          });
+        });
+
+
+      })
+      .catch((error) => {
+        tabContent.innerHTML = `<div>Error loading content. Please try again later.</div>`;
+        console.error("Error fetching tab content:", error);
+      });
+  }
+
+  async function updateOffcanvasContent(test, banner) {
+
+
+
+
+    rightOffcanvas.innerHTML = `
         <div class="offcanvas-header pkgmbl-header">
      <h5 class="offcanvas-title titleof-offcanvas" id="offcanvasRight1Label">
        Package Details
@@ -197,7 +214,10 @@ document.addEventListener("DOMContentLoaded", async function () {
        <p>Includes ${test.totalTests} ParaMeters</p>
        <a href="#" class="offcanvasbtn-offers">
          <strong>${test.discountPercentage}%off</strong> for a limited period</a>
-       <a href="#" class="offcanvasbtn-cart"> Add To Cart</a>
+       <a href="#"  class="offcanvasbtn-cart"  data-id="${test._id}"> 
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> 
+        Add To Cart
+       </a>
        <div class="offcanvas-homesmpl">
          <img src="images/delivery-doctor.png" alt="" class="offcanvas-homesmplimg" />
          <p class="offcanvas-homesmplp">Home Sample Collecton Available</p>
@@ -269,7 +289,7 @@ document.addEventListener("DOMContentLoaded", async function () {
          <li><strong>Age Group:</strong> ${test.instruction}</li>
        </ul>
 
-       <img class="adfor-product" src="images/banners/banner1.png" alt="" />
+       <img class="adfor-product" src="${baseUrl}/${banner.imageUrl}" alt="" />
      </div>
      <div class="container my-4" style="height: auto">
        <h2 class="included-h">Included Tests</h2>
@@ -292,7 +312,7 @@ document.addEventListener("DOMContentLoaded", async function () {
      </div>
       </div>`
 
-        bottomOffcanvas.innerHTML = `
+    bottomOffcanvas.innerHTML = `
         <div class="offcanvas-header pkgmbl-header">
      <h5 class="offcanvas-title titleof-offcanvas" id="offcanvasBottomLabel">
        Package Details
@@ -307,7 +327,10 @@ document.addEventListener("DOMContentLoaded", async function () {
        <p>Includes  ${test.totalTests} ParaMeters</p>
        <a href="#" class="offcanvasbtn-offers">
          <strong>${test.discountPercentage}%off</strong> for a limited period</a>
-       <a href="#" class="offcanvasbtn-cart"> Add To Cart</a>
+       <a href="#"  class="offcanvasbtn-cart"  data-id="${test._id}"> 
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> 
+        Add To Cart
+       </a>
        <div class="offcanvas-homesmpl">
          <img src="images/delivery-doctor.png" alt="" class="offcanvas-homesmplimg" />
          <p class="offcanvas-homesmplp">Home Sample Collecton Available</p>
@@ -380,7 +403,7 @@ document.addEventListener("DOMContentLoaded", async function () {
          <li><strong>Age Group:</strong> ${test.instruction}</li>
        </ul>
 
-       <img class="adfor-product" src="images/banners/banner1.png" alt="" />
+       <img class="adfor-product" src="${baseUrl}/${banner.imageUrl}" alt="" />
      </div>
      <div class="container my-4" style="height: auto">
        <h2 class="included-h">Included Tests</h2>
@@ -402,9 +425,75 @@ document.addEventListener("DOMContentLoaded", async function () {
        </div>
      </div>
       </div>`
-      }
 
-    
+    document.querySelectorAll(".offcanvasbtn-cart").forEach(button => {
+      button.addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        const authStatus = await checkAuthStatus();
+
+        if (!authStatus.isAuthenticated) {
+          // Close the current offcanvas (Right or Bottom)
+          const offcanvasElements = document.querySelectorAll('.offcanvas');
+          offcanvasElements.forEach(offcanvas => {
+            const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvas);
+            if (offcanvasInstance) {
+              offcanvasInstance.hide();
+            }
+          });
+
+          // Open the login sidebar
+          const sidebar = document.getElementById("sidebar");
+          const bsCollapse = new bootstrap.Collapse(sidebar, { toggle: false });
+          bsCollapse.show();
+          return;
+        }
+
+        // User is authenticated; proceed with adding to cart
+        const userId = authStatus.userId;
+        const testId = event.target.dataset.id;
+
+        const testItem = {
+          userId,
+          testId,
+        };
+        console.log(testItem);
+
+        const button = event.target;
+        const spinner = button.querySelector(".spinner-border");
+        button.disabled = true;
+        spinner.classList.remove("d-none");  // Show spinner
+
+        try {
+          const response = await fetch(`${baseUrl}/api/v1/cart/add`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(testItem)
+          });
+
+          if (response.ok) {
+            window.location.href = `cart.html?userId=${userId}`;
+          } else {
+            const error = await response.json();
+            console.error("Failed to add item to cart:", error);
+          }
+        } catch (error) {
+          console.error("Error connecting to backend:", error);
+        } finally {
+          // Remove spinner and re-enable the button
+          button.disabled = false;
+          spinner.classList.add("d-none"); // Hide spinner
+        }
+      });
+    });
+
+
+  }
+
+
+
 });
 
 

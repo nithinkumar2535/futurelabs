@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .error-container {
+            text-align: center;
+        }
+
+        .error-title {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .error-message {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .home-button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #2980b9;
+        }
+
+        .error-illustration {
+            width: 300px;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-title">404</div>
+        <div class="error-message">Oops! The page you are looking for does not exist or is invalid.</div>
+        <button class="home-button" onclick="goHome()">Go to Homepage</button>
+       
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = "index.html"; // Replace with your homepage URL
+        }
+    </script>
+</body>
+</html>

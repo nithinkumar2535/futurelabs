@@ -77,8 +77,8 @@ function MainBanner() {
       setLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/mainbanners/add`,
-        formDataToSend, { withCredentials: true },
-        { headers: { "Content-Type": "multipart/form-data" } },
+        formDataToSend, { withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" } },
 
       );
       setMainBanners((prev) => [...prev, response.data.data]);

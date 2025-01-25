@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { addTest, deleteTest, editTest, fechAllTests, getMenTests, getRandomSixTestsByCategory, getSelectedPackages, getTestsByCategory, getTestsByCategoryAndSubcategory, getTestsById, getWomenTests, updateSelection } from "../controllers/test.controller.js";
+import { addTest, deleteTest, editTest, fechAllTests, fetchAllTestNames, getMenTests, getRandomSixTestsByCategory, getSelectedPackages, getTestsByCategory, getTestsByCategoryAndSubcategory, getTestsById, getWomenTests, updateSelection } from "../controllers/test.controller.js";
 
 
 
@@ -18,6 +18,7 @@ router.route('/selected/:category').get(getSelectedPackages)
 router.route('/get-test/:id').get(getTestsById)
 router.route('/women-tests/:subcategory').get(getWomenTests)
 router.route('/men-tests/:subcategory').get(getMenTests)
+router.route('/all-tests').get(fetchAllTestNames)
 
 
 export default router

@@ -293,6 +293,19 @@ const getMenTests = asyncHandler (async (req, res) => {
         .json(new ApiResponse(200, tests, "Tests fetched successfully for 'womenage' and 'women' categories"));
 })
 
+const fetchAllTestNames = asyncHandler(async (req, res) => {
+    // Fetching only the 'name' field from all tests in the database
+    const testNames = await TestModel.find({},  { testName: 1, category: 1, subcategory: 1 }); 
+
+    if (!testNames) {
+        throw new ApiError(500, "Something went wrong while fetching the test names");
+    }
+
+    return res.status(200).json(new ApiResponse(200, testNames, "All test names"));
+});
+
+
+
 
 
 
@@ -311,5 +324,6 @@ export {
     getTestsById,
     getRandomSixTestsByCategory,
     getMenTests,
-    getWomenTests
+    getWomenTests,
+    fetchAllTestNames
 }

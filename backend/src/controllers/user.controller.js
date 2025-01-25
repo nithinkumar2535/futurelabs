@@ -17,12 +17,12 @@ const generateAccessAndRefreshToken = async (userId) => {
             throw new ApiError(400, "User not found")
         }
     
-        const accessToken = user.generateAccessToken()
-        const refreshToken = user.generateRefreshToken()
+        const adminAccessToken = user.generateAccessToken()
+        const adminRefreshToken = user.generateRefreshToken()
     
-        user.refreshToken = refreshToken
+        user.refreshToken = adminRefreshToken
         await user.save({validateBeforeSave: false})
-        return {accessToken, refreshToken}
+        return {adminAccessToken, adminRefreshToken}
     } catch (error) {
         throw new ApiError(500, "Something went wrong while generating access and refresh tokens")
     }
@@ -90,7 +90,7 @@ const loginUser = asyncHandler( async (req, res) => {
         throw new ApiError(409, "Invalid password");
     }
 
-    const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
+    const {adminAccessToken, adminRefreshToken} = await generateAccessAndRefreshToken(user._id)
 
     const loggedInUser = await User.findById(user._id).select(
         "-password -refreshToken"
@@ -103,14 +103,14 @@ const loginUser = asyncHandler( async (req, res) => {
     const options = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: 'None'
+        sameSite: 'none'
     }
 
     return res
         .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json( new ApiResponse(200, {loggedInUser, accessToken, refreshToken}, "User logged in successfully"))
+        .cookie("adminAccessToken", adminAccessToken, options)
+        .cookie("adminRefreshToken", adminRefreshToken, options)
+        .json( new ApiResponse(200, {loggedInUser, adminAccessToken, adminRefreshToken}, "User logged in successfully"))
         
         
 
@@ -129,18 +129,19 @@ const logoutUser = asyncHandler ( async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production"
+        secure: process.env.NODE_ENV === "production",
+        sameSite: 'none'
     }
 
     return res
         .status(200)
-        .clearCookie("accessToken", options)
-        .clearCookie("refreshToken", options)
+        .clearCookie("adminAccessToken", options)
+        .clearCookie("adminRefreshToken", options)
         .json( new ApiResponse(200, {}, "User logged out successfully"))
 })
 
 const refreshAccessToken = asyncHandler( async (req, res) => {
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+    const incomingRefreshToken = req.cookies.adminRefreshToken || req.body.adminRefreshToken
 
     if(!incomingRefreshToken) {
         throw new ApiError(401, "Refresh token is required")
@@ -149,7 +150,7 @@ const refreshAccessToken = asyncHandler( async (req, res) => {
     try {
         const decodedToken = jwt.verify(
             incomingRefreshToken,
-            process.env.REFRESH_TOKEN_SECRET
+            process.env.REFRESH_TOKEN_ADMIN_SECRET
         )
         const user = await User.findById(decodedToken?._id)
         
@@ -166,14 +167,14 @@ const refreshAccessToken = asyncHandler( async (req, res) => {
             secure: process.env.NODE_ENV === "production"
         }
 
-        const {accessToken, refreshToken: newRefreshToken} = 
+        const {adminAccessToken, adminRefreshToken: adminNewRefreshToken} = 
         await generateAccessAndRefreshToken(user._id)
 
         return res
             .status(200)
-            .cookie("accessToken", accessToken, options)
-            .cookie("refreshToken", newRefreshToken, options)
-            .json( new ApiResponse(200, {accessToken, refreshToken: newRefreshToken}, "Access token refreshed successfully"))
+            .cookie("accessToken", adminAccessToken, options)
+            .cookie("refreshToken", adminNewRefreshToken, options)
+            .json( new ApiResponse(200, {adminAccessToken, adminRefreshToken: adminNewRefreshToken}, "Access token refreshed successfully"))
 
     } catch (error) {
         throw new ApiError(500, "Something went wrong while refreshing access token")

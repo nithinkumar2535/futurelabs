@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from '@/hooks/use-toast';
 
-function AdminHeader() {
+function AdminHeader({setOpen}) {
   const navigate = useNavigate();
+ 
+
 
   const handleLogout = async (e) => {
     const response = await axios.post(
@@ -24,20 +26,13 @@ function AdminHeader() {
 
 
   return (
-    <header className="flex items-center justify-between px-4 py-3 bg-background border-bottom ">
+    <header className="flex items-center justify-between px-4 py-3 bg-background border-bottom">
       <button onClick={() => setOpen(true)} className="lg:hidden sm:block">
         <Menu />
         <span className="sr-only">Toggle Menu</span>
       </button>
-
-      <div className="flex flex-1 justify-between items-center">
-       
-
-        {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          className="bg-black inline-flex text-white text-sm font-medium py-2 px-2 rounded-md items-center shadow"
-        >
+      <div className="flex flex-1 justify-end">
+        <button onClick={handleLogout} className='bg-black inline-flex text-white text-sm bold font-medium py-2 px-2 rounded-md items-center shadow'>
           <LogOut />
           Logout
         </button>

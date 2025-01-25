@@ -71,8 +71,30 @@ const deleteBottomBanner = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, null, "Banner deleted successfully"));
 });
 
+// Get a random banner
+const getRandomBottomBanner = asyncHandler(async (req, res) => {
+    const count = await bottomBannerImage.countDocuments();
+    
+    if (count === 0) {
+        throw new ApiError(404, "No banners found");
+    }
+
+    const randomIndex = Math.floor(Math.random() * count);
+    const randomBanner = await bottomBannerImage.findOne().skip(randomIndex);
+
+    if (!randomBanner) {
+        throw new ApiError(500, "Something went wrong while fetching the banner");
+    }
+
+    return res.status(200).json(new ApiResponse(200, randomBanner, "Random banner fetched successfully"));
+});
+
 export {
     uploadBottomBanner,
     deleteBottomBanner,
-    getBottomBanners
-}
+    getBottomBanners,
+    getRandomBottomBanner
+};
+
+
+

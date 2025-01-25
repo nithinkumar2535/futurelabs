@@ -1,28 +1,30 @@
 import nodemailer from 'nodemailer';
 
 export const sendEmail = async (mailOptions) => {
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_SERVER, 
-      port: process.env.EMAIL_PORT,                  
-      secure: true,             
-      auth: {
-        user: process.env.EMAIL_USER, 
-        pass: process.env.EMAIL_PASS       
-      },
-    });
+    try {
+        const transporter = nodemailer.createTransport({
+            host: process.env.EMAIL_SERVER, // SMTP server
+            port: parseInt(process.env.EMAIL_PORT, 10), // Port number
+            secure: process.env.EMAIL_PORT === '465', // True for port 465, false for others
+            auth: {
+                user: process.env.EMAIL_USER, // SMTP username
+                pass: process.env.EMAIL_PASS, // SMTP password
+            },
+        });
 
-    transporter.verify((error, success) => {
-      if (error) {
-        console.error('Error connecting to SMTP server:', error);
-      } else {
-        console.log('SMTP server is ready to take messages');
-      }
-    });
+        // Verify SMTP configuration
+        const isVerified = await transporter.verify();
+        if (isVerified) {
+            console.log('SMTP server is ready to take messages.');
+        }
 
-    
+        // Send email
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent:', info.messageId);
 
-    await transporter.sendMail(mailOptions);
+        return info; // Return info for success status
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw new Error('Failed to send email'); // Rethrow for further handling
+    }
 };
-
-
-

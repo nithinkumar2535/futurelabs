@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   `;
 
     const [testData, banner] = await Promise.all([
-      fetch(`${baseUrl}/api/v1/tests/category/Single Test`).then((response) => response.json()),
+      fetch(`${baseUrl}/api/v1/tests/category/Exclusive`).then((response) => response.json()),
       fetch(`${baseUrl}/api/v1/bottombanners/get-random`).then((response) => response.json()),
 
     ])

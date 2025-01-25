@@ -23,6 +23,7 @@ const getCurrentLocation = asyncHandler( async (req, res) => {
 
 const getPincode = asyncHandler( async (req, res) => {
     const { pincode } = req.params
+     
     
     if (!pincode || pincode.length !== 6 || !/^\d+$/.test(pincode)) {
         throw new ApiError(400, "A valid 6-digit pincode is required");
@@ -32,7 +33,7 @@ const getPincode = asyncHandler( async (req, res) => {
     const response = await axios.get(
         `https://us1.locationiq.com/v1/search.php?key=${process.env.LOCATIONIQ_API_KEY}&q=${pincode}&format=json`
       );
-    console.log(response.data);
+    console.log("response", response.data);
 
     return res
         .status(200)

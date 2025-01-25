@@ -1,5 +1,5 @@
 import { asyncHandler } from "./asyncHandler.js";
-import { ApiResponse } from "./ApiResponse.js";
+
 import axios from "axios";
 
 
@@ -15,6 +15,8 @@ const sendSMS = asyncHandler(async (otp, phone) => {
     try {
         const response = await axios.post(`${apiUrl}?user=${userName}&pass=${pass}&sender=${sender}&phone=${phone}&text=api%20test%20-%20BHASHSMS&priority=ndnd&stype=normal`,
         );
+        console.log(response);
+        
         
     } catch (error) {
         console.error(error)

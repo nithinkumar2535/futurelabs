@@ -5,9 +5,12 @@ import { ApiError } from '../utils/ApiError.js'
 
 
 const addToCart = asyncHandler (async (req, res) => {
-    const { userId, testId, quantity, price, name } = req.body
+    const { userId, testId, quantity} = req.body
+    console.log(req.body);
+    
 
-    let cartItem = Cart.findOne({ userId, productId})
+    let cartItem = await Cart.findOne({ userId, testId})
+
 
     if(cartItem) {
         return res
@@ -15,10 +18,12 @@ const addToCart = asyncHandler (async (req, res) => {
             .json(new ApiResponse(200, null, "Product already in cart"))
     }
 
-    const newCartItem = new cartItem({ userId, testId, quantity, price, name})
+    const newCartItem = new Cart({ userId, testId, quantity})
     await newCartItem.save()
+    console.log("item added to cart");
+    
 
-    const existingCart = await Cart.findById(userId)
+    const existingCart = await Cart.find({userId})
 
     if (!existingCart) {
         throw new ApiError(500, "Something went wrong while adding to the cart")
@@ -50,20 +55,24 @@ const getCartItems = asyncHandler( async (req, res) => {
 })
 
 const removeItem = asyncHandler( async (req, res) => {
-    const {userId, productId} = req.params
+    const {userId, testId} = req.body
+    
+    if(!userId || !testId) {
+        throw new ApiError(404, "UserId and testId required")
+    }
 
-    await Cart.findOneAndDelete({userId, productId})
+    await Cart.findOneAndDelete({userId, testId})
 
     return res
         .status(200)
-        .json(new ApiResponse(200, nul, "Item removed from cart"))
+        .json(new ApiResponse(200, null, "Item removed from cart"))
 })
 
 const updateItemQuantity = asyncHandler (async (req, res) => {
-    const {userId, productId} = req.params
-    const {quantity} = req.body
+    const {userId, testId, quantity} = req.body
+    
 
-    const cartItem = await Cart.findOne({userId, productId})
+    const cartItem = await Cart.findOne({userId, testId})
 
     if (!cartItem) {
         throw new ApiError(400, "Item not found in cart")

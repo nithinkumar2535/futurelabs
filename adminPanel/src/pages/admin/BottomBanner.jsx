@@ -40,8 +40,8 @@ const BottomBanner = () => {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/bottombanners/add`,
         formDataToSend,
-        {withCredentials : true},
-        { headers: { "Content-Type": "multipart/form-data" } }
+        {withCredentials : true,
+         headers: { "Content-Type": "multipart/form-data" } }
       );
       setBottomBanners((prev) => [...prev, response.data.data]);
       toast({ title: "Success", description: "Banner added successfully." });

@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminLayout from './components/admin/AdminLayout'
-import Dashboard from './pages/admin/Dashboard'
+import Dashboard from './pages/admin/Test'
 import BottomBanner from './pages/admin/BottomBanner'
 import ForgotPassword from './pages/admin/ForgotPassword'
 import MainBanner from './pages/admin/MainBanner'
@@ -21,6 +21,10 @@ import WomenAge from './pages/admin/WomenAge'
 import MenAge from './pages/admin/MenAge'
 import SpecialPackages from './pages/admin/SpecilaPackage'
 import SingleTests from './pages/admin/SingleTests'
+import Orders from './pages/admin/Order'
+import OrderDetails from './pages/admin/OrderDeatails'
+import TestDetails from './pages/admin/TestDatails'
+import LoggedInUsers from './pages/admin/Users'
 
 function App() {
   return (
@@ -29,8 +33,6 @@ function App() {
 
       <Route path='/' element = {<Login/>} />
     
-      <Route path='/register' element = {<Register/>} />
-
       <Route path='/forgot-password' element = {<ForgotPassword/>} />
 
       <Route path='/reset-password' element = {<ResetPassword/>} />
@@ -55,6 +57,12 @@ function App() {
           <Route path='packages/women' element = {<WomenPackages/>} />
           <Route path='packages/special' element = {<SpecialPackages/>} />
           <Route path='packages/single' element = {<SingleTests/>} />
+          <Route path='packages/single' element = {<SingleTests/>} />
+          <Route path='orders' element = {<Orders/>} />
+          <Route path='orders/:id' element = {<OrderDetails/>} />
+          <Route path="tests/:id" element={<TestDetails/>} />
+          <Route path="users" element={<LoggedInUsers/>} />
+
 
         </Route>
 
