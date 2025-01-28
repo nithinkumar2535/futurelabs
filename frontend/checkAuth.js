@@ -17,6 +17,7 @@ async function updateUI() {
   const loginButtonMobile = document.getElementById("login-button-mobile");
   const cartButtonMobile = document.getElementById("cart-button-mobile");
   const cartItemsMobile = document.getElementById("cart-badge-mobile");
+  const footerProfile = document.getElementById("profile-cart-container");
 
   if (isAuthenticated) {
     // Show "Logout" and "Cart"
@@ -57,6 +58,17 @@ async function updateUI() {
       }
     }
 
+    if(footerProfile) {
+      footerProfile.innerHTML = `
+      <a href= "cart.html?userId=${encodeURIComponent(userId)}">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h2.086a.75.75 0 0 1 .713.553l.911 3.644m2.275 9.104h8.64m4.5-11.25h-12.75m12.75 0-2.25 9h-10.5m-2.91-5.25h13.8m-11.4 8.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm10.5 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z" />
+        </svg>
+        <span>Cart</span>
+      </a>
+    `;
+    }
+
   } else {
 
     if (loginButton) {
@@ -92,6 +104,20 @@ async function updateUI() {
         cartItemsMobile.style.display = "none"; // Hide cart badge
         cartItemsMobile.innerHTML = ""; // Clear cart count
       }
+    }
+
+    if(footerProfile) {
+      footerProfile.innerHTML = `
+      <a href="#" data-bs-toggle="collapse"
+      data-bs-target="#sidebar"
+      aria-expanded="false"
+      aria-controls="sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
+        <span>Profile</span>
+      </a>
+    `;
     }
   }
 }

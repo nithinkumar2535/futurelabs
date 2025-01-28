@@ -65,7 +65,7 @@ document.getElementById('prescriptionForm').addEventListener('submit', async (ev
                 body: formData,
             });
 
-            console.log('Response received:', response);
+           
 
             // Check for a valid response
             if (!response.ok) {

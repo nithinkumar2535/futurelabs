@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkup Tabs</title>
+  <title>futurelabs24.com</title>
   <link rel="icon" type="image/x-icon" href="images/logo/favicon.jpg" />
   <link rel="stylesheet" href="checkups.css" />
   <link rel="stylesheet" href="index.css" />
@@ -550,17 +550,8 @@ login modal-->
                    <span>WhatsApp</span>
       </a>
     </div>
-    <div class="col-2">
-      <a href="#" data-bs-toggle="collapse"
-      data-bs-target="#sidebar"
-      aria-expanded="false"
-      aria-controls="sidebar">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        </svg>
-        
-        <span>Profile</span>
-      </a>
+    <div class="col-2 " id="profile-cart-container">
+      <!-- Content will be dynamically updated here -->
     </div>
     
   </div>
@@ -593,18 +584,27 @@ login modal-->
 
   </div>
 
-   <!-- bootstrap toast-->
-   <div class="toast" id="loginToast" style="position: absolute; bottom: 20px; right: 20px; max-width: 300px;" data-delay="3000">
-    <div class="toast-body">
-      You have logged in successfully!
-    </div>
+  <!-- Bootstrap Toast for Login -->
+<div class="toast align-items-center text-white bg-success position-fixed bottom-0 end-0 m-3" id="loginToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+  <div class="toast-header">
+   
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
   </div>
-
-  <div class="toast" id="logoutToast" style="position: absolute; bottom: 20px; right: 20px; max-width: 300px;" data-delay="3000">
-    <div class="toast-body">
-      You have logged out successfully!
-    </div>
+  <div class="toast-body">
+    You have logged in successfully!
   </div>
+</div>
+
+<!-- Bootstrap Toast for Logout -->
+<div class="toast align-items-center text-white bg-danger position-fixed bottom-0 end-0 m-3" id="logoutToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+  <div class="toast-header">
+    
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div class="toast-body">
+    You have logged out successfully!
+  </div>
+</div>
 
 
 
@@ -615,11 +615,6 @@ login modal-->
 
 
 
-  <script src="config.js" defer></script>
-  <script src="checkAuth.js" defer></script>
-  <script src="special-care.js" defer></script>
-  <script src="location.js" defer></script>
-  <script src="search.js" defer></script>
 
 
 
@@ -665,6 +660,13 @@ login modal-->
 
 
   </script>
+
+  
+<script src="config.js" defer></script>
+<script src="checkAuth.js" defer></script>
+<script src="special-care.js" defer></script>
+<script src="location.js" defer></script>
+<script src="search.js" defer></script>
 
 </body>
 

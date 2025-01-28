@@ -54,7 +54,7 @@ function Prescription() {
 
   return (
     <div className="container mx-auto py-6">
-      <h1 className="text-2xl font-bold text-center mb-6">Admin Panel</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">Prescriptions</h1>
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-300">
           <thead>

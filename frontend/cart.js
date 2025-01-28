@@ -27,8 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   const recalculateTotals = (detailedItems) => {
-    console.log(detailedItems);
-
+    
     const sampleCollectionCharges = 250; // Static value
     const isSampleFree = true; // Modify based on logic
 
@@ -96,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return { ...item, ...testDeatils };
       })
     );
-    console.log(detailedItems);
+    
 
     if (detailedItems.length === 0) {
       container.innerHTML = "Your Cart is Empty"
@@ -318,7 +317,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (!name || !phoneNumber || !address || !pincode) return showError("Please fill all the required fields.");
       if (!/^[6-9]\d{9}$/.test(phoneNumber)) return showError("Please enter a valid 10-digit mobile number.");
       if (!/^\d{6}$/.test(pincode)) return showError("Please enter a valid 6-digit pincode.");
-      if (!validPincode.includes(pincode)) return showError("Currently, service is not available in your location.");
+      /* if (!validPincode.includes(pincode)) return showError("Currently, service is not available in your location."); */
     
       // Prepare order data
       const orderData = {

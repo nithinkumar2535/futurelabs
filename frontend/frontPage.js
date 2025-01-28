@@ -2,6 +2,7 @@
 let allTestData = []
 
 document.addEventListener("DOMContentLoaded", async () => {
+  
   try {
     // Fetch all APIs simultaneously
     const [mainBanner, lessPrice, ads, vitalOrganData, womenAgeData, womenCareData, menAgeData, menCareData, lifeStyleData, specialPackageData, singleTestData,] = await Promise.all([
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 function renderMainBanners(data) {
 
   const banners = data ? data.data : []
-  console.log(banners);
+  
 
 
   banners.forEach((banner, index) => {
@@ -428,7 +429,7 @@ function renderSpecialCare(data, bannerData) {
   const carousel = document.querySelector(".special-carousel");
   const products = data?.data || [];
   const banner = bannerData.data[0];
-  console.log(banner);
+  
 
   // Build carousel items
   let carouselContent = `
@@ -530,141 +531,6 @@ function renderSpecialCare(data, bannerData) {
   });
 }
 
-
-
-
-
-
-/* 
-function renderSingleTest(data, Banner) {
-  const carousel = document.querySelector(".singleTest-carousel");
-  carousel.innerHTML = ""; // Clear existing cards
-  const cards = data ? data.data : [];
-  const banner = Banner.data[1];
-
-  // Build carousel items
-  let carouselContent = `
-    <div class="carousel7 owl-carousel owl-theme">
-  `;
-  carouselContent += cards
-    .map((test, index) => `
-      <div class="new-cardo">
-        <div class="newcard-main">
-          <div class="newcard-titlemain">
-            <div class="row">
-              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                <h5 class="newcard-title">${test.testName}</h5>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4 col-4 px-lg-auto px-md-1 px-sm-auto px-auto">
-                <div class="d-flex justify-content-end">
-                  <p class="newcard-test">${test.totalTests} Tests</p>
-                </div>
-                <div class="d-flex justify-content-end">
-                  <div class="d-block">
-                    <span class="fw-bolder newcard-price">
-                      <del>₹${test.price}</del> ₹${test.offerPrice}
-                    </span>
-                    <br />
-                    <div class="newcard-offer">${test.discountPercentage}% OFF</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="newcard-content">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <div class="d-flex">
-                  <img class="newcard-svg" src="images/icon-svg/newcard/research.png" alt="" />
-                  <div class="d-block rt-newcard">
-                    <h5>Reports with in</h5>
-                    <h6>${test.reportTime}</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <div class="d-flex">
-                  <img class="newcard-svg" src="images/icon-svg/newcard/lab.png" alt="" />
-                  <div class="d-block rt-newcard">
-                    <h5>${test.totalTests} Test</h5>
-                    <h6>included</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6 pt-4">
-                <div
-                  class="view-newcard d-lg-block d-md-none d-sm-none d-none"
-                  data-bs-id="${test._id}"
-                  data-index="${index}"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasRight1"
-                  aria-controls="offcanvasRight1"
-                >
-                  View Details
-                </div>
-                <div
-                  class="view-newcard d-lg-none d-md-block d-sm-block d-block"
-                  data-bs-id="${test._id}"
-                  data-index="${index}"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasBottom"
-                  aria-controls="offcanvasBottom"
-                >
-                  View Details
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-6 pt-4">
-                <a href="product.html?id=${test._id}&category=${test.category}" class="cart-newcard">Add to Cart</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `)
-    .join(""); // Join all items together
-
-  carouselContent += `</div>`; // Close the carousel container
-
-  // Set the accumulated content into the container
-  carousel.innerHTML = carouselContent;
-
-  // Initialize OwlCarousel after content is added
-  const owl = $(".carousel7").owlCarousel({
-    loop: true,
-    margin: 10,
-    nav: false,  // Don't use Owl's built-in navigation
-    responsive: {
-      0: { items: 1 },
-      600: { items: 2 },
-      1000: { items: 3 },
-    },
-  });
-
-  // Bind click events for view details
-  document.querySelectorAll(".view-newcard").forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      const index = event.currentTarget.dataset.index;
-      const test = cards[index];
-      updateOffcanvasContent(test, banner);
-    });
-  });
-
-  // Attach custom navigation events to the buttons
-  const prevButton = document.getElementById("newcardprev2");
-  const nextButton = document.getElementById("newcardnext2");
-
-  if (prevButton) {
-    prevButton.addEventListener("click", () => {
-      owl.trigger("prev.owl.carousel");
-    });
-  }
-
-  if (nextButton) {
-    nextButton.addEventListener("click", () => {
-      owl.trigger("next.owl.carousel");
-    });
-  }
-} */
 
   function renderSingleTest(data, Banner) {
     const carousel = document.querySelector(".singleTest-carousel");
@@ -1092,7 +958,7 @@ button.addEventListener("click", async (event) => {
     userId,
     testId,
   };
-  console.log(testItem);
+  
 
   const button = event.target;
   const spinner = button.querySelector(".spinner-border");

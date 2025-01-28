@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // Function to fetch and render tab content
   async function fetchTabContent(tabName, banner) {
-    console.log(banner);
+    
 
     tabContent.innerHTML = `
         <div style="display: flex; justify-content: center;  height: 100vh; margin-top:100px;">
@@ -457,7 +457,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           userId,
           testId,
         };
-        console.log(testItem);
+        
 
         const button = event.target;
         const spinner = button.querySelector(".spinner-border");

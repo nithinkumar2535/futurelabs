@@ -728,7 +728,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         userId,
         testId,
       };
-      console.log(testItem);
+      
     
       const button = event.target;
       const spinner = button.querySelector(".spinner-border");
@@ -784,7 +784,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           userId,
           testId,
         };
-        console.log(testItem);
+        
 
         const button = event.target;
         const spinner = button.querySelector(".spinner-border");
@@ -821,7 +821,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const container = document.getElementById("banner")
       const banner = data.data
-      console.log(banner);
+      
 
       container.innerHTML = `<img class="img-quick" src="${baseUrl}/${banner.imageUrl}" alt="">`
 

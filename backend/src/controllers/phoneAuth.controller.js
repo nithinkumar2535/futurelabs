@@ -56,68 +56,70 @@ const sendOTP = asyncHandler(async (req, res) => {
     
 })
 
-const verifyOTP = asyncHandler(async(req, res)=>{
-    const {phone, otp} = req.body
+const verifyOTP = asyncHandler(async (req, res) => {
+    const { phone, otp } = req.body;
 
     if (!phone || !otp) {
-        throw new ApiError(400, "Phone number and OTP is required")
-    }
-    const user = await phoneUser.findOne({ phone })
-
-    if(!user) {
-        throw new ApiError(404, "User not found")
+        throw new ApiError(400, "Phone number and OTP are required");
     }
 
-    const isOtpValid = user.otp === otp && Date.now() - new Date(user.otpCreatedAt).getTime() <= 5 * 60 * 1000 ;
+    const user = await phoneUser.findOne({ phone });
+
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const isOtpValid = user.otp === otp && Date.now() - new Date(user.otpCreatedAt).getTime() <= 5 * 60 * 1000;
 
     if (!isOtpValid) {
-        throw new ApiError(400, "Invalid or expired OTP")
+        throw new ApiError(400, "Invalid or expired OTP");
     }
 
-    user.otp = null
-    user.otpCreatedAt = null
+    const isFirstLogin = !user.lastLogin; // Check if this is the user's first login
+    user.otp = null;
+    user.otpCreatedAt = null;
     user.lastLogin = Date.now();
-    await user.save()
+    await user.save();
 
-    const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id);
 
-    const loggedInUser = await phoneUser.findById(user._id).select("-refreshToken")
+    const loggedInUser = await phoneUser.findById(user._id).select("-refreshToken");
 
-    if(!loggedInUser){
-        throw new ApiError(500, "Something went wrong while logging in the user")
+    if (!loggedInUser) {
+        throw new ApiError(500, "Something went wrong while logging in the user");
     }
 
     const options = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: 'none'
-    }
-
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_ADMIN, 
-        subject: "User Login Notification",
-        text: `A user has successfully logged in with the phone number: ${phone}`,
+        sameSite: "none",
     };
 
-     try {
+    if (isFirstLogin) {
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_ADMIN,
+            subject: "User Login Notification",
+            text: `A new user has successfully logged in with the phone number: ${phone}`,
+        };
+
+        try {
             // Send email to admin
             const response = await sendEmail(mailOptions);
-            console.log('Email sent:', response);
+            console.log("Email sent:", response);
         } catch (err) {
-            console.error('Error sending email:', err);
-            throw new ApiError(404, "Error sending mail")
+            console.error("Error sending email:", err);
+            throw new ApiError(500, "Error sending email");
         }
+    }
 
-    
-    
     return res
-    .status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json( new ApiResponse(200, {loggedInUser, accessToken, refreshToken}, "User logged in successfully"))
-    
-})
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(new ApiResponse(200, { loggedInUser, accessToken, refreshToken }, "User logged in successfully"));
+});
+
 
 const logoutUser = asyncHandler ( async (req, res) => {
     await phoneUser.findByIdAndUpdate(

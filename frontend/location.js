@@ -21,12 +21,14 @@ document.querySelectorAll('.current-l').forEach(button => {
             const pincode = locationData?.postcode || ''; // Safe access
             const displayLocation = locationData?.city || 'Location not found';
 
-            if (supportedPincodes.includes(pincode)) {
+           /*  if (supportedPincodes.includes(pincode)) {
               document.querySelector('.dlv-addrss').textContent = 'Delivery Address'; // Clear any error
             } else {
               document.querySelector('.dlv-addrss').textContent = 'Service not available';
-            }
-            document.querySelector('.slc-addrss').textContent = displayLocation;
+            } */
+              document.querySelectorAll('.slc-addrss').forEach(element => {
+                element.textContent = displayLocation;
+              });
             $('#dropdownMenuButton').dropdown('hide'); // Close dropdown
           })
           .catch(error => {
@@ -49,7 +51,7 @@ document.querySelector('.pincod-sub').addEventListener('click', () => {
     fetch(`${baseUrl}/api/v1/location/${pincode}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        
 
         const displayName = Array.isArray(data.data) ? data.data[0]?.display_name : null;
 
@@ -57,12 +59,14 @@ document.querySelector('.pincod-sub').addEventListener('click', () => {
           const parts = displayName.split(',');
           const displayLocation = parts.slice(0, 2).join(',') || 'Location not found';
 
-          if (supportedPincodes.includes(pincode)) {
+        /*   if (supportedPincodes.includes(pincode)) {
             document.querySelector('.dlv-addrss').textContent = 'Delivery Address'; // Clear any error
           } else {
             document.querySelector('.dlv-addrss').textContent = 'Service not available';
-          }
-          document.querySelector('.slc-addrss').textContent = displayLocation;
+          } */
+            document.querySelectorAll('.slc-addrss').forEach(element => {
+              element.textContent = displayLocation;
+            });
           $('#staticBackdrop').modal('hide'); // Close modal
         } else {
           errMsg.innerHTML = "Invalid Pincode"
@@ -70,7 +74,7 @@ document.querySelector('.pincod-sub').addEventListener('click', () => {
       })
       .catch(error => {
         console.error('Error fetching location by pincode:', error);
-        document.querySelector('.dlv-addrss').textContent = 'Unable to fetch location. Please try again.';
+        document.querySelectorAll('.dlv-addrss').forEach(element => {element.textContent = 'Unable to fetch location. Please try again.'});
       });
   } else {
     errMsg.innerHTML = 'Please enter a valid 6-digit pincode.'

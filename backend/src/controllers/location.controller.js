@@ -30,7 +30,7 @@ const getPincode = asyncHandler( async (req, res) => {
       }
     
 
-    const response = await axios.get(
+    const response = await axios.post(
         `https://us1.locationiq.com/v1/search.php?key=${process.env.LOCATIONIQ_API_KEY}&q=${pincode}&format=json`
       );
     console.log("response", response.data);

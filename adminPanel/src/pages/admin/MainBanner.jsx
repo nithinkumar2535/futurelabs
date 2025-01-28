@@ -41,7 +41,7 @@ function MainBanner() {
       if (category) {
 
         try {
-          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/${category}`);
+          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/category/${category}`, {withCredentials: true});
           console.log(response.data.data);
           setTests(response.data.data);
 
@@ -253,7 +253,7 @@ function MainBanner() {
                 <label htmlFor="test" className="block text-sm font-medium text-gray-700">
                   Select Test
                 </label>
-                {loadingTests ? (
+                {loading ? (
                   <p className="mt-1 text-sm text-gray-500">Loading Tests...</p>
                 ) : tests.length > 0 ? (
                   <select

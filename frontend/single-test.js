@@ -377,7 +377,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           userId,
           testId,
         };
-        console.log(testItem);
+        
 
         const button = event.target;
         const spinner = button.querySelector(".spinner-border");

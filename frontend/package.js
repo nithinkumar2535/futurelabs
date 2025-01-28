@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   } catch (error) {
     console.error("Error fetching API data", error)
+    tabContent.innerHTML= `<div> No tests available </div>`
   }
 
 
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     tabContent.innerHTML = `
         <div class="container-fluid p-2">
           <div class="row">
-          ${data.length === 0 ? (`<div> No tests available </div>`) : (data
+          ${data.length === 0 ? `<div> No tests available </div>` : (data
         .map(
           (test, index) => `
               <div class="col-lg-4 col-md-6 col-sm-12 mt-lg-3 mt-md-2 mt-sm-2 mt-2">
@@ -377,7 +378,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           userId,
           testId,
         };
-        console.log(testItem);
+        
 
         const button = event.target;
         const spinner = button.querySelector(".spinner-border");
