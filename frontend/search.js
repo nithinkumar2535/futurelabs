@@ -34,7 +34,7 @@ async function fetchAllTests() {
         console.log("Fetched and cached tests:", cachedTests);
     } catch (error) {
         console.error("Error fetching tests:", error);
-        alert("Failed to fetch test data. Please try again later.");
+        
     }
 }
 
