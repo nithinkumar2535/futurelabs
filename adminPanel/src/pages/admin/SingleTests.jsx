@@ -29,12 +29,33 @@ function SingleTests() {
 
   const deleteCategory = async (id) => {
     try {
+      // Prevent deleting the last test
+      if (tests.length === 1) {
+        toast({
+          title: "Action Not Allowed",
+          description: "At least one test must remain in the list.",
+          variant: "warning",
+        });
+        return;
+      }
+  
       setLoading(true);
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/delete/${id}`, { withCredentials: true });
-      setTests((prev) => prev.filter((categories) => categories._id !== id));
-      toast({ title: "Success", description: "Category deleted successfully." });
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/delete/${id}`, {
+        withCredentials: true,
+      });
+  
+      setTests((prev) => prev.filter((test) => test._id !== id));
+  
+      toast({
+        title: "Success",
+        description: "Category deleted successfully.",
+      });
     } catch (error) {
-      toast({ title: "Error", description: "Failed to delete Category.", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to delete Category.",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -46,39 +67,46 @@ function SingleTests() {
 
   const toggleTestSelection = async (id, currentState) => {
     try {
-      const selectedCount = tests.filter((test) => test.selected).length;
-
-      // Prevent selection if more than six are already selected
-      if (!currentState && selectedCount >= 6) {
+      const selectedTests = tests.filter((test) => test.selected);
+      
+      // Prevent deselecting the last selected test
+      if (currentState && selectedTests.length === 1) {
         toast({
-          title: "Limit Reached",
-          description: "You can only select up to six categories.",
+          title: "Action Not Allowed",
+          description: "At least one test must remain selected.",
           variant: "warning",
         });
         return;
       }
-
-      setTogglingId(id); 
+  
+      setTogglingId(id);
       const response = await axios.patch(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/update/${id}`,
         { selected: !currentState },
         { withCredentials: true }
       );
-      console.log(response);
-
+  
       setTests((prev) =>
         prev.map((test) =>
           test._id === id ? { ...test, selected: response.data.data.selected } : test
         )
       );
-
-      toast({ title: "Success", description: "Package selection for displaying front page updated successfully." });
+  
+      toast({
+        title: "Success",
+        description: "Package selection updated successfully.",
+      });
     } catch (error) {
-      toast({ title: "Error", description: "Failed to update Package selection.", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to update Package selection.",
+        variant: "destructive",
+      });
     } finally {
       setTogglingId(null);
     }
   };
+  
 
   useEffect(() => {
     fetchTests();

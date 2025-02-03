@@ -8,10 +8,10 @@ import { sendEmail } from "../utils/emailService.js";
 
 
 const addToOrders = asyncHandler(async (req, res) => {
-    const { userId, items, totalAmount, name, phoneNumber, address, pincode, addressType } = req.body;
+    const { userId, items, name, phoneNumber, address, pincode, addressType, couponCode,  cartValue, discountedValue, couponDiscount, exclusiveDiscount, totalPayable } = req.body;
 
     // Validate required fields
-    if (!userId || !items || !totalAmount || !name || !phoneNumber || !address || !pincode || !addressType) {
+    if (!userId || !items || !name || !phoneNumber || !address || !pincode || !addressType) {
         throw new ApiError(404, "All fields are required");
     }
 
@@ -19,13 +19,21 @@ const addToOrders = asyncHandler(async (req, res) => {
     const newOrder = new Order({
         userId,
         items,
-        totalAmount,
         name,
         phoneNumber,
         address,
         pincode,
         addressType,
+        couponCode,
+        cartValue,
+        discountedValue,
+        couponDiscount,
+        exclusiveDiscount,
+        totalPayable
+
     });
+    console.log(newOrder);
+    
 
     await newOrder.save();
 
@@ -60,8 +68,15 @@ const addToOrders = asyncHandler(async (req, res) => {
                 <li><strong>Order ID:</strong> ${order._id}</li>
                 <li><strong>User Name:</strong> ${name}</li>
                 <li><strong>Phone Number:</strong> ${phoneNumber}</li>
-                <li><strong>Total Amount:</strong> ₹${totalAmount}</li>
-                <li><strong>Shipping Address:</strong> ${address}, ${pincode}, ${addressType}</li>
+                <li><strong>Total Value:</strong> ₹${cartValue}</li>
+                <li><strong>Discounted Value:</strong> ₹${discountedValue}</li>
+                <li><strong>Coupon code:</strong> ${couponCode}</li>
+                <li><strong>Coupon Discount:</strong> ₹${couponDiscount}</li>
+                <li><strong>Custom Package Discount:</strong> ₹${exclusiveDiscount}</li>
+                <li><strong>Total Payable Amount: ₹${totalPayable} </strong></li>
+                <li><strong>Address:</strong> ${address}, ${pincode}, ${addressType}</li>
+                <li><strong>Pincode:</strong> ${pincode}</li>
+                
                 <li><strong>Items:</strong></li>
                 <ul>
                     ${order.items

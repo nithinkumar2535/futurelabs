@@ -1,5 +1,5 @@
 import React, { Fragment,useState } from 'react'
-import { BriefcaseMedical, ChartNoAxesCombined,Menu} from "lucide-react";
+import { ChartNoAxesCombined, BaggageClaim, Users, Component, FlaskConical, Menu, TestTubes} from "lucide-react";
 import { useNavigate } from 'react-router-dom'
 import { LayoutDashboard, NotebookPen, ShoppingCart, Images } from "lucide-react";
 import { useLocation } from 'react-router-dom';
@@ -17,30 +17,37 @@ import {
 function MenuItems({ setOpen }) {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(null);
+   const location = useLocation();
 
   const adminSidebarMenuItems = [
     {
       id: "orders",
       label: "Orders",
       path: "/admin/orders",
-      icon: <LayoutDashboard />,
+      icon:<BaggageClaim />,
     },
     {
       id: "users",
       label: "Users",
       path: "/admin/users",
-      icon: <LayoutDashboard />,
+      icon: <Users />,
     },
     {
-      id: "Tests",
+      id: "coupons",
+      label: "Coupons",
+      path: "/admin/coupons",
+      icon: <Component />,
+    },
+    {
+      id: "tests",
       label: "Tests",
       path: "/admin",
-      icon: <LayoutDashboard />,
+      icon: <TestTubes />,
     },
     {
       id: "banner",
       label: "Banner",
-      icon: <NotebookPen />,
+      icon: <Images />,
       children: [
         {
           id: "mainbanner",
@@ -65,61 +72,61 @@ function MenuItems({ setOpen }) {
     {
       id: "categories",
       label: "Categories",
-      icon: <NotebookPen />,
+      icon: <Menu />,
       children: [
         {
           id: "lp&mt",
           label: "LP & MT",
           path: "/admin/packages/less-price-packages",
-          icon: <NotebookPen />
+          icon: <FlaskConical />
         },
         {
           id: "womenagegroup",
           label: "Women Age Categories",
           path: "/admin/packages/women/age",
-          icon: <NotebookPen />,
+          icon:<FlaskConical />,
         },
         {
           id: "menagegroup",
           label: "Men Age Categories",
           path: "/admin/packages/men/age",
-          icon: <NotebookPen />,
+          icon: <FlaskConical />,
         },
         {
           id: "lifestyle",
           label: "Life Style Packages",
           path: "/admin/packages/life-style",
-          icon: <NotebookPen />,
+          icon: <FlaskConical />,
         },
         {
           id: "men",
           label: "Men Packages",
           path: "/admin/packages/men",
-          icon: <NotebookPen />,
+          icon: <FlaskConical />,
         },
         {
           id: "organ",
           label: "Organ Packages",
           path: "/admin/packages/organ",
-          icon: <NotebookPen />,
+          icon: <FlaskConical />,
         },
         {
           id: "women",
           label: "Women Packages",
           path: "/admin/packages/women",
-          icon: <NotebookPen />,
+          icon: <FlaskConical />,
         },
         {
           id: "special",
           label: "Special Care Packages",
           path: "/admin/packages/special",
-          icon: <NotebookPen />,
+          icon: <FlaskConical />,
         },
         {
           id: "single",
           label: "Single Tests",
           path: "/admin/packages/single",
-          icon: <NotebookPen />,
+          icon: <FlaskConical />,
         },
       ],
     },
@@ -200,7 +207,7 @@ function AdminSidebar({open, setOpen}) {
       {/* Sliding Sidebar (For smaller screens) */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="left" className="w-64">
-          <div onClick={() => navigate("/admin/orders")} className="flex flex-col h-full">
+          <div className="flex flex-col h-full">
             <SheetHeader className="border-b">
               <SheetTitle className="flex gap-2 mt-3">
                 <ChartNoAxesCombined size={30} />

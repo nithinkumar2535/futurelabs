@@ -62,6 +62,10 @@ function LessPricePackages() {
   };
 
   const deleteCategory = async (id) => {
+    if (categories.length === 1) {
+      toast({ title: "Error", description: "At least one category must remain.", variant: "warning" });
+      return;
+    }
     try {
       setLoading(true);
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/category/lessPrice/delete/${id}`, { withCredentials: true });
@@ -90,6 +94,16 @@ function LessPricePackages() {
   const toggleCategorySelection = async (id, currentState) => {
     try {
       const selectedCount = categories.filter((category) => category.selected).length;
+
+      // Prevent deselecting the last selected category
+      if (currentState && selectedCount === 1) {
+        toast({
+          title: "Action Not Allowed",
+          description: "At least one category must remain selected.",
+          variant: "warning",
+        });
+        return;
+      }
 
       // Prevent selection if more than six are already selected
       if (!currentState && selectedCount >= 6) {

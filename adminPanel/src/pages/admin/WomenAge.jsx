@@ -62,13 +62,19 @@ function WomenAge() {
   };
 
   const deleteCategory = async (id) => {
+
+    if (categories.length === 1) {
+      toast({ title: "Error", description: "At least one category must remain.", variant: "warning" });
+      return;
+    }
+
     try {
       setLoading(true);
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/category/womenage/delete/${id}`, { withCredentials: true });
-      setCategories((prev) => prev.filter((categories) => categories._id !== id));
+      setCategories((prev) => prev.filter((category) => category._id !== id));
       toast({ title: "Success", description: "Category deleted successfully." });
     } catch (error) {
-      toast({ title: "Error", description: "Failed to delete Category.", variant: "destructive" });
+      toast({ title: "Error", description: "Failed to delete category.", variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -90,6 +96,16 @@ function WomenAge() {
   const toggleCategorySelection = async (id, currentState) => {
     try {
       const selectedCount = categories.filter((category) => category.selected).length;
+
+       // Prevent deselecting the last selected category
+       if (currentState && selectedCount === 1) {
+        toast({
+          title: "Action Not Allowed",
+          description: "At least one category must remain selected.",
+          variant: "warning",
+        });
+        return;
+      }
 
       // Prevent selection if more than six are already selected
       if (!currentState && selectedCount >= 6) {

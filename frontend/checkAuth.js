@@ -193,7 +193,6 @@ async function handleLogout() {
 
 
 async function handleLogin() {
-
   const phoneForm = document.getElementById("phone-form");
   const otpForm = document.getElementById("otp-form");
   const phoneField = document.getElementById("phone_field");
@@ -207,47 +206,34 @@ async function handleLogin() {
   function resetForms() {
     phoneForm.style.display = "block";
     otpForm.style.display = "none";
-
     phoneField.value = "";
     otpInputs.forEach((input) => (input.value = ""));
-
     phoneError.textContent = "";
     otpError.textContent = "";
     messageContainer.innerHTML = "";
-
-    const inputContainer = document.querySelector(".input_container");
-    const sendOtpButton = document.querySelector(".sign-in_btn");
-
-    // Add margin if needed
-    inputContainer.classList.add("mb-3");  // Add bottom margin to the input container
-    sendOtpButton.classList.add("mt-3");   // Add top margin to the "Send OTP" button
+    resendButton.disabled = false;
+    resendButton.textContent = "Resend Code";
   }
 
   function showMessage(message, isSuccess = true) {
     messageContainer.innerHTML = `<p class="${isSuccess ? "text-success" : "text-danger"}">${message}</p>`;
+    setTimeout(() => (messageContainer.innerHTML = ""), 3000); // Auto-clear message
   }
-
 
   phoneForm.addEventListener("submit", async function (event) {
     event.preventDefault();
-
     const phoneNumber = phoneField.value.trim();
     const submitButton = phoneForm.querySelector('button[type="submit"]');
 
-
-
-    if (! /^[6-9]\d{9}$/.test(phoneNumber)) {
+    if (!/^[6-9]\d{9}$/.test(phoneNumber)) {
       phoneError.textContent = "Please enter a valid 10-digit phone number.";
       return;
     }
 
     phoneError.textContent = "";
     submitButton.disabled = true;
-    const originalButtonText = submitButton.textContent; // Save original button text
-    submitButton.textContent = "Sending OTP..."; // Change to loading message
-
-
-
+    const originalButtonText = submitButton.textContent;
+    submitButton.textContent = "Sending OTP...";
 
     try {
       const response = await fetch(`${baseUrl}/api/v1/auth/send-otp`, {
@@ -256,70 +242,76 @@ async function handleLogin() {
         body: JSON.stringify({ phone: phoneNumber }),
       });
 
-
-      if (!response.ok) throw new Error("Failed to send OTP");
-
       const result = await response.json();
-      showMessage(result.message || "OTP sent successfully!");
-      setTimeout(() => {
-        showMessage("", false); // Clear the message
-      }, 3000);
+      if (!response.ok) throw new Error(result.message || "Failed to send OTP");
 
+      showMessage(result.message || "OTP sent successfully!");
       phoneForm.style.display = "none";
       otpForm.style.display = "block";
+      otpInputs[0].focus();
     } catch (error) {
       console.error("Error sending OTP:", error);
-      showMessage("Error sending OTP. Please try again.", false);
+      showMessage(error.message || "Error sending OTP. Please try again.", false);
     } finally {
-      // Restore the original button text and enable the button
       submitButton.textContent = originalButtonText;
       submitButton.disabled = false;
     }
   });
 
   otpInputs.forEach((input, index) => {
+    input.setAttribute("autocomplete", "one-time-code");
+
     input.addEventListener("input", () => {
       if (input.value.length === 1 && index < otpInputs.length - 1) {
         otpInputs[index + 1].focus();
       }
+
+      // Auto-submit OTP if all fields are filled
+      if ([...otpInputs].every((inp) => inp.value.length === 1)) {
+        document.getElementById("otp-form").dispatchEvent(new Event("submit"));
+      }
     });
+
     input.addEventListener("keydown", (e) => {
       if (e.key === "Backspace" && index > 0 && input.value === "") {
         otpInputs[index - 1].focus();
       }
     });
+
+    input.addEventListener("paste", (e) => {
+      let data = e.clipboardData.getData("text").trim();
+      if (data.length === 6) {
+        data.split("").forEach((char, i) => {
+          if (otpInputs[i]) otpInputs[i].value = char;
+        });
+        otpInputs[5].focus(); // Move focus to last input
+        document.getElementById("otp-form").dispatchEvent(new Event("submit"));
+      }
+    });
   });
 
   let resendTimer;
-
   resendButton.addEventListener("click", async function () {
     const phoneNumber = phoneField.value.trim();
 
-    if (! /^[6-9]\d{9}$/.test(phoneNumber)) {
+    if (!/^[6-9]\d{9}$/.test(phoneNumber)) {
       showMessage("Please enter a valid 10-digit phone number.", false);
       return;
     }
 
-
-    resendButton.disabled = true; // Disable button
-    let countdown = 30; // 30 seconds countdown
-
-    // Update the button text with the countdown
+    resendButton.disabled = true;
+    let countdown = 30;
     resendButton.textContent = `Resend Code in ${countdown}s`;
 
-    // Start the countdown timer
-
-    resendTimer = setInterval(function () {
+    resendTimer = setInterval(() => {
       countdown--;
       resendButton.textContent = `Resend Code in ${countdown}s`;
-
       if (countdown === 0) {
-        clearInterval(resendTimer); // Stop the countdown
-        resendButton.disabled = false; // Enable button
-        resendButton.textContent = "Resend Code"; // Reset button text
-
+        clearInterval(resendTimer);
+        resendButton.disabled = false;
+        resendButton.textContent = "Resend Code";
       }
-    }, 1000); // Update every second
+    }, 1000);
 
     try {
       const response = await fetch(`${baseUrl}/api/v1/auth/send-otp`, {
@@ -328,41 +320,35 @@ async function handleLogin() {
         body: JSON.stringify({ phone: phoneNumber }),
       });
 
-      if (!response.ok) throw new Error("Failed to resend OTP");
-
       const result = await response.json();
-      showMessage(result.message || "OTP resent successfully!", true);
+      if (!response.ok) throw new Error(result.message || "Failed to resend OTP");
 
+      showMessage(result.message || "OTP resent successfully!", true);
       otpInputs.forEach((input) => (input.value = ""));
       otpInputs[0].focus();
     } catch (error) {
       console.error("Error resending OTP:", error);
-      showMessage("Error resending OTP. Please try again.", false);
+      showMessage(error.message || "Error resending OTP. Please try again.", false);
     }
-
   });
 
-  changeNumberButton.addEventListener("click", function () {
-    resetForms();
-  });
+  changeNumberButton.addEventListener("click", resetForms);
 
   otpForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     const phoneNumber = phoneField.value.trim();
-    const otpValue = Array.from(otpInputs).map((input) => input.value).join("");
+    const otpValue = [...otpInputs].map((input) => input.value).join("");
     const submitButton = otpForm.querySelector('button[type="submit"]');
 
-    if (!/^[0-9]{6}$/.test(otpValue)) {
+    if (!/^\d{6}$/.test(otpValue)) {
       otpError.textContent = "Please enter a valid 6-digit OTP.";
       return;
     }
 
     otpError.textContent = "";
-
-    // Disable the submit button and show loading message
-    const originalButtonText = submitButton.textContent; // Save the original button text
     submitButton.disabled = true;
-    submitButton.textContent = "Verifying OTP..."; // Change to loading message
+    const originalButtonText = submitButton.textContent;
+    submitButton.textContent = "Verifying OTP...";
 
     try {
       const response = await fetch(`${baseUrl}/api/v1/auth/verify-otp`, {
@@ -372,32 +358,32 @@ async function handleLogin() {
         body: JSON.stringify({ phone: phoneNumber, otp: otpValue }),
       });
 
-      if (!response.ok) throw new Error("OTP verification failed");
-
       const result = await response.json();
+      if (!response.ok) throw new Error(result.message || "OTP verification failed");
 
       // Show Toast message for successful login
-    $('#loginToast').toast('show');
-
+      const loginToast = new bootstrap.Toast(document.getElementById("loginToast"));
+      loginToast.show();
 
       showMessage(result.message || "OTP verified successfully!", true);
-      resetForms()
+      resetForms();
+
+      // Close the sidebar
       const sidebar = document.getElementById("sidebar");
       const bsCollapse = new bootstrap.Collapse(sidebar, { toggle: false });
       bsCollapse.hide();
-      await updateUI()
+
+      await updateUI();
     } catch (error) {
       console.error("Error verifying OTP:", error);
-      showMessage("Invalid OTP. Please try again.", false);
+      showMessage(error.message || "Invalid OTP. Please try again.", false);
     } finally {
-      // Restore the original button text and enable the button
       submitButton.textContent = originalButtonText;
       submitButton.disabled = false;
     }
   });
-
-
 }
+
 
 handleLogin()
 

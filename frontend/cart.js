@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', async () => {
   const container = document.querySelector('.cart-card');
   const modal = document.getElementById('exampleModal');
@@ -26,58 +27,76 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
 
-  const recalculateTotals = (detailedItems) => {
-    
-    const sampleCollectionCharges = 250; // Static value
-    const isSampleFree = true; // Modify based on logic
+  const recalculateTotals = (detailedItems, appliedCoupon = null) => {
+    const sampleCollectionCharges = 250;
+    const isSampleFree = true;
 
-    // Apply 10% discount for exclusive package category
     const exclusiveDiscount = detailedItems.reduce((total, item) => {
-      if (item.category === 'Exclusive') { // Check if item belongs to exclusive category
-        return total + (item.offerPrice * item.quantity * 0.1); // 10% discount
-      }
-      return total;
+        if (item.category === 'Exclusive') {
+            return total + (item.offerPrice * item.quantity * 0.1);
+        }
+        return total;
     }, 0);
 
     const cartValue = detailedItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const discountedValue = detailedItems.reduce((total, item) => total + item.offerPrice * item.quantity, 0);
-    const totalPayable = discountedValue - exclusiveDiscount + (isSampleFree ? 0 : sampleCollectionCharges);
+    
+    let couponDiscount = 0;
+    if (appliedCoupon) {
+        couponDiscount = (discountedValue * appliedCoupon.discount) / 100;
+    }
 
-    // Update the DOM for the cart summary
+    const totalPayable = discountedValue - exclusiveDiscount - couponDiscount + (isSampleFree ? 0 : sampleCollectionCharges);
+
     cartSummaryContainer.innerHTML = `
-          <div class="container py-5 py-sm-0">
+        <div class="container py-5 py-sm-0">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex justify-content-between">
-                <p>Cart Value</p>
-                <p><del>₹${cartValue.toFixed(2)}</del> ₹${discountedValue.toFixed(2)}</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between">
-                <p>Sample Collection Charges</p>
-                <p>${isSampleFree ? '<del>₹250.00</del> <strong style="color: #39a694">Free</strong>' : `₹${sampleCollectionCharges.toFixed(2)}`}</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between">
-                <p>Custom Test Discount<br><em style="font-size: smaller;"> Get <strong style="color: #39a694">(10%)</strong> off on Exclusive Packages – delivering value every day!</em></p>
-                <p>-₹${exclusiveDiscount.toFixed(2)}</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between">
-                <strong>Amount Payable</strong>
-                <strong>₹${totalPayable.toFixed(2)}</strong>
-              </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <p>Cart Value</p>
+                    <p><del>₹${cartValue.toFixed(2)}</del> ₹${discountedValue.toFixed(2)}</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <p>Sample Collection Charges</p>
+                    <p>${isSampleFree ? '<del>₹250.00</del> <strong style="color: #39a694">Free</strong>' : `₹${sampleCollectionCharges.toFixed(2)}`}</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <p>Custom Test Discount</p>
+                    <p>-₹${exclusiveDiscount.toFixed(2)}</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <p>Coupon Discount</p>
+                    <p style="color: green;">-${couponDiscount.toFixed(2)}</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>Amount Payable</strong>
+                    <strong>₹${totalPayable.toFixed(2)}</strong>
+                </li>
             </ul>
-             <div class="container my-2 p-md-0 p-sm-0 p-0">
-                        <button
-                          class="text-uppercase proceed-btn text-center toggle-button"
-                        >
-                          Proceed
-                        </button>
-                      </div>
-          </div>
-      `;
+
+            <!-- Coupon Input Section -->
+            <div class="mt-3">
+                <input type="text" id="coupon-code" class="form-control" placeholder="Enter Coupon Code" />
+                <button id="apply-coupon" class="btn  mt-2 w-100">Apply Coupon</button>
+                <p id="coupon-error" class="text-danger mt-1"></p>
+            </div>
+
+            <div class="container my-2">
+                <button class="text-uppercase proceed-btn text-center toggle-button">Proceed</button>
+            </div>
+        </div>
+    `;
 
     setupProceedButtonListener();
 
-    return totalPayable;
-  };
+    return { cartValue, discountedValue, couponDiscount, exclusiveDiscount, totalPayable };
+};
+
+
+
+
+
+
+
 
 
   try {
@@ -101,6 +120,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       container.innerHTML = "Your Cart is Empty"
       return
     }
+
+    const updateCartCount = () => {
+      const cartCountDesktop =  document.getElementById("cart-badge-desktop");
+      const cartCountMobile = document.getElementById("cart-badge-mobile");
+      
+      if (cartCountDesktop) {
+        cartCountDesktop.textContent = detailedItems.length
+      }
+    
+      if (cartCountMobile) {
+        cartCountMobile.textContent = detailedItems.length
+      }
+    
+    };
 
 
 
@@ -183,34 +216,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     confirmRemoveButton.addEventListener('click', async () => {
       const testId = confirmRemoveButton.getAttribute('data-id');
       const userId = confirmRemoveButton.getAttribute('data-user');
-
-      // Remove the item from the DOM
+    
       const cartItem = document.querySelector(`.main-cart[data-id="${testId}"]`);
       if (cartItem) cartItem.remove();
-
-      // Update the `detailedItems` array
+    
       const updatedItems = detailedItems.filter((item) => item.testId !== testId);
-      detailedItems.length = 0; // Clear the array
-      detailedItems.push(...updatedItems); // Update it with the filtered items
-
-      // Recalculate totals
-      recalculateTotals(detailedItems);
-
+      detailedItems.length = 0;
+      detailedItems.push(...updatedItems);
+    
+      // Ensure coupon discount is preserved when recalculating totals
+      recalculateTotals(detailedItems, appliedCoupon);
+    
+      updateCartCount();
+    
       if (detailedItems.length === 0) {
-        cartSummaryContainer.innerHTML = ""
-        container.innerHTML = "Your Cart is Empty"
+        cartSummaryContainer.innerHTML = "";
+        container.innerHTML = "Your Cart is Empty";
       }
-
-      // Make an API call to update the backend
+    
       try {
         const removeResponse = await fetch(`${baseUrl}/api/v1/cart/remove-item`, {
           method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId, testId }),
         });
-
+    
         if (!removeResponse.ok) {
           console.error('Failed to remove item from server');
         } else {
@@ -220,11 +250,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error removing item:', error);
       }
     });
+    
+    
 
 
 
 
 
+
+    let appliedCoupon = null; // Store the applied coupon globally
 
     container.addEventListener('click', async (event) => {
       const patientOption = event.target.closest('.patient-option');
@@ -232,40 +266,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         const testId = patientOption.dataset.id;
         const numPatients = parseInt(patientOption.dataset.patient, 10);
         const cartItem = document.querySelector(`.main-cart[data-id="${testId}"]`);
-
-        // Update the cart item with the new patient count
+    
         cartItem.setAttribute('data-patients', numPatients);
-
-        // Update the dropdown button text
+    
         const dropdownButton = cartItem.querySelector('.patient-btn');
         dropdownButton.textContent = `${numPatients} Patient${numPatients > 1 ? 's' : ''}`;
-
-        // Update the checked state in the dropdown
+    
         const dropdownItems = cartItem.querySelectorAll('.patient-option input[type="radio"]');
         dropdownItems.forEach((input) => {
           const patientValue = parseInt(input.closest('.patient-option').dataset.patient, 10);
-          input.checked = patientValue === numPatients; // Check the matching option
+          input.checked = patientValue === numPatients;
         });
-
-        // Find the corresponding item in `detailedItems` and update the quantity
+    
         const updatedItem = detailedItems.find((item) => item.testId === testId);
         if (updatedItem) {
           updatedItem.quantity = numPatients;
         }
-
-        // Recalculate totals
-        recalculateTotals(detailedItems);
-
-        // Save the update to the database
+    
+        // Ensure applied coupon is passed
+        recalculateTotals(detailedItems, appliedCoupon);
+    
         try {
           const response = await fetch(`${baseUrl}/api/v1/cart/update`, {
             method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ testId, userId, quantity: numPatients }),
           });
-
+    
           if (!response.ok) {
             console.error('Failed to update the patient count on the server.');
           } else {
@@ -276,9 +303,50 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
       }
     });
+    
+    
+    // Store the applied coupon when it's applied
+
+    document.addEventListener('click', async (event) => {
+      if (event.target.id === 'apply-coupon') {
+        const couponCode = document.getElementById('coupon-code').value.trim();
+        const couponError = document.getElementById('coupon-error');
+    
+        if (!couponCode) {
+          couponError.textContent = "Please enter a coupon code.";
+          return;
+        }
+        
+        try {
+          
+          const response = await fetch(`${baseUrl}/api/v1/coupons/validate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: couponCode }),
+          });
+    
+          const data = await response.json();
+    
+          if (!response.ok || !data.success) {
+            couponError.textContent = "Invalid or expired coupon.";
+            return;
+          }
+    
+          appliedCoupon = data.data; // Store the applied coupon
+          recalculateTotals(detailedItems, appliedCoupon);
+          document.getElementById('coupon-error').textContent = "Coupon applied successfully!";
+          document.getElementById('coupon-error').style.color = "green";
+
+        } catch (error) {
+          console.error("Error applying coupon:", error);
+          couponError.textContent = "Invalid or expired coupon.";
+        }
+      }
+    });
+    
 
 
-
+    // clicking proceed button
     document.querySelector('.toggle-button').addEventListener('click', (event) => {
 
 
@@ -287,38 +355,41 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('#checkup2').classList.add('active');
     });
 
-
-
+    // submit order 
     document.querySelector('.btn-nexttoggle').addEventListener('click', async (event) => {
       const button = event.target;
       const spinner = button.querySelector('.spinner-border');
       const errDiv = document.querySelector('.error-msg');
-    
+      
       // Show spinner and disable the button
       spinner.classList.remove("d-none");
       button.disabled = true;
-    
+      
       // Collect form data
       const name = document.querySelector('#f-name').value.trim();
       const phoneNumber = document.querySelector('#phone-number').value.trim();
       const address = document.querySelector('#message-text').value.trim();
       const pincode = document.querySelector('#pincode').value.trim();
       const addressType = document.querySelector('input[name="options"]:checked').id;
-      const totalAmount = recalculateTotals(detailedItems);
-      const validPincode = ['671531', '671314'];
+      const validPincode = ['560024', '560045', '560046', '560092', '560094', '560006', '560032', '560080', '560112', '562106'];
     
-      // Validation
-      const showError = (message) => {
+
+       // Function to show errors
+       const showError = (message) => {
         errDiv.textContent = message;
         spinner.classList.add("d-none");
         button.disabled = false;
       };
-    
+
+      
+      // Validation (Synchronous)
       if (!name || !phoneNumber || !address || !pincode) return showError("Please fill all the required fields.");
       if (!/^[6-9]\d{9}$/.test(phoneNumber)) return showError("Please enter a valid 10-digit mobile number.");
       if (!/^\d{6}$/.test(pincode)) return showError("Please enter a valid 6-digit pincode.");
-      /* if (!validPincode.includes(pincode)) return showError("Currently, service is not available in your location."); */
+      if (!validPincode.includes(pincode)) return showError("Currently, service is not available in your location.");
     
+      const { cartValue, discountedValue, couponDiscount, exclusiveDiscount, totalPayable } = recalculateTotals(detailedItems, appliedCoupon);
+      
       // Prepare order data
       const orderData = {
         userId,
@@ -326,25 +397,39 @@ document.addEventListener('DOMContentLoaded', async () => {
           testId: item.testId,
           quantity: item.quantity,
         })),
-        totalAmount,
         name,
         phoneNumber,
         address,
         pincode,
         addressType,
+        couponCode: appliedCoupon ? appliedCoupon.code : null,
+        cartValue,
+        discountedValue,
+        couponDiscount,
+        exclusiveDiscount,
+        totalPayable
       };
     
+     
+    
       try {
-        const response = await fetch(`${baseUrl}/api/v1/orders/add`, {
+        // Start submitting order request
+        const submitOrder = fetch(`${baseUrl}/api/v1/orders/add`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(orderData),
         });
     
-        if (response.ok) {
+        // Use Promise.all to handle both spinner visibility and async submit request simultaneously
+        const response = await Promise.all([submitOrder]);
+    
+        if (response[0].ok) {
           container.innerHTML = "Your Cart is Empty";
           cartSummaryContainer.innerHTML = "";
           detailedItems.length = 0;
+          
+          updateCartCount(); // Update cart count to 0 after submission
+    
           document.querySelector('#checkup2').classList.remove('active');
           document.querySelector('#checkup3').classList.add('active');
         } else {
@@ -358,6 +443,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         button.disabled = false;
       }
     });
+    
     
     
 

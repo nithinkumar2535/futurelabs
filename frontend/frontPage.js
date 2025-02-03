@@ -366,7 +366,7 @@ function renderLifeStyle(data) {
     .map(
       (item) => `
         <div class="lyf-cardmain">
-          <a href="lyfestyle-health-checkup.html?tab=${encodeURIComponent(item.name)}" class="lyf-card text-center">
+          <a href="lifestyle-health-checkup.html?tab=${encodeURIComponent(item.name)}" class="lyf-card text-center">
             <img 
               class="lyf-cardimg" 
               src="${baseUrl}/${item.imagePath || 'placeholder.svg'}" 
@@ -491,34 +491,53 @@ function renderSpecialCare(data, bannerData) {
   carousel.innerHTML = carouselContent;
 
   // Initialize OwlCarousel
-  const owl2 = $(".owl-carousel-2").owlCarousel({
-    margin: 20,
-    loop: true,
-    nav: false,
-    autoplay: true,
-    dots: true,
-    responsive: {
-      0: { items: 1 },
-      600: { items: 3 },
-      1000: { items: 3 },
-    },
+  $(document).ready(function () {
+    var owl2 = $(".owl-carousel-2").owlCarousel({
+      margin: 20,
+      loop: true,
+      nav: false, // Keep default navigation off
+      dots: false, // Ensure dots are disabled
+      rewind: true, // Ensure it cycles correctly
+      responsive: {
+        0: { items: 1 },
+        600: { items: 3 },
+        1000: { items: 3 },
+      },
+    });
+
+    // Ensure custom navigation buttons work
+    $("#next2")
+      .off("click")
+      .on("click", function () {
+        owl2.trigger("next.owl.carousel");
+      });
+
+    $("#prev2")
+      .off("click")
+      .on("click", function () {
+        owl2.trigger("prev.owl.carousel");
+      });
+
+    // Mouse hover opacity logic
+    $(".prd-cardo").hover(
+      function () {
+        $(".prd-cardo").css("opacity", "0.3");
+        $(this).css("opacity", "1");
+      },
+      function () {
+        $(".prd-cardo").css("opacity", "1");
+      }
+    );
   });
 
-  // Custom Navigation for OwlCarousel
 
-  $("#next2").click(() => owl2.trigger("next.owl.carousel"));
-  $("#prev2").click(() => owl2.trigger("prev.owl.carousel"));
 
-  // Mouse hover opacity logic for carousel items
-  $(".prd-cardo").hover(
-    function () {
-      $(".prd-cardo").css("opacity", "0.3");
-      $(this).css("opacity", "1");
-    },
-    function () {
-      $(".prd-cardo").css("opacity", "1");
-    }
-  );
+
+
+
+
+
+
 
   document.querySelectorAll(".view-card").forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -642,10 +661,11 @@ function renderSpecialCare(data, bannerData) {
       loop: true,
       margin: 10,
       autoplay: true,
-      nav: false, // Don't use Owl's built-in navigation
+      nav: false,
+      rewind: true, 
       responsive: {
         0: { items: 1 },
-        600: { items: 2 },
+        600: { items: 3 },
         1000: { items: 3 },
       },
     });

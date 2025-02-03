@@ -32,6 +32,10 @@ const OrderDetails = () => {
         <h3 className="text-lg font-semibold mb-2">Customer Details</h3>
         <p><strong>Name:</strong> {order.name || 'N/A'}</p>
         <p><strong>Phone Number:</strong> {order.phoneNumber || 'N/A'}</p>
+        
+        <p>
+          <strong>Pincode:</strong> {order.pincode || 'N/A'}
+        </p>
         <p>
           <strong>Address:</strong> {order.address || 'N/A'}
         </p>
@@ -44,7 +48,12 @@ const OrderDetails = () => {
         <h3 className="text-lg font-semibold mb-2">Order Information</h3>
         <p><strong>Order ID:</strong> {order._id}</p>
         <p><strong>Status:</strong> {order.status}</p>
-        <p><strong>Total Amount:</strong> ₹{order.totalAmount}</p>
+        <p><strong>Total Cart Value:</strong> ₹{order.cartValue}</p>
+        <p><strong>Discounted Cart Value:</strong> ₹{order.discountedValue}</p>
+        <p><strong>Coupon Code:</strong> {order.couponCode || 'N/A'}</p>
+        <p><strong>Coupon Discount:</strong> ₹{order.couponDiscount}</p>
+        <p><strong>Custom Package Discount:</strong> ₹{order.exclusiveDiscount}</p>
+        <p><strong>Amount Payable: ₹{order.totalPayable} </strong></p>
         <p>
           <strong>Created At:</strong>{' '}
           {new Date(order.createdAt).toLocaleString()}

@@ -290,57 +290,60 @@
         </button>
         <h4 class="login-headline">Quick Login / Register</h4>
       </div>
-
+  
       <!-- Phone Number Form -->
       <form class="form_container" id="phone-form">
         <div class="input_container">
-          <input placeholder="Enter your phone number" title="Input title" name="input-name" type="text"
-            class="input_field" id="phone_field" />
+          <input 
+            placeholder="Enter your phone number" 
+            title="Phone Number" 
+            name="phone" 
+            type="tel" 
+            class="input_field" 
+            id="phone_field" 
+            inputmode="numeric" 
+            pattern="[0-9]*" 
+            maxlength="10" 
+            required 
+          />
         </div>
         <small id="phone-error" class="text-danger"></small>
-        <button title="Sign In" type="submit" class="sign-in_btn">
-          Send OTP
-        </button>
+        <button title="Sign In" type="submit" class="sign-in_btn">Send OTP</button>
       </form>
-
+  
       <!-- OTP Form -->
-      <form class="otp-Form" id="otp-form" style="display:none;">
+      <form class="otp-Form" id="otp-form" style="display: none;">
         <span class="mainHeading">Enter OTP</span>
-        <p class="otpSubheading">
-          We have sent a verification code to your mobile number
-        </p>
-
-        <div class="inputContainer">
-          <input maxlength="1" type="text" class="otp-input" id="otp-input1" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input2" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input3" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input4" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input5" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input6" />
+        <p class="otpSubheading">We have sent a verification code to your mobile number</p>
+  
+        <!-- OTP Input -->
+        <div class="inputContainer pb-4">
+          <input maxlength="1" type="text" class="otp-input" id="otp-input1" inputmode="numeric" pattern="[0-9]*" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input2" inputmode="numeric" pattern="[0-9]*" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input3" inputmode="numeric" pattern="[0-9]*" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input4" inputmode="numeric" pattern="[0-9]*" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input5" inputmode="numeric" pattern="[0-9]*" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input6" inputmode="numeric" pattern="[0-9]*" />
+          <input type="hidden" id="full-otp" autocomplete="one-time-code" />
         </div>
+        
         <small id="otp-error" class="text-danger"></small>
-
-
-
-
-        <button class="verifyButton mt-1" type="submit">Verify</button>
-
+        <button class="verifyButton" type="submit">Verify</button>
+  
         <p class="resendNote">
           Didn't receive the code?
-          <button class="resendBtn" type="button" id="resend-btn">
-
-            Resend Code
-          </button>
+          <button class="resendBtn" type="button" id="resend-btn">Resend Code</button>
         </p>
         <p>
           <a href="javascript:void(0)" id="change-number" class="resendNote">Change Number</a>
         </p>
       </form>
-
+  
       <!-- Success/Error Message Container -->
       <div id="message-container" class="text-center mt-3"></div>
     </div>
   </div>
+  
 
   <!-- hero -->
 
@@ -398,7 +401,7 @@
   </div>
 
   <!-- section1 -->
-  <section class="py-5">
+  <section class="pt-lg-5 pt-md-0 pt-sm-0 pt-0 pb-lg-5 pb-md-5 pb-sm-3 pb-3">
     <div class="container">
       <div class="new-bg d-flex justify-content-between">
         <h2 class="sec-1h text-start">
@@ -417,7 +420,7 @@
 
   <!-- section2 -->
 
-  <section class="sec2 my-lg-5 my-md-2 my-sm-0 my-0">
+  <section class="sec2 my-lg-5 my-md-5 my-sm-2 my-2">
     <div class="container sec2-main">
       <div class="row">
         <div class="col-lg-9 col-md-7 col-sm-7 col-7   px-lg-5 px-md-5 px-sm-2 px-2 py-lg-4 py-md-4 py-sm-0 py-0">
@@ -447,7 +450,7 @@
   
 
   <!--section-3 Special care packages-->
-  <section class="py-5">
+  <section class="pb-lg-4 pb-md-2 pb-sm-0 pb-0">
     <div class="container">
       <div class="new-bg d-flex justify-content-between">
         <h2 class="sec-1h text-start">Special Care Packages</h2>
@@ -467,7 +470,7 @@
     <div class="container-fluid sec4-container">
       <div class="row pt-5 px-lg-2 px-md-0 px-0">
         <div class="col-lg-2 col-md-12 col-sm-12 col-12">
-          <h4 class="sec4-blws"> book labtest <br> <span class="text-dark">with us</span> </h4>
+          <h4 class="sec4-blws"> book lab test <br> <span class="text-dark">with us</span> </h4>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-6 col-6">
           <div class="d-flex">
@@ -496,7 +499,7 @@
             <img class="sec4-svgicon" src="images/icon-svg/review.svg" alt="">
             <div class="p-2">
               <h4 class="sec4-number m-0">99%</h4>
-              <p>Posetive customer <br>
+              <p>Positive customer <br>
                 reviews </p>
             </div>
 
@@ -506,7 +509,7 @@
           <div class="d-flex">
             <img class="sec4-svgicon" src="images/icon-svg/cerify.svg" alt="">
             <div class="p-2">
-              <h4 class="sec4-number m-0">Future lab assurance</h4>
+              <h4 class="sec4-number m-0">Future Lab assurance</h4>
               <p>Prestiges Certifications</p>
             </div>
 
@@ -607,7 +610,7 @@
           <div class="d-block text-end p-lg-3 p-md-3 px-sm-0 px-0 py-sm-2  py-2 ">
 
 
-            <h2 class="new-banner-h2">Home Sample Collection <br>Pre Book Yor Slot Now!</h2>
+            <h2 class="new-banner-h2">Home Sample Collection <br>Pre Book Your Slot Now!</h2>
 
             <a href="tel:08123459263" class="new-banner-btn">
               <span class="new-banner-btn__icon-wrapper">
@@ -712,11 +715,11 @@
   <!-- 
 section10 life style packages-->
 
-  <section class="sec10 mt-5 mb-lg-4 mb-md-2">
+  <section class="sec10 mt-lg-5 mt-md-4 mt-sm-2 mt-2 mb-lg-4 mb-md-2 mb-sm-3 mb-3">
     <div class="container">
       <div class="new-bg d-flex justify-content-between">
-        <h2 class="sec-1h text-start">LyfeStyle Health Checkup</h2>
-        <a class="view-all" href="lyfestyle-health-checkup.html">View All</a>
+        <h2 class="sec-1h text-start">LifeStyle Health Checkups</h2>
+        <a class="view-all" href="lifestyle-health-checkup.html">View All</a>
       </div>
 
       <div class="carousel-5-m life-carousel">
@@ -733,10 +736,10 @@ section10 life style packages-->
   <section class="sec12 ">
     <div class="container sec12-main shadow">
       <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-7 col-7 p-lg-4 p-md-4 p-sm-1 p-1">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-12 p-lg-4 p-md-4 p-sm-2 p-2">
           <button class="sec12-btn">
             <img src="images/verification.png" class="verification-png" alt="">
-            Cusomize
+            Customize
           </button>
           <h2 class="sec12-h">Creat Your Own Package</h2>
           <p class="sec12-p">Customize your package based on test you choose and get extra <span class="sec12-spn">10%
@@ -755,7 +758,7 @@ section10 life style packages-->
           </a>
 
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-5 col-5  ">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12  ">
           <img src="images/banners/sec12-img.png" alt="" class="sec12-img">
         </div>
       </div>
@@ -764,7 +767,7 @@ section10 life style packages-->
   </section>
 
   <!-- section-13 single-test -->
-  <section class="py-5">
+  <section class="pb-lg-4 pb-md-2 pb-sm-0 pb-0">
     <div class="container">
       <div class="new-bg d-flex justify-content-between">
         <h2 class="sec-1h text-start">Single Test Details</h2>
@@ -807,6 +810,70 @@ section10 life style packages-->
       </div>
     </div>
   </section>
+
+
+
+<!-- Download app -->
+<section class="py-lg-5 py-md-4 py-sm-4 py-4" style="background-color: #eeeeffa8;">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+        <img class="dwm-img" src="images/logo/app-logo.png" alt="app-logo">
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+<h1 class="dwn-h">Download Our App Now</h1>
+<h4 class="dwn-h4">Dowload App from this link <a href="#">Coming Soon (.....)</a></h4>
+  
+ <p class="dwn-p">Available on both Google Play Store and Appstore.Book health test</p>
+<div class="dwn-buttons">
+  <a href="#" class="gp-button">
+    <span class="dwn-icon">
+      <svg viewBox="30 336.7 120.9 129.2" class="w-5 sm:w-7">
+        <path
+          d="M119.2,421.2c15.3-8.4,27-14.8,28-15.3c3.2-1.7,6.5-6.2,0-9.7  c-2.1-1.1-13.4-7.3-28-15.3l-20.1,20.2L119.2,421.2z"
+          fill="#FFD400"
+        ></path>
+        <path
+          d="M99.1,401.1l-64.2,64.7c1.5,0.2,3.2-0.2,5.2-1.3  c4.2-2.3,48.8-26.7,79.1-43.3L99.1,401.1L99.1,401.1z"
+          fill="#FF3333"
+        ></path>
+        <path
+          d="M99.1,401.1l20.1-20.2c0,0-74.6-40.7-79.1-43.1  c-1.7-1-3.6-1.3-5.3-1L99.1,401.1z"
+          fill="#48FF48"
+        ></path>
+        <path
+          d="M99.1,401.1l-64.3-64.3c-2.6,0.6-4.8,2.9-4.8,7.6  c0,7.5,0,107.5,0,113.8c0,4.3,1.7,7.4,4.9,7.7L99.1,401.1z"
+          fill="#3BCCFF"
+        ></path>
+      </svg></span>
+    <div class="gp-button-text google">
+      <span>Get it on</span>
+      <span>Google Play</span>
+    </div>
+  </a>
+  <a href="#" class="gp-button">
+    <span class="dwn-icon"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M26.5058 27.625C25.33 29.3817 24.0833 31.0958 22.185 31.1242C20.2866 31.1667 19.6775 30.005 17.5241 30.005C15.3566 30.005 14.6908 31.0958 12.8916 31.1667C11.0358 31.2375 9.6333 29.2967 8.4433 27.5825C6.0208 24.0833 4.16497 17.6375 6.6583 13.3025C7.8908 11.1492 10.1008 9.78916 12.495 9.74666C14.3083 9.71833 16.0366 10.9792 17.1558 10.9792C18.2608 10.9792 20.3575 9.46333 22.5533 9.68999C23.4741 9.73249 26.0525 10.0583 27.71 12.495C27.5825 12.58 24.6358 14.3083 24.6641 17.8925C24.7066 22.1708 28.4183 23.6017 28.4608 23.6158C28.4183 23.715 27.8658 25.6558 26.5058 27.625ZM18.4166 4.95833C19.4508 3.78249 21.165 2.88999 22.5816 2.83333C22.7658 4.49083 22.1 6.16249 21.1083 7.35249C20.1308 8.55666 18.5158 9.49166 16.9291 9.36416C16.7166 7.73499 17.51 6.03499 18.4166 4.95833Z" fill=""></path>
+</svg></span>
+    <div class="gp-button-text apple">
+      <span>Download from</span>
+      <span>App Store</span>
+    </div>
+  </a>
+</div>
+
+
+
+</div>
+</div>
+
+  </div>
+
+
+</section>
+
+
 
   <!-- footer -->
   <div class="container-fluid p-0 d-lg-block d-md-none d-sm-none d-none" id="footer">
@@ -855,9 +922,7 @@ section10 life style packages-->
               <li class="mb-2">
                 <a href="terms-and-conditions.html" class="text-white">Terms & Conditions</a>
               </li>
-              <li class="mb-2">
-                <a href="sitemap.html" class="text-white">Sitemap</a>
-              </li>
+         
             </ul>
           </div>
           <!--Grid column-->
@@ -912,9 +977,9 @@ section10 life style packages-->
                 >
               </li>
               <li>
-                <a class="text-light" href="mailto:info@futurelabs.live">
+                <a class="text-light" href="mailto:info@futurelabs24.com">
                   <i class="fas fa-envelope pe-2 mb-0"></i
-                  >info@futurelabs.live
+                  >info@futurelabs24.com
                 </a>
               </li>
               <li class="pt-5">
@@ -946,8 +1011,8 @@ section10 life style packages-->
       <div class="container pb-5">
         <hr />
 
-        <a class="text-white fw-bolder " href="https://futurelabs.live"
-          >futurelab.live</a
+        <a class="text-white fw-bolder " href="https://futurelabs24.com"
+          >futurelabs24.com</a
         >
         <br />
         <h6 class="copy-right">Copyright © 2024 All Rights Reserved. <br> Design By <a  href="https://admizzer.com/">admizzer. com</a></h6>
@@ -962,11 +1027,7 @@ section10 life style packages-->
         style="background-color: rgba(0, 0, 0, 0.2)"
       >
         <p class="disclaimer">
-          Disclaimer: Future Labs provides diagnostic test booking services
-          only. The results are for informational purposes and should not
-          replace professional medical advice. Consult a licensed healthcare
-          provider for diagnosis and treatment. Future Labs is not liable for
-          any decisions made based on the test results provided.
+          Disclaimer: Report results are for diagnostics informational purposes & not intended to replace the care of medical practitioners and do not recommend self-diagnosis &/or self-medication. Test results are not valid for medico-legal purposes. Lab investigation is only a tool to facilitate concluding a diagnosis & should be clinically correlated by the referring physician. The Patient must visit the lab if there is a need for resampling/ retesting
         </p>
       </div>
       <!-- Copyright -->
@@ -1052,6 +1113,18 @@ section10 life style packages-->
     You have logged out successfully!
   </div>
 </div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div id="locationToast" class="toast bg-light" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Location Status</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div id="toastBody" class="toast-body"></div>
+  </div>
+</div>
+
+
 
 
 

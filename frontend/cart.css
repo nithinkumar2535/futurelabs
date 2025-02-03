@@ -128,6 +128,8 @@
 
 
 
+
+
       @media (max-width: 768px) {
     
         .tab-item {
@@ -398,24 +400,114 @@ font-size: clamp(10px, 1vw, 20px) !important;
 .btn-close:hover{
   background-color: #f8f9fa;
 }
-  .thnk-main{
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    width: fit-content;
-    padding: 150px;
-    border-radius: 20px;
-    background-color: #20c997;
-    color: #fff;
-  }
-  .thnk-main h2{
-    font-size: clamp(13px, 1.9vw, 25px) !important;
-  }
-  @media(max-width:768px){
-    .thnk-main{
-      padding: 50px;
-    }}
+ 
+.thnk-main{
+
+  width: 530px;
+
+  border-radius: 20px;
+  background-color: #20c997;
+  color: #fff;
+
+overflow: hidden;
+position: relative;
+text-align: left;
+border-radius: 0.5rem;
+max-width: 100%;
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+background-color: #fff;
+}
+
+.div_image_v {
+background: #47c9a2;
+border-bottom: none;
+position: relative;
+text-align: center;
+margin: -20px -20px 0;
+border-radius: 5px 5px 0 0;
+padding: 35px;
+}
+
+
+
+
+
+.image {
+display: flex;
+margin-left: auto;
+margin-right: auto;
+background-color: #e2feee;
+flex-shrink: 0;
+justify-content: center;
+align-items: center;
+width: 3rem;
+height: 3rem;
+border-radius: 9999px;
+animation: animate .6s linear alternate-reverse infinite;
+transition: .6s ease;
+}
+
+.image svg {
+color: #0afa2a;
+width: 2rem;
+height: 2rem;
+}
+
+.content {
+padding: 55px;
+text-align: center;
+}
+@media(max-width:576px){
+.content {
+padding: 34px;
+}
+}
+
+.thnk-title {
+color: #066e29;
+font-size: clamp(19px, 1.9vw, 27px) !important;
+font-weight: 600;
+line-height: 1.5rem;
+}
+
+.thnk-message {
+margin-top: 0.5rem;
+color: #595b5f;
+
+font-size: clamp(12px, 1vw, 20px) !important;
+line-height: 1.25rem;
+}
+
+@keyframes animate {
+from {
+transform: scale(1);
+}
+
+to {
+transform: scale(1.09);
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+   /*  bakcend */
+
+   #coupon-error {
+    font-size: x-small;
+   }
+
+   #apply-coupon {
+    background-color: #2E9D91 !important;
+    color: white;
+   }
 
 
 

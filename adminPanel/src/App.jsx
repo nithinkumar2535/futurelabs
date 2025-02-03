@@ -25,6 +25,7 @@ import Orders from './pages/admin/Order'
 import OrderDetails from './pages/admin/OrderDeatails'
 import TestDetails from './pages/admin/TestDatails'
 import LoggedInUsers from './pages/admin/Users'
+import Coupons from './pages/admin/Coupons'
 
 function App() {
   return (
@@ -62,6 +63,8 @@ function App() {
           <Route path='orders/:id' element = {<OrderDetails/>} />
           <Route path="tests/:id" element={<TestDetails/>} />
           <Route path="users" element={<LoggedInUsers/>} />
+          <Route path="coupons" element={<Coupons/>} />
+
 
 
         </Route>

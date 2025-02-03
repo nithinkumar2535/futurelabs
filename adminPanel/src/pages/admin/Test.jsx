@@ -393,19 +393,21 @@ function LabTests() {
         searchedProducts && searchedProducts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 md:gap-10">
             {searchedProducts.map((product) => (
-              <Link to={`/admin/tests/${product._id}`}>
+             
                 <div
                   key={product._id}
-                  className="bg-white rounded-lg cursor-pointer transition duration-300 ease-in-out shadow-lg border-2 border-gray-200 hover:border-green-200 p-4"
+                  className="bg-white rounded-lg  transition duration-300 ease-in-out shadow-lg border-2 border-gray-200 hover:border-green-200 p-4"
                 >
                   <div className="flex flex-col gap-3">
                     <div className="flex flex-row gap-3 p-4">
                       <div className="flex flex-col gap-2">
+                      <Link to={`/admin/tests/${product._id}`}>
                         <h1
-                          className="font-bold text-black text-lg transition duration-300"
+                          className="font-bold text-black text-lg transition duration-300 cursor-pointer hover:underline"
                         >
                           {product.testName}
                         </h1>
+                      </Link>
                         <span className="bg-cover bg-no-repeat bg-center bg-[url('a7a056f5.svg')] px-4 py-1 text-red-600 font-semibold text-sm">
                           {product.discountPercentage} % OFF
                         </span>
@@ -446,7 +448,7 @@ function LabTests() {
                     </div>
                   </div>
                 </div>
-              </Link>
+              
              
             ))}
           </div>

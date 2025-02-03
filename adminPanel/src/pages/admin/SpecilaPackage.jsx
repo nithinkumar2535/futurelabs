@@ -29,6 +29,15 @@ function SpecialPackages() {
 
   const deleteCategory = async (id) => {
     try {
+       // Prevent deleting the last test
+       if (tests.length === 1) {
+        toast({
+          title: "Action Not Allowed",
+          description: "At least one test must remain in the list.",
+          variant: "warning",
+        });
+        return;
+      }
       setLoading(true);
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tests/delete/${id}`, { withCredentials: true });
       setTests((prev) => prev.filter((categories) => categories._id !== id));
@@ -47,6 +56,16 @@ function SpecialPackages() {
   const toggleTestSelection = async (id, currentState) => {
     try {
       const selectedCount = tests.filter((test) => test.selected).length;
+
+      // Prevent deselecting the last selected category
+      if (currentState && selectedCount === 1) {
+        toast({
+          title: "Action Not Allowed",
+          description: "At least one category must remain selected.",
+          variant: "warning",
+        });
+        return;
+      }
 
       // Prevent selection if more than six are already selected
       if (!currentState && selectedCount >= 6) {

@@ -63,6 +63,11 @@ function OrganTests() {
 
   const deleteCategory = async (id) => {
     try {
+      const selectedCategories = categories.filter((category) => category.selected);
+      if (selectedCategories.length === 1 && selectedCategories[0]._id === id) {
+        toast({ title: "Action Not Allowed", description: "At least one category must remain selected.", variant: "warning" });
+        return;
+      }
       setLoading(true);
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/category/organ/delete/${id}`, { withCredentials: true });
       setCategories((prev) => prev.filter((categories) => categories._id !== id));
@@ -90,6 +95,16 @@ function OrganTests() {
   const toggleCategorySelection = async (id, currentState) => {
     try {
       const selectedCount = categories.filter((category) => category.selected).length;
+
+      // Prevent deselecting the last selected category
+      if (currentState && selectedCount === 1) {
+        toast({
+          title: "Action Not Allowed",
+          description: "At least one category must remain selected.",
+          variant: "warning",
+        });
+        return;
+      }
 
       // Prevent selection if more than six are already selected
       if (!currentState && selectedCount >= 6) {
