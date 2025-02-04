@@ -423,7 +423,7 @@ padding: 5px;
     right: 2px; /* Adjust for better position */
     background-color: #e88097;
     color: #ffffff;
-
+    text-align: center;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -1192,13 +1192,15 @@ height: 150px;
   color:#fff;
 }
 .sec2-p{
-  font-size: clamp(7px, 1.1vw, 30px);
-  font-weight: 400;
-  background-color: #936036;
-  color:white;
-  width: 750px;
   border-radius: 10px;
   padding: 5px;
+  background-color: #936036;
+}
+.sec2-p p{
+  font-size: clamp(7px, 1.1vw, 30px);
+  font-weight: 400;
+
+  color:white;
 }
 @media (max-width: 768px) {
   .testcard-head{
@@ -1235,6 +1237,9 @@ height: 150px;
 
     padding: 1px 2px;
   }
+  .sec2-p p{
+    margin: 0;
+  }
   .sec2-ladyimg{
  
     width: 100%;
@@ -1242,6 +1247,7 @@ height: 150px;
 
   }
 }
+
 /* section3 */
 
 .product-card {

@@ -27,13 +27,15 @@ function fetchLocationOnLoad() {
 
   // Check permission status first
   navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-    if (result.state === 'denied') {
-      showToast(
-        'Location access is blocked. Please enable it in your browser settings.', 
-        true
-      );
-      return;
-    }
+    navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+      if (result.state === 'denied') {
+        showToast(
+          'Location access is blocked. <a href="chrome://settings/content/location" target="_blank">Enable in browser settings</a>', 
+          true
+        );
+        return;
+      }
+    });
 
     // Request location
     navigator.geolocation.getCurrentPosition(
@@ -90,6 +92,8 @@ function updateLocationUI(displayLocation, pincode) {
   const truncatedLocation = truncateLocation(displayLocation);
   const deliveryAddressElement = document.querySelector('.dlv-addrss');
 
+  const previousPincode = localStorage.getItem('selectedPincode');
+
   document.querySelectorAll('.slc-addrss').forEach(element => {
     element.textContent = truncatedLocation;
   });
@@ -97,16 +101,24 @@ function updateLocationUI(displayLocation, pincode) {
   if (supportedPincodes.includes(pincode)) {
     deliveryAddressElement.textContent = 'Delivery Address';
     deliveryAddressElement.style.color = 'black';
-    showToast('Service is available at your location!', false);
+
+    if (!previousPincode || previousPincode !== pincode) {
+      showToast('✅ Service is available at your location!', false);
+    }
   } else {
     deliveryAddressElement.textContent = 'Service Not Available';
     deliveryAddressElement.style.color = 'red';
-    showToast('Service is not available at your location.', true);
+
+    if (!previousPincode || previousPincode !== pincode) {
+      showToast('❌ Service is not available at your location.', true);
+    }
   }
 
   localStorage.setItem('selectedLocation', truncatedLocation);
   localStorage.setItem('selectedPincode', pincode);
 }
+
+
 
 
 

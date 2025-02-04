@@ -539,15 +539,23 @@ function renderSpecialCare(data, bannerData) {
 
 
 
-  document.querySelectorAll(".view-card").forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      const index = event.currentTarget.dataset.index;
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".view-card")) {
+      console.log("clicked");
+      
+      const btn = event.target.closest(".view-card");
+      const index = btn.dataset.index;
+  
+      if (index === undefined || !products[index]) {
+        console.error("Invalid index:", index);
+        return;
+      }
+  
       const test = products[index];
       updateOffcanvasContent(test, banner);
-
-
-    });
+    }
   });
+  
 }
 
 
@@ -616,7 +624,7 @@ function renderSpecialCare(data, bannerData) {
                    <div class="col-lg-6 col-md-6 col-sm-6 col-6 pt-4">
                   <div
                     class="view-newcard d-lg-block d-md-none d-sm-none d-none"
-                    data-bs-id="${test._id || ''}"
+                    data-bs-id="${test._id}"
                     data-index="${index}"
                     data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasRight1"
@@ -626,7 +634,7 @@ function renderSpecialCare(data, bannerData) {
                   </div>
                   <div
                     class="view-newcard d-lg-none d-md-block d-sm-block d-block"
-                    data-bs-id="${test._id || ''}"
+                    data-bs-id="${test._id}"
                     data-index="${index}"
                     data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasBottom"
@@ -714,6 +722,12 @@ function renderSpecialCare(data, bannerData) {
 
 function updateOffcanvasContent(test, banner) {
 
+  console.log("Updating offcanvas with:", test, banner);
+  
+  if (!test) {
+    console.error("Test data is missing!");
+    return;
+  }
 
   const rightOffcanvas = document.getElementById("offcanvasRight1")
   const bottomOffcanvas = document.getElementById("offcanvasBottom")

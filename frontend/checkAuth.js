@@ -35,7 +35,7 @@ async function updateUI() {
       cartButton.href = `cart.html?userId=${encodeURIComponent(userId)}`;
 
       if (cartItems) {
-        cartItems.style.display = "flex"; // Show cart badge
+        cartItems.style.display = "block"
         cartItems.innerHTML = `${cartCount}`;
       }
     }
@@ -49,11 +49,11 @@ async function updateUI() {
     }
 
     if (cartButtonMobile) {
-      cartButtonMobile.style.display = "block"; // Show cart button
+      cartButtonMobile.style.visibility = "visible"; // Show cart button
       cartButtonMobile.href = `cart.html?userId=${encodeURIComponent(userId)}`;
 
       if (cartItemsMobile) {
-        cartItemsMobile.style.display = "inline"; // Show cart badge
+        cartItemsMobile.style.display = "block"
         cartItemsMobile.innerHTML = `${cartCount}`;
       }
     }
@@ -279,15 +279,17 @@ async function handleLogin() {
     });
 
     input.addEventListener("paste", (e) => {
+      e.preventDefault();
       let data = e.clipboardData.getData("text").trim();
-      if (data.length === 6) {
-        data.split("").forEach((char, i) => {
-          if (otpInputs[i]) otpInputs[i].value = char;
+      if (/^\d{6}$/.test(data)) {
+        otpInputs.forEach((input, i) => {
+          input.value = data[i] || "";
         });
         otpInputs[5].focus(); // Move focus to last input
-        document.getElementById("otp-form").dispatchEvent(new Event("submit"));
+        otpForm.dispatchEvent(new Event("submit"));
       }
     });
+    
   });
 
   let resendTimer;
@@ -359,13 +361,13 @@ async function handleLogin() {
       });
 
       const result = await response.json();
-      if (!response.ok) throw new Error(result.message || "OTP verification failed");
+      if (!response.ok) throw new Error("OTP verification failed");
 
       // Show Toast message for successful login
       const loginToast = new bootstrap.Toast(document.getElementById("loginToast"));
       loginToast.show();
 
-      showMessage(result.message || "OTP verified successfully!", true);
+      showMessage("OTP verified successfully!", true);
       resetForms();
 
       // Close the sidebar
@@ -376,7 +378,7 @@ async function handleLogin() {
       await updateUI();
     } catch (error) {
       console.error("Error verifying OTP:", error);
-      showMessage(error.message || "Invalid OTP. Please try again.", false);
+      showMessage("Invalid OTP. Please try again.", false);
     } finally {
       submitButton.textContent = originalButtonText;
       submitButton.disabled = false;

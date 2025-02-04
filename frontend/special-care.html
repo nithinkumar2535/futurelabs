@@ -50,7 +50,7 @@
 </head>
 
 <body>
-  <header class="d-none d-sm-block">
+  <header class="d-xxl-block d-xl-block d-md-block d-lg-block d-sm-none d-xs-none d-none">
     <div class="container-fluid bg-light ">
       <div class="row">
         <div class="col-lg-4 col-md-5 col-sm-12 col-12 d-flex gap-lg-3 gap-md-1">
@@ -96,33 +96,26 @@
         </div>
         <div class="col-lg-5 col-md-4 col-sm-12 col-12 py-lg-3 py-md-2">
           <div class="unique-search">
-            <input id="unique-search-input" placeholder="Search..." type="text" />
+            <input id="unique-search-input" class="search-input" placeholder="Search..." type="text"
+              autocomplete="off" />
             <button type="submit">Search</button>
-            <ul id="unique-dropdown-menu" class="unique-dropdown-menu p-0">
-              <li>Option 1</li>
-              <li>Option 2</li>
-              <li>Option 3</li>
-              <li>Option 4</li>
-              <li>Option 5</li>
-              <li>Option 6</li>
-              <li>Option 7</li>
-            </ul>
+            <div id="suggestions" class="suggestions-container"></div>
           </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-12 text-end pt-lg-3 pt-md-3 pt-sm-2 pt-2">
-          <a href="#" class="offer-btn">
+          <a href="package.html" class="offer-btn">
             <img src="images/icon-svg/offer.svg" class="offers" alt="" />
           </a>
           <!-- Cart button with tooltip and badge -->
-          <a href="cart.html" class="cart">
+          <a href="cart.html" class="cart cart-button" id="cart-button-desktop" style="display: none;">
             <img src="images/icon-svg/cart.svg" class="offers" alt="" />
 
             <!-- Cart Badge with number -->
-            <span class="cart-badge">5</span>
+            <span class="cart-badge" id="cart-badge-desktop">0</span>
           </a>
           <!-- login -->
-          <button class="login-button text-center" data-bs-toggle="collapse" data-bs-target="#sidebar"
-            aria-expanded="false" aria-controls="sidebar">
+          <button class="login-button text-center" id="login-button-desktop" data-bs-toggle="collapse"
+            data-bs-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
             <img src="images/icon-svg/login.svg" class="login-icon" alt="" />
             Login
           </button>
@@ -132,10 +125,6 @@
 
 
   </header>
-
-
-
-
 
   <!-- mobile header-->
   <div class="logo-container d-xxl-none d-xl-none d-md-none d-lg-none d-sm-block d-xs-block d-block">
@@ -161,7 +150,7 @@
 
             <ul class="dropdown-menu drp-location p-2 text-center" aria-labelledby="dropdownMenuButton">
               <li>
-                <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="current-l">
+                <button class="current-l">
                   <i class="fa-solid fa-location-crosshairs"></i> Use Current
                   Location
                 </button>
@@ -185,15 +174,16 @@
         </div>
         <div class="col-4 p-0 text-end">
           <!-- Cart button with tooltip and badge -->
-          <a href="cart.html" class="cart">
+          <a href="cart.html" class="cart" id="cart-button-mobile" style="visibility: hidden;">
             <img src="images/icon-svg/cart.svg" class="offers" alt="" />
 
             <!-- Cart Badge with number -->
-            <span class="cart-badge">5</span>
+            <span class="cart-badge" id="cart-badge-mobile">0</span>
           </a>
           <!-- login -->
-          <button class="login-button text-center" data-bs-toggle="collapse" data-bs-target="#sidebar"
-            aria-expanded="false" aria-controls="sidebar">
+
+          <button class="login-button text-center" id="login-button-mobile" data-bs-toggle="collapse"
+            data-bs-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
             <img src="images/icon-svg/login.svg" class="login-icon" alt="" />
             Login
           </button>
@@ -204,23 +194,11 @@
 
   <div class="search-container container-fluid d-xxl-none d-xl-none d-md-none d-lg-none d-sm-block d-xs-block d-block">
     <div class="unique-search">
-      <input id="unique-search-input-mobile" placeholder="Search..." type="text" />
+      <input id="unique-search-input-mobile" class="search-input" placeholder="Search..." type="text" />
       <button type="submit">Search</button>
-      <ul id="unique-dropdown-menu-mobile" class="unique-dropdown-menu p-0">
-        <li>Option 1</li>
-        <li>Option 2</li>
-        <li>Option 3</li>
-        <li>Option 4</li>
-        <li>Option 5</li>
-        <li>Option 6</li>
-        <li>Option 7</li>
-      </ul>
+      <div id="suggestions-mobile" class="suggestions-container"></div>
     </div>
   </div>
-
-
-
-
 
 
 
@@ -257,8 +235,8 @@
               </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-              <!--    <p class="pincode-invalid">Invalid Pincode</p> -->
-              <p class="pincode-valid">valid Pincode</p>
+              <p class="pincode-invalid"></p>
+
             </div>
           </div>
 
@@ -274,11 +252,11 @@
     </div>
   </div>
 
-  <!-- 
-login modal-->
+  <!-- login modal-->
 
   <div class="collapse" id="sidebar">
     <div class="d-flex flex-column">
+      <!-- Sidebar Header -->
       <div class="container-fluid lgn d-flex flex-column">
         <button class="btn login-back align-self-end mb-3" type="button" data-bs-toggle="collapse"
           data-bs-target="#sidebar" aria-expanded="true">
@@ -287,35 +265,61 @@ login modal-->
         <h4 class="login-headline">Quick Login / Register</h4>
       </div>
 
-      <form class="form_container">
+      <!-- Phone Number Form -->
+      <form class="form_container" id="phone-form">
         <div class="input_container">
-          <input placeholder="Enter your phone number" title="Inpit title" name="input-name" type="text"
-            class="input_field" id="email_field" />
+          <input placeholder="Enter your phone number" title="Input title" name="input-name" type="text"
+            class="input_field" id="phone_field" />
         </div>
-
+        <small id="phone-error" class="text-danger"></small>
         <button title="Sign In" type="submit" class="sign-in_btn">
-          <span>Log In</span>
+          Send OTP
         </button>
       </form>
 
-      <form class="otp-Form">
+      <!-- OTP Form -->
+      <form class="otp-Form" id="otp-form" style="display:none;">
         <span class="mainHeading">Enter OTP</span>
         <p class="otpSubheading">
           We have sent a verification code to your mobile number
         </p>
-        <div class="inputContainer">
-          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input1" />
-          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input2" />
-          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input3" />
-          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input4" />
+
+        <div class="inputContainer pb-4">
+          <input maxlength="1" type="text" class="otp-input" id="otp-input1" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input2" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input3" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input4" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input5" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input6" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+        
         </div>
-        <button class="verifyButton" type="submit">Verify</button>
+        <small id="otp-error" class="text-danger"></small>
+
+
+
+
+        <button class="verifyButton mt-1" type="submit">Verify</button>
 
         <p class="resendNote">
           Didn't receive the code?
-          <button class="resendBtn">Resend Code</button>
+          <button class="resendBtn" type="button" id="resend-btn">
+
+            Resend Code
+          </button>
+        </p>
+        <p>
+          <a href="javascript:void(0)" id="change-number" class="resendNote">Change Number</a>
         </p>
       </form>
+
+      <!-- Success/Error Message Container -->
+      <div id="message-container" class="text-center mt-3"></div>
     </div>
   </div>
 

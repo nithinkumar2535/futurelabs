@@ -182,7 +182,7 @@ display:  block !important;
         </div>
         <div class="col-4 p-0 text-end">
           <!-- Cart button with tooltip and badge -->
-          <a href="cart.html" class="cart" id="cart-button-mobile" style="display: none;">
+          <a href="cart.html" class="cart" id="cart-button-mobile" style="visibility: hidden;">
             <img src="images/icon-svg/cart.svg" class="offers" alt="" />
 
             <!-- Cart Badge with number -->
@@ -292,13 +292,20 @@ display:  block !important;
           We have sent a verification code to your mobile number
         </p>
 
-        <div class="inputContainer">
-          <input maxlength="1" type="text" class="otp-input" id="otp-input1" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input2" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input3" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input4" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input5" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input6" />
+        <div class="inputContainer pb-4">
+          <input maxlength="1" type="text" class="otp-input" id="otp-input1" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input2" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input3" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input4" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input5" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input6" inputmode="numeric" pattern="[0-9]*"
+            autocomplete="one-time-code" />
+        
         </div>
         <small id="otp-error" class="text-danger"></small>
 
