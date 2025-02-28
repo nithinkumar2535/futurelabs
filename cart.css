@@ -76,7 +76,7 @@
         font-optical-sizing: auto  !important;
         font-weight: 600  !important;
         font-style: normal  !important;
-        font-size: clamp(10px, 1vw, 20px)  !important;
+        font-size: clamp(8px, 1vw, 20px)  !important;
 
    
         text-align: center  !important;
@@ -93,7 +93,6 @@
         font-size: 14px;
         cursor: pointer;
         border-radius: 5px;
-        width: 100%;
         
       }
       .btn-backtoggle {
@@ -105,35 +104,9 @@
         font-size: 14px;
         cursor: pointer;
         border-radius: 5px;
-        width: 100%;
         
       }
-.togglebutton-main{
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  width: 100% !important;
- background-color: white;
- border-top:  1px solid rgb(0 0 0 / 18%);
-  z-index: 1000;
-  padding: 10px;
-}
 
-@media (max-width: 768px) {
-.togglebutton-mainnew{
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  width: 100% !important;
- background-color: white !important;
- border-top:  1px solid rgb(0 0 0 / 18%);
-  z-index: 1000;
-  padding: 10px !important;
-}
-.proceed-btn{
-  width: 100%;
-}
-}
 
       .toggle-button:hover {
         background-color: #007c6f;
@@ -185,8 +158,8 @@
     
         }
     .tab-content {
-            margin-top:18px;
-            padding:  0;
+            margin-top: 5px;
+            padding: 8px 0;
         }
     }
 
@@ -307,7 +280,7 @@
         font-optical-sizing: auto;
         font-weight: 400;
         font-style: normal;
-        font-size: clamp(12px, 1vw, 20px);
+        font-size: clamp(10px, 1vw, 20px);
       }
    
   
@@ -317,7 +290,7 @@
       font-optical-sizing: auto;
       font-weight: 600;
       font-style: normal;
-      font-size: clamp(23px, 1.9vw, 28px)  !important;
+      font-size: clamp(17 px, 1.9vw, 28px)  !important;
    
     }
  
@@ -326,7 +299,7 @@
     font-optical-sizing: auto !important;
     font-weight: 400 !important;
     font-style: normal !important;
-    font-size: clamp(13px, 1vw, 20px) !important;
+    font-size: clamp(10px, 1vw, 20px) !important;
   }
   .formsubmitbtn{
     background-color: #2E9D91 !important;

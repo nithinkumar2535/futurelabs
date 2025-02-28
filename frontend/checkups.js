@@ -84,53 +84,67 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   }
 
-
-
   // Function to fetch and render tab content
-  async function fetchTabContent(tabName, banner) {
-    
-
-    tabContent.innerHTML = `
-        <div style="display: flex; justify-content: center;  height: 100vh; margin-top:100px;">
-          <div id="loadingSpinner" class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+async function fetchTabContent(tabName, banner) {
+  const tabContent = document.getElementById("tabContent");
+  tabContent.innerHTML = `
+      <div style="display: flex; justify-content: center; height: 100vh; margin-top:100px;">
+        <div id="loadingSpinner" class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-      `;
-    await fetch(`${baseUrl}/api/v1/tests/get/lessPrice/${encodeURIComponent(tabName)}`)
-      .then((response) => {
-        if (!response.ok) {
-          console.log("no tests found");
-          return null
+      </div>
+  `;
 
-        }
-        return response.json()
-      })
-      .then((Data) => {
-        const data = Data ? Data.data : []
+  const response = await fetch(`${baseUrl}/api/v1/tests/get/lessPrice/${encodeURIComponent(tabName)}`);
+  
+  if (!response.ok) {
+      console.log("No tests found");
+      tabContent.innerHTML = `<div>No tests available</div>`;
+      return;
+  }
 
+  const Data = await response.json();
+  const data = Data ? Data.data : [];
 
-        tabContent.innerHTML = `
-        <div class="container-fluid p-2">
+  // Check user authentication
+  const authStatus = await checkAuthStatus();
+  const userId = authStatus.isAuthenticated ? authStatus.userId : null;
+  let cartItems = [];
+
+  // Fetch cart items if user is logged in
+  if (userId) {
+      try {
+          const cartResponse = await fetch(`${baseUrl}/api/v1/cart/get/${userId}`);
+          if (cartResponse.ok) {
+              const cart = await cartResponse.json();
+              cartItems = cart.data;
+          }
+      } catch (error) {
+          console.error("Error fetching cart data:", error);
+      }
+  }
+
+  // Render test cards
+  tabContent.innerHTML = `
+      <div class="container-fluid p-2">
           <div class="row">
-          ${data.length === 0 ? (`<div> No tests available </div>`) : (data
-            .map(
-              (test, index) => `
-              <div class="col-lg-4 col-md-6 col-sm-12 mt-lg-3 mt-md-2 mt-sm-2 mt-2">
-                <div class="checkup-cardmain">
-                  <div class="d-flex justify-content-between">
-                    <h2 class="checkup-card-h">${test.testName}</h2>
-                    <span class="checkup-cardprice text-end">
-                      ₹${test.offerPrice} <br /><del>₹${test.price}</del>
-                    </span>
-                  </div>
-                  <p class="checkup-card-disc">${test.description}</p>
-                  <span class="checkup-cardoff">${test.discountPercentage}% OFF</span>
-                 
+              ${data.length === 0 ? `<div>No tests available</div>` : data.map((test, index) => {
+                  const isInCart = cartItems.some(item => item.testId === test._id);
+                  return `
+                      <div class="col-lg-4 col-md-6 col-sm-12 mt-lg-3 mt-md-2 mt-sm-2 mt-2">
+                          <div class="checkup-cardmain">
+                              <div class="d-flex justify-content-between">
+                                  <a href="product.html?id=${test._id}&category=${test.category}">
+                                      <h2 class="checkup-card-h">${test.testName}</h2>
+                                  </a>
+                                  <span class="checkup-cardprice text-end">
+                                      ₹${test.offerPrice} <br /><del>₹${test.price}</del>
+                                  </span>
+                              </div>
+                              <p class="checkup-card-disc">${test.description}</p>
+                              <span class="checkup-cardoff">${test.discountPercentage}% OFF</span>
 
-
-
-            <div
+                               <div
             class="checkup-cardmore d-lg-block d-md-none d-sm-none d-none"
             data-bs-id="${test._id}"
             data-index="${index}"
@@ -152,42 +166,123 @@ document.addEventListener("DOMContentLoaded", async function () {
             know more+ <i class="fa-solid fa-chevron-down"></i>
           </div>
 
-          <div class="d-flex justify-content-between">
-            <div class="checkup-cardrta">
-              Report in <span class="checkup-hours">${test.reportTime}</span>
-            </div>
-                <span class="add-check-up">
-                  Add
-                  <a href="product.html?id=${test._id}&category=${test.category}" class="checkup-cardadd">
-                    <i class="fa-solid fa-plus"></i>
-                  </a>
-                </span>
+                              <div class="d-flex justify-content-between">
+                                  <div class="checkup-cardrta">
+                                      Report in <span class="checkup-hours">${test.reportTime}</span>
+                                  </div>
+                                  <span class="add-check-up" data-bs-id="${test._id}">
+                                      ${isInCart ? `
+                                          <a href="cart.html?userId=${userId}" class="view-cartbtn">View Cart</a>
+                                          <a href="#" class="remove-cart-item"> <i class="fa-solid fa-minus"></i> </a>
+                                      ` : `
+                                          Add <a href="#" class="checkup-cardadd"> <i class="fa-solid fa-plus"></i> </a>
+                                      `}
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                  `;
+              }).join("")}
           </div>
-                </div>
-              </div>
-            `
-            ))
-            .join("")}
-          </div>
-        </div>
-        `;
+      </div>
+  `;
 
-        // Add click event listeners to update the offcanvas dynamically
-        document.querySelectorAll(".checkup-cardmore").forEach((btn) => {
-          btn.addEventListener("click", (event) => {
-            const index = event.currentTarget.dataset.index;
-            const test = data[index];
-            updateOffcanvasContent(test, banner);
-          });
-        });
+  // Attach event listeners ONCE using delegation
+  attachEventListeners(userId, data, banner);
+}
 
+// Attach event listeners once using delegation
+function attachEventListeners(userId, data, banner) {
+  document.removeEventListener("click", cartClickHandler);
+  document.addEventListener("click", (event) => cartClickHandler(event, userId));
 
-      })
-      .catch((error) => {
-        tabContent.innerHTML = `<div>Error loading content. Please try again later.</div>`;
-        console.error("Error fetching tab content:", error);
-      });
+  document.querySelectorAll(".checkup-cardmore").forEach((btn) => {
+      btn.removeEventListener("click", offcanvasHandler);
+      btn.addEventListener("click", (event) => offcanvasHandler(event, data, banner));
+  });
+}
+
+// Handles adding/removing items from the cart using event delegation
+async function cartClickHandler(event, userId) {
+  if (!userId) {
+      showLoginSidebar();
+      return;
   }
+
+  const addButton = event.target.closest(".checkup-cardadd");
+  const removeButton = event.target.closest(".remove-cart-item");
+
+  if (addButton) {
+      event.preventDefault();
+      const buttonContainer = addButton.closest(".add-check-up");
+      const testId = buttonContainer.dataset.bsId;
+
+      if (addButton.dataset.processing === "true") return; // Prevent multiple clicks
+      addButton.dataset.processing = "true"; // Mark button as processing
+
+      try {
+          const response = await fetch(`${baseUrl}/api/v1/cart/add`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId, testId })
+          });
+
+          if (response.ok) {
+              updateUI()
+              buttonContainer.innerHTML = `
+                  <a href="cart.html?userId=${userId}" class="view-cartbtn">View Cart</a>
+                  <a href="#" class="remove-cart-item"> <i class="fa-solid fa-minus"></i> </a>
+              `;
+          }
+      } catch (error) {
+          console.error("Error adding to cart:", error);
+      } finally {
+          addButton.dataset.processing = "false"; // Reset flag
+      }
+  }
+
+  if (removeButton) {
+      event.preventDefault();
+      const buttonContainer = removeButton.closest(".add-check-up");
+      const testId = buttonContainer.dataset.bsId;
+
+      try {
+          const response = await fetch(`${baseUrl}/api/v1/cart/remove-item`, {
+              method: 'DELETE',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId, testId })
+          });
+
+          if (response.ok) {
+            updateUI()
+              buttonContainer.innerHTML = `
+                  Add <a href="#" class="checkup-cardadd"> <i class="fa-solid fa-plus"></i> </a>
+              `;
+          }
+      } catch (error) {
+          console.error("Error removing from cart:", error);
+      }
+  }
+}
+
+// Offcanvas content update handler
+function offcanvasHandler(event, data, banner) {
+  const index = event.currentTarget.dataset.index;
+  const test = data[index];
+  updateOffcanvasContent(test, banner);
+}
+
+// Show login sidebar if user is not logged in
+function showLoginSidebar() {
+  document.querySelectorAll('.offcanvas').forEach(offcanvas => {
+      const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvas);
+      if (offcanvasInstance) offcanvasInstance.hide();
+  });
+  const sidebar = document.getElementById("sidebar");
+  const bsCollapse = new bootstrap.Collapse(sidebar, { toggle: false });
+  bsCollapse.show();
+}
+
 
   async function updateOffcanvasContent(test, banner) {
 

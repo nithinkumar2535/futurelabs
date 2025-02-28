@@ -268,13 +268,21 @@
       <!-- Phone Number Form -->
       <form class="form_container" id="phone-form">
         <div class="input_container">
-          <input placeholder="Enter your phone number" title="Input title" name="input-name" type="text"
-            class="input_field" id="phone_field" />
+          <input 
+            placeholder="Enter your phone number" 
+            title="Phone Number" 
+            name="phone" 
+            type="tel" 
+            class="input_field" 
+            id="phone_field" 
+            inputmode="tel" 
+            pattern="[0-9]*" 
+            maxlength="10" 
+            required 
+          />
         </div>
         <small id="phone-error" class="text-danger"></small>
-        <button title="Sign In" type="submit" class="sign-in_btn">
-          Send OTP
-        </button>
+        <button title="Sign In" type="submit" class="sign-in_btn">Send OTP</button>
       </form>
 
       <!-- OTP Form -->
@@ -336,182 +344,371 @@
     <div class="tab-content" id="tabContent"></div>
   </section>
 
+ 
 
 
+  <section class="bottomcart">
+    <div class="container-fluid py-lg-4 py-md-3 py-sm-3 py-3">
+      <div class="row">
+        <div class="d-flex justify-content-between px-lg-4">
+          <div class="d-flex gap-2">
 
+            
+            <span class="bottomcart-test">1 Tests</span>
+            <span class="bottomcart-line"></span>
+            <span class="bottomcart-price"> ₹599 </span>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- footer -->
-  <div class="container-fluid p-0 d-lg-block d-md-none d-sm-none d-none" id="footer">
-    <footer class="text-center text-lg-start text-white">
-      <!-- Grid container -->
-      <div class="container py-5">
-        <!--Grid row-->
-        <div class="row my-4">
-          <!--Grid column-->
-          <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
-            <div class="d-flex justify-content-center">
-        <a href="index.html">      <img
-                class="ft-logo-1"
-                src="images/logo/ft-logo.svg"
-                alt=""
-                loading="lazy"
-              />
-        </a>
+            <div
+              class="d-lg-block d-md-none d-sm-none d-none trigger-btn"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#rightOffcanvas"
+              aria-controls="rightOffcanvas"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
             </div>
 
-            <p class="ft-p py-4">
-              Your trusted partner for convenient and reliable lab test
-              bookings. Delivering accuracy and care for your health, every
-              step of the way.
-            </p>
+            <div
+              class="trigger-btn d-lg-none d-md-block d-sm-block d-block"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#bottomOffcanvas"
+              aria-controls="bottomOffcanvas"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
           </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-lg-2 col-md-6 col-sm-12 col-12 mb-4 mb-md-0">
-            <h5 class="text-uppercase mb-4 ft-h">quick links</h5>
-
-            <ul class="list-unstyled">
-              <li class="mb-2">
-                <a href="index.html" class="text-white">Home</a>
-              </li>
-              <li class="mb-2">
-                <a href="#about" class="text-white">About</a>
-              </li>
-              <li class="mb-2">
-                <a href="#footer" class="text-white">Contact</a>
-              </li>
-              <li class="mb-2">
-                <a href="privacy-policy.html" class="text-white">Privacy Policy</a>
-              </li>
-              <li class="mb-2">
-                <a href="terms-and-conditions.html" class="text-white">Terms & Conditions</a>
-              </li>
-              
-            </ul>
+          <div >
+            <a href="cart.html" class="bottomcart-button"> View cart </a>
           </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-lg-3 col-md-6 col-sm-12 col-12 mb-4 mb-md-0">
-            <h5 class="text-uppercase mb-4 ft-h">follow us on</h5>
-
-            <ul class="socail-media p-0">
-              <li>
-                <a target="_blank" href="#">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              </li>
-
-              <li>
-                <a target="_blank" href="#">
-                  <i class="fab fa-instagram"></i>
-                </a>
-              </li>
-
-              <li>
-                <a target="_blank" href="#">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-
-              <li>
-                <a target="_blank" href="#">
-                  <i class="fab fa-twitter"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-lg-3 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
-            <h5 class="text-uppercase mb-4 ft-h">Contact with us</h5>
-
-            <ul class="list-unstyled">
-              <li>
-                <p>
-                  <i class="fas fa-map-marker-alt pe-2"></i>No:38, Ground
-                  Floor , Sumangali Sevashram Road, Cholanayakanahalli, Hebbal
-                  Near City Pearl Super Market, Bengaluru, Karnataka 560032
-                </p>
-              </li>
-              <li>
-                <a class="text-light" href="tel:08123459263"
-                  ><i class="fas fa-phone pe-2"></i>081234 59263</a
-                >
-              </li>
-              <li>
-                <a class="text-light" href="mailto:info@futurelabs24.com">
-                  <i class="fas fa-envelope pe-2 mb-0"></i
-                  >info@futurelabs24.com
-                </a>
-              </li>
-              <li class="pt-5">
-                <h4>Stay Updated!</h4>
-                <p>
-                  Subscribe to our WhatsApp Community for expert health tips, exclusive offers, and real-time updates on your lab test bookings.
-                </p>
-                <form class="form-whatsapp">
-                  <div>
-                    <input
-                      placeholder="Enter whatsapp number"
-                      type="phonenumber"
-                      name="whatsappnumber"
-                      id="whatsappnumber"
-                    />
-                    <button type="submit">Subscribe</button>
-                  </div>
-           
-          
-        
-             
-            </li>
-            </ul>
-          </div>
-          <!--Grid column-->
         </div>
-        <!--Grid row-->
+         
       </div>
-      <div class="container pb-5">
-        <hr />
+    </div>
+  </section>
 
-        <a class="text-white fw-bolder " href="https://futurelabs24.com"
-          >futurelabs24.com</a
-        >
-        <br />
-        <h6 class="copy-right">Copyright © 2024 All Rights Reserved. <br> Design By <a  href="https://admizzer.com/">admizzer. com</a></h6>
+  <!--new cart offcanvcas -->
 
+   <!-- First right Offcanvas -->
+
+   <div
+   class="offcanvas offcanvas-end offcanvas-style1 d-lg-block d-md-none d-sm-none d-none"
+   tabindex="-1"
+   id="rightOffcanvas"
+   aria-labelledby="rightOffcanvasLabel"
+ >
+   <div class="offcanvas-header header-style">
+     <h5 class="offcanvas-title" id="rightOffcanvasLabel">Selected Tests</h5>
+     <button
+       type="button"
+       class="btn-close text-reset"
+       data-bs-dismiss="offcanvas"
+       aria-label="Close"
+     ></button>
+   </div>
+   <div class="offcanvas-body scrollable-body px-0">
+      <div class="container-fluid">
+        <div class="newcart-main d-flex gap-2 align-items-center mb-2">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+        <div class="newcart-main d-flex gap-2 align-items-center mb-2">
+          <h2 class="new-checkup-card-h">Full body checkups Full body</h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
       </div>
-
-      <!-- Grid container -->
-
-      <!-- Copyright -->
-      <div
-        class="container text-center p-3"
-        style="background-color: rgba(0, 0, 0, 0.2)"
-      >
-      <p class="disclaimer">
-        Disclaimer: Report results are for diagnostics informational purposes & not intended to replace the care of medical practitioners and do not recommend self-diagnosis &/or self-medication. Test results are not valid for medico-legal purposes. Lab investigation is only a tool to facilitate concluding a diagnosis & should be clinically correlated by the referring physician. The Patient must visit the lab if there is a need for resampling/ retesting
-      </p>
-      </div>
-      <!-- Copyright -->
-    </footer>
+    </div>
   </div>
+
+  <!-- Second Offcanvas icon -->
+  <div
+  class="offcanvas offcanvas-bottom offcanvas-style2 d-lg-invisible d-md-visible d-sm-visible d-visible"
+  tabindex="-1"
+  id="bottomOffcanvas"
+  aria-labelledby="bottomOffcanvasLabel"
+>
+  <div class="offcanvas-header header-style">
+    <h5 class="offcanvas-title" id="bottomOffcanvasLabel">Selected Tests</h5>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body scrollable-body px-0">
+
+      <div class="container-fluid">
+        <div class="newcart-main d-flex gap-3 align-items-center mb-1">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+        <div class="newcart-main d-flex gap-3 align-items-center mb-1">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+        <div class="newcart-main d-flex gap-3 align-items-center mb-1">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+        <div class="newcart-main d-flex gap-3 align-items-center mb-1">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- footer -->
+ <div class="container-fluid p-0 d-lg-block d-md-none d-sm-none d-none" id="footer">
+  <footer class="text-center text-lg-start text-white">
+    <!-- Grid container -->
+    <div class="container py-5">
+      <!--Grid row-->
+      <div class="row my-4">
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
+          <div class="d-flex justify-content-center">
+      <a href="index.html">      <img
+              class="ft-logo-1"
+              src="images/logo/ft-logo.svg"
+              alt=""
+              loading="lazy"
+            />
+      </a>
+          </div>
+
+          <p class="ft-p py-4">
+            Your trusted partner for convenient and reliable lab test
+            bookings. Delivering accuracy and care for your health, every
+            step of the way.
+          </p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-2 col-md-6 col-sm-12 col-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4 ft-h">quick links</h5>
+
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="index.html" class="text-white">Home</a>
+            </li>
+            <li class="mb-2">
+              <a href="#about" class="text-white">About</a>
+            </li>
+            <li class="mb-2">
+              <a href="#footer" class="text-white">Contact</a>
+            </li>
+            <li class="mb-2">
+              <a href="privacy-policy.html" class="text-white">Privacy Policy</a>
+            </li>
+            <li class="mb-2">
+              <a href="terms-and-conditions.html" class="text-white">Terms & Conditions</a>
+            </li>
+           
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 col-sm-12 col-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4 ft-h">follow us on</h5>
+
+          <ul class="socail-media p-0">
+            <li>
+              <a target="_blank" href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+
+            <li>
+              <a target="_blank" href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+
+            <li>
+              <a target="_blank" href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+
+            <li>
+              <a target="_blank" href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4 ft-h">Contact with us</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <p>
+                <i class="fas fa-map-marker-alt pe-2"></i>No:38, Ground
+                Floor , Sumangali Sevashram Road, Cholanayakanahalli, Hebbal
+                Near City Pearl Super Market, Bengaluru, Karnataka 560032
+              </p>
+            </li>
+            <li>
+              <a class="text-light" href="tel:08123459263"
+                ><i class="fas fa-phone pe-2"></i>081234 59263</a
+              >
+            </li>
+            <li>
+              <a class="text-light" href="mailto:info@futurelabs24.com">
+                <i class="fas fa-envelope pe-2 mb-0"></i
+                >info@futurelabs24.com
+              </a>
+            </li>
+            <li class="pt-5">
+              <h4>Stay Updated!</h4>
+              <p>
+                Subscribe to our WhatsApp Community for expert health tips, exclusive offers, and real-time updates on your lab test bookings.
+              </p>
+              <form class="form-whatsapp">
+                <div>
+                  <input
+                    placeholder="Enter whatsapp number"
+                    type="phonenumber"
+                    name="whatsappnumber"
+                    id="whatsappnumber"
+                  />
+                  <button type="submit">Subscribe</button>
+                </div>
+         
+        
+      
+           
+          </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <div class="container pb-5">
+      <hr />
+
+      <a class="text-white fw-bolder " href="https://futurelabs24.com"
+        >futurelabs24.com</a
+      >
+      <br />
+      <h6 class="copy-right">Copyright © 2024 All Rights Reserved. <br> Design By <a  href="https://admizzer.com/">admizzer. com</a></h6>
+
+    </div>
+
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div
+      class="container text-center p-3"
+      style="background-color: rgba(0, 0, 0, 0.2)"
+    >
+    <p class="disclaimer">
+      Disclaimer: Report results are for diagnostics informational purposes & not intended to replace the care of medical practitioners and do not recommend self-diagnosis &/or self-medication. Test results are not valid for medico-legal purposes. Lab investigation is only a tool to facilitate concluding a diagnosis & should be clinically correlated by the referring physician. The Patient must visit the lab if there is a need for resampling/ retesting
+    </p>
+    </div>
+    <!-- Copyright -->
+  </footer>
+</div>
+
+ 
 
 <!-- mobilefooter -->
 

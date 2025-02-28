@@ -112,7 +112,7 @@ const Orders = () => {
                         <option value="Canceled">Canceled</option>
                       </select>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">₹{order.totalAmount}</td>
+                    <td className="px-6 py-4 text-sm text-gray-700">₹{order.totalPayable}</td>
                     <td className="px-6 py-4 text-sm text-gray-700">
                       {new Date(order.createdAt).toLocaleString()}
                     </td>

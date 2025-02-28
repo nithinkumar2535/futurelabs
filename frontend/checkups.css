@@ -180,7 +180,8 @@ p{
         text-align: left;
         font-size: clamp(18px, 1.5vw, 28px) !important;
         font-weight: 600;
-color: #007c70;
+        color: #ff0000;
+        
 
     line-height: 27px;
         font-optical-sizing: auto;
@@ -196,6 +197,11 @@ color: #007c70;
     
         
       }
+      .checkup-card-h:hover{
+        text-decoration: underline;
+      }
+
+
       .checkup-cardmore:hover{
         color: #007c70;
       }

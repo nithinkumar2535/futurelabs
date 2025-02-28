@@ -5,49 +5,170 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>futurelabs24.com</title>
-  <link rel="icon" type="image/x-icon" href="image/logo/favicon.jpg">
-  <link rel="stylesheet" href="product.css" />
+  <link rel="icon" type="image/x-icon" href="images/logo/favicon.jpg" />
+  <link rel="stylesheet" href="checkups.css" />
   <link rel="stylesheet" href="index.css" />
-  <!-- bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <!-- fontawesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
-    integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous" />
   <style>
-    .terms-h {
-      color: #007C6F;
-      font-family: "Montserrat", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 600;
-      font-style: normal;
-      font-size: clamp(15px, 1.8vw, 30px);
+    body {
+      overflow-x: hidden !important;
     }
 
-    .terms-d {
-      font-family: "Poppins", serif;
-      font-weight: 400;
-      font-style: normal;
-      font-size: clamp(10px, 1vw, 20px);
-    }
+       /*  botomcartsection */
+       .bottomcart {
+        background: linear-gradient(307deg, #ededed, #e7fffe);
+      }
+      .bottomcart-test,
+      .bottomcart-price {
+        font-weight: 500;
+        font-size: clamp(16px, 1.2vw, 20px) !important;
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        color: #007c70;
+      }
+      .bottomcart-line {
+        background-color: #000000;
+        height: 23px;
+        width: 2px;
+        margin: 4px 0px;
+      }
+      .bottomcart-button {
+        background-color: #007c6f;
+        color: #fff;
+        font-size: clamp(13px, 1.2vw, 25px);
+        padding: 7px 12px;
+        text-align: center;
+        font-family: "Poppins", serif !important;
+        font-weight: 600;
+        font-style: normal;
+        border-radius: 15px;
+        transition: all ease-in-out 0.5s;
+      }
+      .bottomcart-button:hover {
+        background-color:  #77d8ce;
+        transition: all ease-in-out 0.5s;
+      }
 
-    .terms-main ul li {
-      font-family: "Poppins", serif;
-      font-weight: 400;
-      font-style: normal;
-      font-size: clamp(9px, 0.9vw, 20px);
-    }
+      @media (max-width: 768px) {
+        .bottomcart {
+          margin-bottom: 70px;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
 
-    .terms-main h5 {
-      font-family: "Poppins", serif;
-      font-weight: 600;
-      font-style: normal;
-      font-size: clamp(12px, 1.3vw, 20px);
-    }
+          z-index: 1000;
+        }
+
+        .tab-content {
+          margin: 20px 0 70px 0;
+        }
+        .bottomcart-line {
+          margin: 0;
+        }
+      }
+
+/*       .newcartoffcanvas-desig2 {
+        border-radius: 17px 17px 0 0 !important;
+        background: linear-gradient(44deg, #ffffff, #a1e8dc) !important;
+        color: rgb(0, 0, 0);
+        height: 70% !important;
+        transition: 0.7s all ease-in-out !important;
+        z-index: 1050;
+      }
+      .newcartoffcanvas-desig1 {
+        transition: transform 0.3s ease-in-out !important;
+        width: 470px !important;
+        background: linear-gradient(44deg, #ffffff, #a1e8dc) !important;
+        color: rgb(0, 0, 0);
+        z-index: 1050;
+        overflow: auto;
+      }
+ */
+  /* Offcanvas right Design */
+  .offcanvas-style1 {
+        transition: transform 0.3s ease-in-out !important;
+        width: 470px !important;
+        background: linear-gradient(44deg, #ffffff, #a1e8dc) !important;
+        color: rgb(0, 0, 0);
+        z-index: 1050;
+        overflow: auto;
+      }
+
+      .offcanvas-style1::-webkit-scrollbar {
+        display: none !important;
+      }
+      /* Offcanvas bottom Design */
+      .offcanvas-style2 {
+        border-radius: 17px 17px 0 0 !important;
+        background: linear-gradient(44deg, #ffffff, #a1e8dc) !important;
+        color: rgb(0, 0, 0);
+        height: 70% !important;
+        transition: 0.7s all ease-in-out !important;
+        z-index: 1050;
+      }
+
+      .animated-offcanvas-body {
+        height: 100% !important;
+        transition: 0.7s all ease-in-out;
+      }
+
+      /* Adding smooth scroll */
+      .scrollable-body {
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        transition: 0.7s all ease-in-out;
+      }
+      .newcart-remove {
+        max-width: 100%;
+        height: 38px;
+      }
+      .new-checkup-card-h {
+        text-align: left;
+        font-size: clamp(15px, 1.3vw, 28px) !important;
+        font-weight: 600;
+        color: #007c70;
+        line-height: 27px;
+        font-optical-sizing: auto;
+        height: 55px;
+        max-width: 100%;
+        width: 100%;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .newcart-value {
+        font-size: clamp(14px, 1.3vw, 25px) !important;
+      }
+      .newcart-real-value {
+        color: #595757;
+        font-size: clamp(14px, 1.1vw, 20px) !important;
+      }
+      .newcart-main {
+        background-color: #ffffff66;
+        border-radius: 15px;
+        padding: 10px;
+      }
+      @media (max-width: 768px) {
+        .new-checkup-card-h {
+          line-height: normal;
+          height: 40px;
+        }
+        .newcart-remove {
+          height: 35px;
+        }
+      }
   </style>
-
-
 
   <script>
     //mobile header scroll
@@ -77,8 +198,6 @@
 </head>
 
 <body>
-
-
   <header class="d-xxl-block d-xl-block d-md-block d-lg-block d-sm-none d-xs-none d-none">
     <div class="container-fluid bg-light ">
       <div class="row">
@@ -203,7 +322,7 @@
         </div>
         <div class="col-4 p-0 text-end">
           <!-- Cart button with tooltip and badge -->
-          <a href="cart.html" class="cart" id="cart-button-mobile" style="visibility: hidden;">
+          <a href="cart.html" class="cart" id="cart-button-mobile" style="display: none;">
             <img src="images/icon-svg/cart.svg" class="offers" alt="" />
 
             <!-- Cart Badge with number -->
@@ -297,21 +416,13 @@
       <!-- Phone Number Form -->
       <form class="form_container" id="phone-form">
         <div class="input_container">
-          <input 
-            placeholder="Enter your phone number" 
-            title="Phone Number" 
-            name="phone" 
-            type="tel" 
-            class="input_field" 
-            id="phone_field" 
-            inputmode="tel" 
-            pattern="[0-9]*" 
-            maxlength="10" 
-            required 
-          />
+          <input placeholder="Enter your phone number" title="Input title" name="input-name" type="text"
+            class="input_field" id="phone_field" />
         </div>
         <small id="phone-error" class="text-danger"></small>
-        <button title="Sign In" type="submit" class="sign-in_btn">Send OTP</button>
+        <button title="Sign In" type="submit" class="sign-in_btn">
+          Send OTP
+        </button>
       </form>
 
       <!-- OTP Form -->
@@ -321,20 +432,13 @@
           We have sent a verification code to your mobile number
         </p>
 
-        <div class="inputContainer pb-4">
-          <input maxlength="1" type="text" class="otp-input" id="otp-input1" inputmode="numeric" pattern="[0-9]*"
-            autocomplete="one-time-code" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input2" inputmode="numeric" pattern="[0-9]*"
-            autocomplete="one-time-code" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input3" inputmode="numeric" pattern="[0-9]*"
-            autocomplete="one-time-code" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input4" inputmode="numeric" pattern="[0-9]*"
-            autocomplete="one-time-code" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input5" inputmode="numeric" pattern="[0-9]*"
-            autocomplete="one-time-code" />
-          <input maxlength="1" type="text" class="otp-input" id="otp-input6" inputmode="numeric" pattern="[0-9]*"
-            autocomplete="one-time-code" />
-        
+        <div class="inputContainer">
+          <input maxlength="1" type="text" class="otp-input" id="otp-input1" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input2" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input3" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input4" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input5" />
+          <input maxlength="1" type="text" class="otp-input" id="otp-input6" />
         </div>
         <small id="otp-error" class="text-danger"></small>
 
@@ -362,75 +466,201 @@
 
 
 
-  <section class="py-5">
-    <div class="container terms-main">
-
-      <h2 class="terms-h">Terms and Conditions</h2>
-      <p class="terms-d">Welcome to Future Lab Diagnostics. These terms and conditions outline the guidelines for using
-        our website and services. By accessing our site or engaging with our services, you agree to these terms. <br>
-
-        Our website is designed to provide a seamless experience for accessing information about our diagnostic
-        services. We aim to deliver accurate results and maintain the highest standards of professionalism. By using our
-        platform, you agree to comply with all applicable laws and regulations. If you disagree with any part of these
-        terms, please refrain from using our services.</p>
-      <h5>1. Use of the Website</h5>
-      <ul>
-
-        <li>You must be at least 18 years old or have legal parental/guardian consent to use our services.</li>
-        <li>The information provided on this site is for general purposes and may be updated without prior notice.</li>
-
-      </ul>
-      <h5>2. Our Services</h5>
-      <ul>
-
-        <li>Future Lab Diagnostics provides diagnostic testing and lab services in compliance with industry standards.
-        </li>
-        <li>Test results are provided based on the accuracy of the information and samples submitted by you.</li>
-
-      </ul>
-      <h5>3. User Responsibilities
-      </h5>
-
-      <ul>
-
-        <li>Ensure the accuracy of all personal and medical details provided during booking or registration.</li>
-        <li>Use the website only for lawful and personal purposes related to our services.</li>
-
-      </ul>
-      <h5>4. Payments and Refund Policy</h5>
-      <ul>
-
-        <li>Payments for services booked online must be completed before the service is rendered.</li>
-        <li>Please note that all payments are final, and refunds are not provided for any of our services</li>
-
-      </ul>
-      <h5>5. Liability Limitations</h5>
-      <ul>
-
-        <li>Future Lab Diagnostics is not liable for delays or disruptions caused by external factors such as courier
-          services or internet outages.</li>
-        <li>In no case shall our liability exceed the cost of the service in question.</li>
-
-      </ul>
-      <h5>6. Content Ownership</h5>
-      <ul>
-
-        <li>All materials on this website, including text, images, and branding, are owned by Future Lab Diagnostics.
-          Unauthorized use is prohibited.</li>
 
 
 
-      </ul>
-      <h5>7. Amendments</h5>
-      <ul>
+  <section class="py-lg-5 py-md-4 py-sm-3 py-2">
+    <div class="headlinenew-sec d-flex justify-content-between my-2">
+      <h2 class="text-ce">Less Price & More Tests - Choose Packages</h2>
+    </div>
+    <div class="scrollable-tabs" id="tabList"></div>
+    <div class="tab-content" id="tabContent"></div>
+  </section>
 
-        <li>Future Lab Diagnostics reserves the right to update these terms as needed. We recommend checking this page
-          periodically for any changes.</li>
 
-        <p class="terms-d">For inquiries, please reach out to us at [Insert Contact Information].</p>
-      </ul>
+  <section class="bottomcart">
+    <div class="container py-lg-4 py-md-3 py-sm-3 py-3">
+      <div class="row">
+        <div class="col-6">
+          <div class="d-flex gap-2">
+            <span class="bottomcart-test">1 Tests</span>
+            <span class="bottomcart-line"></span>
+            <span class="bottomcart-price"> ₹599 </span>
+
+            <div
+              class="d-lg-block d-md-none d-sm-none d-none trigger-btn"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#rightOffcanvas"
+              aria-controls="rightOffcanvas"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+
+            <div
+              class="trigger-btn d-lg-none d-md-block d-sm-block d-block"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#bottomOffcanvas"
+              aria-controls="bottomOffcanvas"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 text-end">
+          <a href="cart.html" class="bottomcart-button"> View cart </a>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!--new cart offcanvcas -->
+
+   <!-- First right Offcanvas -->
+
+   <div
+   class="offcanvas offcanvas-end offcanvas-style1 d-lg-block d-md-none d-sm-none d-none"
+   tabindex="-1"
+   id="rightOffcanvas"
+   aria-labelledby="rightOffcanvasLabel"
+ >
+   <div class="offcanvas-header header-style">
+     <h5 class="offcanvas-title" id="rightOffcanvasLabel">Selected Tests</h5>
+     <button
+       type="button"
+       class="btn-close text-reset"
+       data-bs-dismiss="offcanvas"
+       aria-label="Close"
+     ></button>
+   </div>
+   <div class="offcanvas-body scrollable-body px-0">
+      <div class="container-fluid">
+        <div class="newcart-main d-flex gap-2 align-items-center mb-2">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+        <div class="newcart-main d-flex gap-2 align-items-center mb-2">
+          <h2 class="new-checkup-card-h">Full body checkups Full body</h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Offcanvas icon -->
+  <div
+  class="offcanvas offcanvas-bottom offcanvas-style2 d-lg-invisible d-md-visible d-sm-visible d-visible"
+  tabindex="-1"
+  id="bottomOffcanvas"
+  aria-labelledby="bottomOffcanvasLabel"
+>
+  <div class="offcanvas-header header-style">
+    <h5 class="offcanvas-title" id="bottomOffcanvasLabel">Selected Tests</h5>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body scrollable-body px-0">
+
+      <div class="container-fluid">
+        <div class="newcart-main d-flex gap-3 align-items-center mb-1">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+        <div class="newcart-main d-flex gap-3 align-items-center mb-1">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+        <div class="newcart-main d-flex gap-3 align-items-center mb-1">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+        <div class="newcart-main d-flex gap-3 align-items-center mb-1">
+          <h2 class="new-checkup-card-h">
+            Full body checkups Full body checkups Full body checkups Full body
+            checkups
+          </h2>
+          <span class="text-start">
+            <h3 class="newcart-value m-0">₹1,449</h3>
+
+            <del class="newcart-real-value">₹3,599</del>
+          </span>
+
+          <img
+            src="images/icon-svg/cart/remove.svg"
+            class="newcart-remove"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 
 
@@ -646,7 +876,34 @@
   </div>
 </footer>
 
-<!-- Bootstrap Toast for Login -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- First right Offcanvas -->
+  <div class="offcanvas offcanvas-end offcavas-desig1 d-lg-block d-md-none d-sm-none d-none" tabindex="-1"
+    id="offcanvasRight1" aria-labelledby="offcanvasRight1Label">
+
+  </div>
+
+  <!-- Second Offcanvas positioned at the bottom -->
+  <div class="offcanvas offcanvas-bottom offcavas-desig2 d-lg-invisible d-md-visible d-sm-visible d-visible"
+    tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+
+  </div>
+
+
+   <!-- Bootstrap Toast for Login -->
 <div class="toast align-items-center text-white bg-success position-fixed bottom-0 end-0 m-3" id="loginToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
   <div class="toast-header">
    
@@ -679,30 +936,50 @@
 
 
 
-
-
-
-
-
-
-
-
-
  
 
- <!-- jquery -->
- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 
-    <script src="config.js" defer></script>
-    <script src="checkAuth.js" defer></script>
-    <script src="location.js" defer></script>
-    <script src="search.js" defer></script>
-  
-    <script src="index.js"></script>
+  <script>
+        /* offcanavas smoothscroll */
+        $(document).ready(function () {
+        let lastScrollTop = 0;
+        const scrollThreshold = 50;
+
+        const smoothScroll = () => {
+          let scrollTop = $("#bottomOffcanvas .scrollable-body").scrollTop();
+
+          if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+            $("#bottomOffcanvas").addClass("animated-offcanvas-body");
+          } else if (scrollTop < lastScrollTop && scrollTop < scrollThreshold) {
+            $("#bottomOffcanvas").removeClass("animated-offcanvas-body");
+          }
+
+          lastScrollTop = scrollTop;
+          requestAnimationFrame(smoothScroll);
+        };
+
+        // Initialize smooth scrolling
+        smoothScroll();
+      });
+
+
+
+   
+
+  </script>
+
+<script src="config.js" defer></script>
+<script src="checkAuth.js" defer></script>
+<script src="checkups.js" defer></script>
+<script src="location.js"></script>
+<script src="search.js"></script>
 
 </body>
 

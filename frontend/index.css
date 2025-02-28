@@ -3330,6 +3330,160 @@ dropdow-offfcanvas */
       }
 
 
+    /* card in each section */
+
+    .view-cartbtn {
+      color: #007c70;
+      font-weight: 600;
+    }
+    .remove-cart-item{
+      border: 1px solid #007c70;
+      padding: 0px 5px;
+      border-radius: 6px;
+      
+    }
+
+    /* bottom cart styles */
+
+    .bottomcart {
+      /* background: linear-gradient(307deg, #ededed, #e7fffe); */
+      background-color: #77d8ce;
+      position: fixed;
+      bottom: 0px;
+      width: 100%;
+    }
+    .bottomcart-test,
+    .bottomcart-price {
+      font-weight: 500;
+      font-size: clamp(16px, 1.2vw, 20px) !important;
+      font-family: "Montserrat", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+      color: #007c70;
+    }
+    .bottomcart-line {
+      background-color: #000000;
+      height: 23px;
+      width: 2px;
+      margin: 4px 0px;
+    }
+    .bottomcart-button {
+      background-color: #007c6f;
+      color: #fff;
+      font-size: clamp(13px, 1.2vw, 25px);
+      padding: 7px 12px;
+      text-align: center;
+      font-family: "Poppins", serif !important;
+      font-weight: 600;
+      font-style: normal;
+      border-radius: 15px;
+      transition: all ease-in-out 0.5s;
+    }
+    .bottomcart-button:hover {
+      background-color:  #77d8ce;
+      transition: all ease-in-out 0.5s;
+    }
+
+    @media (max-width: 992px) {
+      .bottomcart {
+        margin-bottom: 70px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+
+        z-index: 1000;
+      }
+
+      .tab-content {
+        margin: 20px 0 70px 0;
+      }
+      .bottomcart-line {
+        margin: 0;
+      }
+    }
+
+     /* Offcanvas right Design */
+  .offcanvas-style1 {
+    transition: transform 0.3s ease-in-out !important;
+    width: 470px !important;
+    background: linear-gradient(44deg, #ffffff, #a1e8dc) !important;
+    color: rgb(0, 0, 0);
+    z-index: 1050;
+    overflow: auto;
+  }
+
+  .offcanvas-style1::-webkit-scrollbar {
+    display: none !important;
+  }
+  /* Offcanvas bottom Design */
+  .offcanvas-style2 {
+    border-radius: 17px 17px 0 0 !important;
+    background: linear-gradient(44deg, #ffffff, #a1e8dc) !important;
+    color: rgb(0, 0, 0);
+    height: 70% !important;
+    transition: 0.7s all ease-in-out !important;
+    z-index: 1050;
+  }
+
+  .animated-offcanvas-body {
+    height: 100% !important;
+    transition: 0.7s all ease-in-out;
+  }
+
+  /* Adding smooth scroll */
+  .scrollable-body {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    transition: 0.7s all ease-in-out;
+  }
+  .newcart-remove {
+    width: 25px;
+    height: auto;
+  }
+  .new-checkup-card-h {
+    text-align: left;
+    font-size: clamp(15px, 1.3vw, 20px) !important;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 27px;
+    font-optical-sizing: auto;
+    height: 22px;
+    max-width: 100%;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .newcart-value {
+    font-size: clamp(14px, 1.1vw, 20px) !important;
+    font-weight: 500;
+    color: #ffffff;
+  }
+  .newcart-real-value {
+    color: #595757;
+    font-size: clamp(14px, 1.1vw, 20px) !important;
+    color: #ffffff;
+  }
+  .newcart-main {
+    /* background-color: #ffffff66; */
+    background-color: #007c70;
+    border-radius: 15px;
+    padding: 10px;
+  }
+  @media (max-width: 992px) {
+    .new-checkup-card-h {
+      line-height: normal;
+      height: 20px;
+    }
+    .newcart-remove {
+      height: 25px;
+    }
+  }
+
+
       
 
 
